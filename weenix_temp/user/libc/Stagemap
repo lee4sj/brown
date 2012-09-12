@@ -1,0 +1,2 @@
+libc.a  -> /lib/libc.a
+libc.so -> /lib/libc.so

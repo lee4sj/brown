@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PluginConfiguration>
+	<AgentControllerEnvironment configuration="default">
+		<Variable name="CLASSPATH_ORG_OPENGROUP_ARM" position="replace" value="%PLUGINS_HOME%/org.opengroup.arm_4.0.100.v200802290100/arm40_java_interfaces.jar"/>
+	</AgentControllerEnvironment>
+	<Option name="org.opengroup.arm" type="version" value="4.0.100.v200802290100"/>
+</PluginConfiguration>

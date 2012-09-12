@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Puts the redo files in a local temp directory to speed up builds.
+# Yes, this is a horrible hack.
+
+TMPDIR=$(mktemp -d /tmp/weenix.XXXXXXXXXX)
+
+if [[ -e .redo ]]; then
+	cp -r .redo $TMPDIR
+	rm -rf .redo
+fi
+ln -s $TMPDIR/.redo .redo

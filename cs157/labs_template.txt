@@ -1,0 +1,33 @@
+#########################################
+# Please use this template to indicate
+# your lab time preferences.
+# Please rank the four lab times in order
+# of preference, from 1 (lowest preference)
+# to 4 (highest preference).
+# Use a 0 to indicate that you cannot attend
+# this lab.
+#
+# The default values for this form are all
+# zeroes.  Replace them with your preferences.
+#
+# Contact the HTA if you have any questions.
+#########################################
+#
+# Lab 1: Wednesday 7 PM-9 PM
+#########################################
+2
+#########################################
+#
+# Lab 2: Thursday 5 PM-7 PM
+#########################################
+4
+#########################################
+#
+# Lab 3: Thursday 7 PM-9 PM
+#########################################
+3
+#########################################
+#
+# Lab 4: Friday 3 PM-5 PM
+#########################################
+1

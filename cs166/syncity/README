@@ -1,0 +1,42 @@
+README
+CSCI1660
+SEUNGJI LEE
+sl136
+SynCity
+
+
+*Server:
+	1. PORT: 1111, 2222, 3333, 4444, 5555 are used for portknocking key. In changing the key, the port 22 is reserved for ssh'ing and is not allowed to be a part of the key.
+
+	2. filter: the server side will only listen to the ports specified above and the port 22 that uses tcp. Also any outgoing packet is filtered out.
+
+    PORTKNOCKINGHANDLER (PacketListener)
+	1. ConcurrentHashMap state: keeps track of the client's step in portknocking sequence. There are 4 successful steps (0-3). Also -5 is stored if the client succeeded in portknocking. Moreover the number of failed attempts are stored by attaching a negative sign to the number of failed attempts.
+		**Can improve this by storing [number of ports] to mark successful portknocking.
+	
+	2. ConcurrentHashMap blacklist: keeps the clients who have failed portknocking more than allowed knocking attempts.
+
+	3. ConcurrentHashMap lastTimeConn: the last time the client succeeded in any part of the portknocking sequence is stored to keep track of timeout.
+
+	4. Checks blacklist, then for successful portknocking, then the portknocking sequence.
+
+	5. Java.Timer is used only when the client succeeded in portknocking and thus the server needs to close the port after 5 seconds.
+	
+
+
+*Client:
+	1. The Socket class is used for sending packets to the server.
+
+
+
+
+*Others
+     Security Analysis of PortKnocking
+	ADVANTAGES: Since portknocking sequence range is so broad ((number of protocols * 65535)^n possible combinations), even the simply port sequences require massive brute force attack. Also, since the server is never responding to unauthorized packets, the attacker never knows if the server even exists or is up and running, and that his brute force effort is actually attacking.
+	Moreover, portknocking mechanism allows the rightful user to access the server while the server is attacked, since the firewall is modified only to accept the successful portknocked connections.
+	Also, if we use cryptographic hashes inside the portknocking sequence, it can provide security against packet sniffing and packet replay.
+
+	DISADVANTAGES: If the daemon capturing and watching the packets somehow fails, the rightful user is left with no ways to connect to the server remotely.
+	Also, without cryptographic hashes, or some other ways, the portknocking mechanism is vulnerable to packet sniffing and packet replaying.
+	Moreover, the attacket can use spoofed IP address to blacklist the rightful user.
+	Since the internet is the best effort protocol, the portknocking packets may be received by the server out of order or dropped entirely. Thus, this may cause unreliability in connecting to the server.

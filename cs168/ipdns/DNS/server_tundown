@@ -1,0 +1,3 @@
+#!/bin/bash
+
+openvpn --rmtun --dev $1

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PluginConfiguration requires="org.opengroup.arm">
+	<Application configuration="default" executable="java.exe" extends="default" location="%SYS_TEMP_DIR%" path="%JAVA_PATH%">
+		<Variable name="CLASSPATH" position="append" value="%PLUGINS_HOME%/org.eclipse.tptp.trace.arm_4.3.100.v200805120832/cbeLogging.jar"/>
+		<Variable name="CLASSPATH" position="append" value="%PLUGINS_HOME%/org.eclipse.tptp.trace.arm_4.3.100.v200805120832/armLibrary.jar"/>
+		<Variable name="CLASSPATH" position="append" value="%PLUGINS_HOME%/org.eclipse.tptp.trace.arm_4.3.100.v200805120832/armModel.jar"/>
+		<Variable name="CLASSPATH" position="append" value="%PLUGINS_HOME%/org.eclipse.tptp.trace.arm_4.3.100.v200805120832/armLoader.jar"/>
+		<Variable name="CLASSPATH" position="append" value="%CLASSPATH_ORG_OPENGROUP_ARM%"/>
+		<Variable name="CLASSPATH" position="append" value="%CLASSPATH_ORG_ECLIPSE_HYADES_LOGGING_CORE%"/>
+		<Variable name="CLASSPATH" position="append" value="%CLASSPATH_ORG_ECLIPSE_EMF_ECORE%"/>
+		<Variable name="CLASSPATH" position="append" value="%CLASSPATH_ORG_ECLIPSE_EMF_COMMON%"/>
+		<Variable name="CLASSPATH" position="append" value="%CLASSPATH_ORG_ECLIPSE_TPTP_PLATFORM_LOGGING_EVENTS%"/>
+		<Variable name="ARM_LOG_PROPERTIES_FILE" position="replace" value="%PLUGINS_HOME%/org.eclipse.tptp.trace.arm_4.3.100.v200805120832/config/ARMLogger.properties"/>
+		<Variable name="AGENT_TIMEOUT" position="replace" value="5000"/>
+	</Application>
+	<Option name="org.eclipse.tptp.trace.arm" type="version" value="4.3.100.v200805120832"/>
+</PluginConfiguration>

@@ -1,0 +1,75 @@
+int a;
+int b[10];
+
+a := 1;
+b[3] := 2;
+
+if(a == 1){
+output(a);
+}endif
+
+if(b[3] == 2){
+	output(2);
+}else{
+	b[0] := 3;
+	output(b[0]);
+}endif
+
+input(b[1]);
+output(b[1]);
+
+input(a);
+output(a);
+
+a := 0;
+int c;
+c := 1;
+
+while((a < 10) && (c == 1)){
+	output(a);
+	a := a + 1;
+	if((a > 10) && !(c == 1))
+		output(10000000);
+	endif
+	if((a > 10) && (c == 1))
+		output(12222222);
+	endif
+}
+
+if( (a == 3) || (c <= 0) )
+	output(10);
+endif
+
+if( (a == 3) || (c <= 1) )
+	output(10);
+endif
+
+if( (a < 10) || (c >= 1) )
+	output(11);
+endif
+
+if( (a <= 10) || (c > 1) )
+	output(12);
+endif
+
+if( a > 5 )
+	output(13);
+endif
+
+
+
+output(10%3);
+output(1+1);
+output(144444-144441);
+output(2*2);
+output(55/11);
+
+
+a := 36;
+b[0] := 6;
+
+
+output( a/6 );
+output( (a*7)/(b[0]*6));
+output( (b[0] + 2) );
+output( (9 + a - 36) );

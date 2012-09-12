@@ -1,0 +1,28 @@
+Problem 6.2
+
+
+
+	.text
+# register table:
+# $s0 - sum
+# $s1 - index
+# $s2 - bound on the index
+# $s3 - temporary register to facilitate calculations
+
+
+__start:
+	lw	$s1, i			# index = i
+	lw	$s2, t			# bound = t
+	li	$s3, 0			# temp = 0;
+	lw	$s0, s			# sum = s
+
+for:
+	blt	$s2, $s1, end		# for(index <= bound){
+	mult	$s3, $s1, 2		#	temp = 2*index;
+	add	$s1, $s1, 1		#	index++;
+	j	for
+	add	$s0, $s0, $s3		#	sum = sum + temp;
+					# }
+end:
+	sw	$s0, s			# s = sum;
+	done

@@ -1,0 +1,4 @@
+
+scopetest.bl - Should return a semantic error since a variable is created which has already been defined before
+countdown.bl - Should output the answer given in arrays.bl.ans
+

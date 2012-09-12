@@ -1,0 +1,102 @@
+<html>
+  <body>
+    <h1>CS143 Project 3: Scene Recognition</h1>
+    <br>
+    <br>
+    <h2>Overview</h2>
+    <p>
+      Bag of words models are used for image classification. The model ignores spatial information in the image, and classifies based only on the histogram of the frequency of the visual words. Visual words are identified by clustering a large corpus of example features.
+
+      Using this model, this project attempts to classify the scenes.
+    </p>
+    <br>
+    <h2>Methodology</h2>
+    <p>
+      1. Collect local features and cluster them in to a vocabulary of visual words.
+      2. Represent each training image as the distribution of the visual words.
+      3. Train 1-vs-all classifiers for each scene category based on the observed bags of words in the training data.
+      4. Classify each test image by converting to bag of words representation (like number 2), and evaluate based on all 15 classifiers on the query.
+      5. Build a confusion matrix and measure accuracy.
+    </p>
+    <h3>Details</h3>
+    <p>
+      1. Local features:
+      <t/>The local features are collected using SIFT descriptors. Also, all the collected descriptors are clustered using kmeans with 200 centers (200 visual words).
+      2. Image representation:
+      <t/>For each training image, we extracted SIFT features. Then, compared each one to the visual words. For each SIFT features, the algorithm finds the most similar visual words and increase the value in the corresponding bin in the histogram.
+    <h2>Results</h2>
+    <h3> with vocab size 200 </h3>
+      <pre>
+    confusion_matrix =
+    
+    94     1     0     2     1     0     0     0     1     0     1     0     0     0     0
+    2    80     0     5     0     3    10     0     0     0     0     0     0     0     0
+    1     0    95     0     0     3     0     1     0     0     0     0     0     0     0
+    1    11     1    76     3     3     3     0     0     0     1     0     1     0     0
+    4     3     1     1    60     0     0     6     4     1     1     0    10     0     9
+    8     1     3     1     0    81     3     1     1     0     1     0     0     0     0
+    7    26     8     6     0    10    40     1     1     0     1     0     0     0     0
+    2     0     0     9    18     3     0    56     3     0     0     4     0     1     4
+    0     2     3     0     1     3     0     7    74     1     2     3     2     0     2
+    0     0     0     0     0     0     0     0     0    91     2     0     7     0     0
+    1     0     0     0     3     2     1     0     3    13    46     2    20     8     1
+    5     3     1    11     7     4     3     2     9     2     2    34     2     4    11
+    1     0     0     0     7     1     0     0     2    21     8     1    53     2     4
+    1     0     0     1     3     4     0     1     7    24    21     4    17    11     6
+    4     0     2     3    16     7     0     4     5     3     2     1     3     3    47
+
+    accuracy =  0.6253
+  </pre>
+
+  <h2>Other Additions</h2>
+  <h3>1. Using a thresh hold on the likelyness:</h3>
+  <p>
+    When creating a histogram of an image, give a threshhold on the similarity of a feature and the visual word. That is, increase the bin in the histogram if the most similar visual word of the feature is less then the threshhold. Justification of using this is to eliminate the effect of the features that are not similar to any of the visual words.
+    <br>
+    These experiments are ran with vocab_size 200.
+  </p>
+  <h4>threshhold 80000</h4>
+  <pre>
+    accuracy = 0.5860
+    confusion_matrix =
+
+        93     2     0     1     1     0     1     1     1     0     0     0     0     0     0
+         2    80     2     5     0     2     8     0     0     1     0     0     0     0     0
+         1     0    95     0     0     3     0     1     0     0     0     0     0     0     0
+         1     9     0    78     2     2     5     0     0     1     1     0     1     0     0
+         4     4     3     1    48     0     2     7     8     3     1     1     7     2     9
+         8     0     5     1     0    76     3     3     2     0     1     0     0     1     0
+         8    24    12     6     0     8    39     1     2     0     0     0     0     0     0
+         1     0     0    12    20     1     2    48     6     0     0     2     0     2     6
+         0     2     3     0     2     2     0     7    74     2     3     2     2     0     1
+         0     0     0     0     0     0     0     0     1    89     2     0     8     0     0
+         1     1     0     1     1     2     2     0     6    13    35     4    21    10     3
+         6     5     2     7     6     4     2     2    10     2     1    36     6     3     8
+         0     0     0     0     6     1     0     0     4    21     4     6    49     4     5
+         2     0     0     2     3     4     0     1     9    20    23     3    11    17     5
+         5     3     4     5    14     6     1     2     8     5     6     5     6     8    22
+  </pre>
+
+  <h4>threshhold 100000</h4>
+  <pre>
+  accuracy = 0.6107
+  
+  confusion_matrix =
+      92     1     0     2     1     0     1     0     1     0     1     0     1     0     0
+       2    79     1     5     0     3     9     0     0     1     0     0     0     0     0
+       1     0    94     0     0     4     0     1     0     0     0     0     0     0     0
+       1     9     0    79     2     5     3     0     0     0     0     0     1     0     0
+       4     4     1     1    57     0     0     7     5     1     1     0    10     2     7
+       6     1     4     1     0    81     3     2     2     0     0     0     0     0     0
+       6    26    10     5     0    11    39     1     2     0     0     0     0     0     0
+       2     0     0     8    20     3     0    53     4     0     0     2     0     3     5
+       1     2     3     0     1     4     0     7    73     2     2     3     2     0     0
+       0     0     0     0     0     0     0     0     0    91     3     0     6     0     0
+       1     0     0     0     1     2     3     0     4    11    43     1    21    11     2
+       4     3     1    10     8     4     3     2     8     2     2    38     5     3     7
+       1     0     0     0     7     1     0     0     2    22     6     5    49     5     2
+       2     0     0     2     3     4     0     1     7    25    19     5    16    11     5
+       6     2     3     2    19     4     1     3     5     3     4     2     4     5    37
+  </pre>
+  </body>
+</html>

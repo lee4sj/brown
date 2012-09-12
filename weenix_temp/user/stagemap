@@ -1,0 +1,60 @@
+#!/usr/bin/python
+
+import sys
+
+# Do stuff with stagemaps.
+# $1 is the action to take (lookup, reverse-lookup, keys, or values)
+# $2 is always the stagemap we're working with.
+# If we're using stagemap-lookup or reverse-lookup,
+# $3 is the file name to (reverse) lookup.
+
+usage = "stagemap --lookup|reverse-lookup|keys|values [name]"
+
+if (len(sys.argv) < 3):
+    print(usage)
+    sys.exit(2)
+
+action = sys.argv[1]
+mapfile = sys.argv[2]
+
+keys = []
+values = []
+forwardmap = {}
+reversemap = {}
+for line in open(mapfile):
+    parts = line.split()
+    if (len(parts) < 3 or parts[1] != "->"):
+        print("Malformed stagemap " + mapfile)
+        sys.exit(1)
+    keys.append(parts[0])
+    values.append(parts[2])
+    forwardmap[parts[0]] = parts[2]
+    reversemap[parts[2]] = parts[0]
+
+# This is symlinked from a bunch of different scripts.
+# Look at $0 to see what to do.
+if (action == "--lookup"):
+    if (len(sys.argv) < 4):
+        print(usage)
+        sys.exit(2)
+    elif (sys.argv[3] not in forwardmap):
+        print("No such key: " + sys.argv[3])
+        sys.exit(1)
+    print(forwardmap[sys.argv[3]])
+elif (action == "--reverse-lookup"):
+    if (len(sys.argv) < 4):
+        print(usage)
+        sys.exit(2)
+    elif (sys.argv[3] not in reversemap):
+        print("No such value: " + sys.argv[3])
+        sys.exit(1)
+    print(reversemap[sys.argv[3]])
+elif (action == "--values"):
+    for value in values:
+        print(value)
+elif (action == "--keys"):
+    for key in keys:
+        print(key)
+else:
+    print(usage)
+    sys.exit(2)

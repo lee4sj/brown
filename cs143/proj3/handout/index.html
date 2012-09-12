@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+ 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Project 3: Scene recognition with bag of words</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<style type=text/css media=all>
+#primarycontent {
+    margin-left: auto;  
+    width: expression(document.body.clientWidth > 995? "995px": "auto" );
+    margin-right: auto;
+    text-align: left;
+    max-width: 995px 
+}
+</style>
+ 
+<body> 
+<div id=primarycontent> 
+<center>
+<img src="header.png" /><p style="color: #666;">
+An example of a typical bag of words classification pipeline. Figure by <a href="http://www.robots.ox.ac.uk/~vgg/research/encoding_eval/">Chatfield et al.</a><p></center>
+
+<h1>Project 3: Scene recognition with bag of words<br>
+<a href="..">CS 143: Introduction to Computer Vision</a></h1> 
+
+ 
+<h2>Brief</h2> 
+<p> 
+<ul> 
+  <li>This handout: <tt>/course/cs143/asgn/proj3/handout/</tt></li>
+  <li>Stencil code: <tt>/course/cs143/asgn/proj3/stencil/</tt></li> 
+  <li>Data: <tt>/course/cs143/data/proj3/</tt></li> 
+  <li>Handin: <tt> cs143_handin proj3 </tt> </li> 
+  <li>Required files: README, code/, html/, html/index.html</li>
+  <li>Due date: October 24th, 11:59pm</li>
+</ul>
+</p> 
+ 
+<h2>Overview</h2> 
+<p> 
+    Bag of words models are a popular technique for image classification inspired by models used in natural language processing. The model ignores or downplays word arrangement (spatial information in the image) and classifies based only on a histogram of the frequency of visual words. Visual words are identified by clustering a large corpus of example features. See Szeliski chapters 14.4.1 and 14.3.2 for more details. 
+</p>
+  
+<p>For this project you will be implementing a basic bag of words model with many opportunities for extra credit. You will classify scenes in to one of 15 categories by training and testing on the 15 scene database (introduced in <a href="http://www.di.ens.fr/willow/pdfs/cvpr06b.pdf">Lazebnik et al. 2006</a>, although built on top of previously published datasets). <a href="http://www.di.ens.fr/willow/pdfs/cvpr06b.pdf">Lazebnik et al. 2006</a> is a great paper to read, although we will be implementing the <i>baseline method</i> the paper discusses and not the more sophisticated spatial pyramid (which is extra credit). For a more recent review of feature encoding methods for bag of words models see <a href="http://www.robots.ox.ac.uk/~vgg/research/encoding_eval/">Chatfield et al, 2011</a>.
+
+<center><img src="categories.png" />
+<p style="color: #666;">Example scenes from of each category in the 15 scene dataset. Figure from <a href="http://www.di.ens.fr/willow/pdfs/cvpr06b.pdf">Lazebnik et al. 2006</a>.</center></p>
+
+<p>
+  The basic flow of this project is as follows:
+  <ul>
+    <li>Collect a lot of features.</li>
+    <li>Use k-means to cluster those features into a visual vocabulary.</li>
+    <li>For each of the training images build a histogram of the word frequency (assigning each feature found in the training image to the nearest word in the vocabulary).</li>
+    <li>Feed these histograms to an SVM.</li>
+    <li>Build a histogram for test images and classify them with the SVM you just trained.</li>
+  </ul>
+</p>
+
+
+<h2>Details and Starter Code</h2>
+<p>
+  The top level script is <code>proj3.m</code>. It breaks the project pipeline in to 5 steps: 
+<ul>
+ <li>Establish a vocabulary of visual words by clustering many randomly sampled local descriptors.</li>
+ <li>Represent each training image as a distribution of visual words. In the simplest case, simply assign each observed feature to the nearest visual word in your vocabulary. In this case, your bag of words representation will be a histogram counting visual word occurences.</li>
+ <li>Train 1-vs-all classifiers for each scene category based on observed bags of words in training data.</li>
+ <li>Classify each test image by converting to bag of words representation and evaluating all 15 classifiers on the query.</li>
+ <li>Build a confusion matrix and measure accuracy</li>
+</ul>
+
+<p>
+The first two steps will require you to decide on a local feature representation for each scene.  We suggest starting with the <a href="http://www.vlfeat.org/mdoc/mdoc.html">VLFeat</a> library's <code><a href="http://www.vlfeat.org/mdoc/VL_DSIFT.html">vl_dsift</a></code> function. We suggest using <code><a href="http://www.vlfeat.org/mdoc/VL_KMEANS.html">vl_kmeans</a></code> to build the vocabulary. You can also implement other local features or clustering methods.
+</p>
+<p>
+A baseline version of the final three steps is written for you. We have included an SVM implementation, <a href="http://olivier.chapelle.cc/primal/"><code>primal_svm.m</code></a>. This code is fast, portable, and accepts arbitrary kernel matrices. The stencil code is configured to train linear SVMs, although you can use non-linear kernels for improved performance and extra credit.
+</p>
+<p>
+  All the images are under the data directory. data/training and data/test both have folders for each scene category; training has exactly 100 scenes per directory, and test has a variable number. The stencil code is configured to train and test on the same number of images per category.
+</p>
+<p>
+  Whichever local feature representation you decide to use, it is not necessary to use the entire training set to build a visual word vocabulary. Instead you can randomly sample tens or hundreds of thousands of local descriptors to cluster. Make sure to sample from all the training images, though. We recommend starting with a vocabulary of about 200 words.
+</p>
+<p>
+  You should normalize your bag of words histograms, so that image size does not influence histogram counts.
+</p>
+
+
+<h2>Write up</h2> 
+<p> 
+For this project, and all other projects, you must do a project report in HTML. In the report you will describe your algorithm and any decisions you made to write your algorithm a particular way. Then you will show and discuss the results of your algorithm. Discuss any extra credit you did, and clearly show what contribution it had on the results (e.g. performance with and without each extra credit component).</p>
+
+<p>
+It would be interesting (although not required) to see where the classifier is making mistakes in the spirit of the <a href="http://people.csail.mit.edu/jxiao/SUN/classification397.html">SUN database results page</a> (Warning: large web page).  
+</p>
+
+<p>
+For this project you should also include a confusion matrix for your classifier. (You can include a graphic or MATLAB's text output in a <code>&lt;pre&gt;</code> tag.)
+</p>
+ 
+<h2>Extra Credit</h2> 
+For all extra credit, be sure to analyze on your web page cases whether your extra credit has improved classification accuracy. Each item is "up to" some amount of points because trivial implementations may not be worthy of full extra credit.<br /><br />
+Some ideas:
+<ul>
+  <li>up to 5 pts: Use cross-validation to measure performance rather than the fixed test / train split provided by the starter code. Randomly pick 100 training and 100 testing images for each iteration and report average performance and standard deviations.</li>
+  <li>up to 5 pts: Add a validation set to your training process to tune learning parameters.</li>
+  <li>up to 5 pts: Experiment with many different vocabulary sizes and report performance. E.g. 10, 20, 50, 100, 200, 400, 1000, 10000.</li>
+  <li>up to 5 pts: Experiment with features at multiple scales. E.g. sampling features from different levels of a Gaussian pyramid.</li>
+  <li>up to 5 pts: Add spatial information to your features by creating a (possibly overlapping) grid of visual word histograms over the image. This is the "Single-level" regime described by <a href="http://www.cs.unc.edu/~lazebnik/publications/cvpr06b.pdf">Lazebnik et al 2006</a>.</li>
+  <li>up to 15 pts: Add spatial information to your features by implementing the spatial pyramid and pyramid match kernel described in <a href="http://www.cs.unc.edu/~lazebnik/publications/cvpr06b.pdf">Lazebnik et al 2006</a>.</li>
+  <li>up to 10 pts: Train the SVM with more sophisticated kernels such as Gaussian/RBF, L1, or chi-sqr.</li>
+  <li>up to 10 pts: Add additional, complementary features (e.g.  <a href="http://people.csail.mit.edu/torralba/code/spatialenvelope/">gist descriptors</a>, <a href="http://www.robots.ox.ac.uk/~vgg/software/SelfSimilarity/">self-similarity descriptors</a>, or <a href="http://www.vlfeat.org/mdoc/VL_PHOW.html">PHOW features</a>.) and have the classifier consider them all.</li>
+  <li>up to 10 pts: Report performance on the 397-category <a href="http://groups.csail.mit.edu/vision/SUN/">SUN database</a>. This involves more than 100x as many training and testing examples as the base project. Each 1-vs-all classifier may take several minutes to train.</li>
+  <li>up to 5 pts: Use "soft assignment" to assign visual words to histogram bins. Each visual word will cast a distance-weighted vote to multiple bins. This is called "kernel codebook encoding" by <a href="http://www.robots.ox.ac.uk/~vgg/research/encoding_eval/">Chatfield et al.</a>.</li>
+  <li>up to 10 pts: Use one of the more sophisticated feature encoding schemes analyzed in the comparative study of <a href="http://www.robots.ox.ac.uk/~vgg/research/encoding_eval/">Chatfield et al.</a> (Fisher, Super Vector, or LLC)</li>
+</ul>
+
+Finally, there will be extra credit and recognition for the student who achieves the highest recognition rate. To make sure the accuracy measurement is trustworthy you must use cross-validation across random test / train splits (first extra credit item). To make sure that comparisons are fair, if you use a validation set, your training + validation set can not be more than 100 images per category.
+
+ 
+<h2>Graduate Credit</h2> 
+<p>
+To get graduate credit on this project you must do 10 points worth of extra credit. Those 10 points will not be added to your grade, but additional extra credit will be. 
+</p> 
+ 
+<h2> Web-Publishing Results </h2> 
+<p> 
+All the results for each project will be put on the course website so that the students can see each other's results. In class we will highlight the best projects as determined by the professor and TAs. If you do not want your results published to the web, you can choose to opt out. If you want to opt out, email cs143tas[at]cs.brown.edu saying so.
+</p>
+ 
+<h2> Handing in </h2> 
+<p> 
+This is very important as you will lose points if you do not follow instructions. Every time after the first that you do not follow instructions, you will lose 5 points. The folder you hand in must contain the following:
+</p> 
+<ul> 
+    <li> README - text file containing anything about the project that you want to tell the TAs</li> 
+    <li> code/ - directory containing all your code for this assignment</li> 
+    <li> html/ - directory containing all your html report for this assignment (including images)</li> 
+    <li> html/index.html - home page for your results </li> 
+</ul> 
+<p> 
+Then run: <tt> cs143_handin proj3</tt><br> 
+If it is not in your path, you can run it directly: <tt>/course/cs143/bin/cs143_handin proj3 </tt> 
+</p> 
+ 
+<h2> Rubric </h2> 
+<ul> 
+   <li> +40 pts: Build a vocabulary from a random set of features. (<code>build_vocabulary.m</code>)</li>
+   <li> +20 pts: Build histograms of visual words for training and testing images. (<code>make_hist.m</code>)</li>
+   <li> +20 pts: Train 1-vs-all SVMs on your bag of words model. (<code>proj3.m</code> which calls <code>primal_svm.m</code>)</li>
+   <li> +20 pts: Writeup with design decisions and evaluation.</li>
+   <li> +15 pts: Extra credit (up to fifteen points) </li>
+   <li> -5*n pts: Lose 5 points for every time (after the first) you do not follow the instructions for the hand in format </li> 
+</ul> 
+ 
+<h2> Final Advice </h2> 
+<p> 
+<ul> 
+  <li>Extracting features, clustering to build a universal dictionary, and building histograms from features can be slow. A good implementation can run the entire pipeline in less than 10 minutes, but this may be at the expense of accuracy (e.g. too  small a vocabulary of visual words or too sparse a sampling rate). Save intermediate results if you are trying to fine tune one part of the pipeline.</li>
+</ul>
+</p> 
+ 
+<h2> Credits </h2> 
+<p>Project description and code by Sam Birch and James Hays. Figures in this handout from <a href="http://www.robots.ox.ac.uk/~vgg/research/encoding_eval/">Chatfield et al.</a> and <a href="http://www.cs.unc.edu/~lazebnik/">Lana Lazebnik</a>.
+ 
+<h1> Good Luck! </h2> 
+ 
+</div> 
+</body> 
+</html> 

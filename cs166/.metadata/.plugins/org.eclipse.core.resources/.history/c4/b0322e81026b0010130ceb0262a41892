@@ -1,0 +1,10 @@
+package directdecrypt;
+
+public class DLFromServer {
+	static public void main (String[] args){
+		
+		if(args.length < 4){
+			System.out.println("DLFromServer [host] [usr] [pswd] [file]")
+		}
+	}
+}

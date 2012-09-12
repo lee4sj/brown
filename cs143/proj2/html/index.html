@@ -1,0 +1,109 @@
+<html>
+  <body>
+    <h1>CS143 Project 2: PB-Lite Edge Detection</h1>
+    <br/>
+    <br/>
+    <h2>Overview</h2>
+    <p>
+      Edge Detection is an interesting visions problem. At first, sobel and canny detections seem to work well. However, as the images gain more textures and complexity, they tend to perform badly. One reason why sobel and canny edge detections fail in these situations is that they only consider intensity of the image for detecting edges. Here, I strive to achieve better by also considering textures and brightness of the image.
+    </p>
+
+    <br/>
+    <h2>Methodology</h2>
+    The basic pipeline looks as follows:
+    <img src="pbpipelinechart.png">
+    <br/>
+    <h3>preprocess</h3>
+    The program will create a filter banks to evaluate the texture at each pixel.
+    Also, the program will create half-disc masks to for faster computation of gradients.
+    <br>
+    Here are the actual filter bank and half-disc masks used:
+    <br><br>
+    <img src="fb.png">
+    <br>
+    <img src="masks.png">
+    <p>
+      1. First, the program will create a texton map. Texton map is a scoring of a pixel based on its responses to filter banks. The scoring is done by kmeans. This map is created to gain a sense of texture of the image.
+      Along with the texton map, we will create a brightness map (this is easy: 256*img).<br> <br>
+
+      2. Then, the program will create a texture and brightness gradients. The gradients are calculated by looking at the difference of left/right half-discs pairs. Chi-square distance will be used to measure the differences.<br>
+      The following is a basic algorithm for one half-discs pair. <br>
+      <font face="arial">
+      chi_sqr_dist=img*0
+      for i=1:num_bins
+          tmp = 1 where img is in bin i and 0 elsewhere
+          g_i = convolve tmp with left_mask
+          h_i = convolve tmp with right_mask
+          update chi_sqr_dist
+      end
+      </font> <br><br>
+    </p>
+
+    <h2>Results</h2>
+    <h3>f-score</h3>
+    <img src="PR_curve.png">
+    <p>
+      As shown in the graph, the f-score of the pb-lite beats the canny, and all the baselines.
+    </p>
+    <h3>Comparison between Canny Edge Detection and PB-Lite</h3>
+    <p>
+      One can easily notice from below results that pb-lite edge detection eliminates lots of edge noises caused by the textures.
+    </p>
+    <table>
+      <tr>
+        <td>Canny Edge Detection</td>
+        <td>pb-lite</td>
+      </tr>
+      <tr>
+        <td><img src="testset/106005.jpg"></td>
+        <td><img src="canny_baseline/106005.png"></td>
+        <td><img src="mypb/106005.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/185092.jpg"></td>
+        <td><img src="canny_baseline/185092.png"></td>
+        <td><img src="mypb/185092.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/3063.jpg"></td>
+        <td><img src="canny_baseline/3063.png"></td>
+        <td><img src="mypb/3063.png"></t>
+      </tr>
+      <tr>
+        <td><img src="testset/35049.jpg"></td>
+        <td><img src="canny_baseline/35049.png"></td>
+        <td><img src="mypb/35049.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/49024.jpg"></td>
+        <td><img src="canny_baseline/49024.png"></td>
+        <td><img src="mypb/49024.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/112056.jpg"></td>
+        <td><img src="canny_baseline/112056.png"></td>
+        <td><img src="mypb/112056.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/196027.jpg"></td>
+        <td><img src="canny_baseline/196027.png"></td>
+        <td><img src="mypb/196027.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/35028.jpg"></td>
+        <td><img src="canny_baseline/35028.png"></td>
+        <td><img src="mypb/35028.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/43051.jpg"></td>
+        <td><img src="canny_baseline/43051.png"></td>
+        <td><img src="mypb/43051.png"></td>
+      </tr>
+      <tr>
+        <td><img src="testset/70011.jpg"></td>
+        <td><img src="canny_baseline/70011.png"></td>
+        <td><img src="mypb/70011.png"></td>
+      </tr>
+    </table>
+  </body>
+</html>

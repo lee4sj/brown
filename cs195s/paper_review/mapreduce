@@ -1,0 +1,19 @@
+Dean, MapReduce: Simplified Data Processing on Large Clusters
+Paper Review
+sl136
+
+
+1. Summary:
+   MapReduce is a "programming model and an associated implementation for processing and generating large data sets." Essentially, mapreduce provides a programming model such that given work can be distributed among multiple machines automatically; the details about the distributed computing is hidden from the programmers. The programing model of MapReduce is motivated by map and reduce functions in the functional program. In short, the "map" function converts a set of input (key, value) pairs to an intermediate (key, value) pairs, then the MapReduce framework will combine the values with the same key. Then, the "reduce" function takes the (key, list of values) pairs, and then merges them in to an uniform output. This programming model and the implementation of MapReduce provides the programmers with the power to compute high scale, large data set, but hides nasty details of distributed computing from them.
+
+
+2. The MapReduce model seems to be rather restrictive --- can you give an example of a tasks/computation that cannot be expressed with this model?
+   Let say we have a large undirected simple graph. We would like to find a minimum spanning tree in the graph. This task cannot be expressed in the MapReduce model.
+
+
+3. How does the system deal with "stragglers"?
+   To deal with stragglers, the system, when the job is close to completion, schedules backup exectutions of the remaining in-progress tasks. Then, the system uses whichever that finishes earlier.
+
+
+4. What metrics do the authors use to evaluate their system? What are "Input," "Output," and "Shuffle" in Figure 3?
+   The author uses metrics such as number of machines, input rate, output rate, shuffle rate, and the execution time. Input in the figure 3 shows the rate at which the input is read over time. Shuffle in the figure 3 shows the rate at which data is sent over the network from the map tasks to the reduce tasks. Lastly, Output in the figure 3 shows the rate at which sorted data is written to the final output files by the reduce workers.

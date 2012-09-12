@@ -1,0 +1,29 @@
+int nums[10];
+int count;
+int sum;
+int largest;
+int smallest;
+
+count := 0;
+sum := 0;
+
+while( count < 10 ) {
+	input(nums[count]);
+
+	sum := sum + nums[count];
+
+	if( (count == 0) || (largest < nums[count]) )
+		largest := nums[count];
+	endif
+
+	if( (count == 0) || (smallest > nums[count]) )
+		smallest := nums[count];
+	endif
+
+	count := count + 1;
+}
+
+output(sum);
+output(sum/10);
+output(largest);
+output(smallest);

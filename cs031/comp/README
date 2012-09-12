@@ -1,0 +1,21 @@
+README: Compiler Project
+sl136
+SeungJi Lee
+CSCI031
+
+
+Design Changes:
+	1. The SemanticVisitor collects the data for memory allocation (declaring variables) and pass it to the CodeGenVisitor. The CodeGenVisitor then allocates the memory according to the passed data when it is constructed.
+
+	2. ID class and DeclVar class are added. They both are used like struct in C++.
+		a) ID: holds a name and an IDType. Name is the name of a variable or current scope. IDType is either ARRAY, SINGLE, NEWSCOPE. This class is used for scope analysis.
+
+		b) DeclVar: holds a name and an integer size. Name is the name of a variable. Size is the size of the variable. If the variable is a scalar, then size is 1. If the variable is an array, size is the size of the array.
+
+BUGS:
+	1. All the bugs that have been found are fixed.
+
+EXTRA CREDIT:
+**** POINTER
+	1. modified Tokenizer: modified it so that it recognizes * and &.
+	2. added DEREFERENCE types to TokenType for &, respectively. TokenType.TIMES is used for *;

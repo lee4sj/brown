@@ -1,0 +1,44 @@
+sl136
+CSCI1660
+Secure Player
+
+
+EXPLOIT 1.
+	Since I know the password of the secure player, and have access to the jar file,
+	I analyzed how secure player decrypts mpS file and then decrypted myself.
+	The analysis was possible by decompiling the .class files in the jar file.
+	I used JD decompiler.
+	This was possible since the secure player simply used hash of the first 8 characters of
+	the user's password.
+	1. Get the mpS file from the server.
+	2. Decrypt the mpS file as done in src/directdecrypt/DirectDecrypt.java
+	DirectDecrypt [[ ssword] [src file] [dest file]
+
+
+EXPLOIT 2
+	Analyzing the secure player, the server always sends mp3 files instead of mpS files.
+	So, directly requesting the mp3 file to the server gave me mp3 file.
+	All authentication that the server requires is the username and the password, which
+	I already know.
+	The code is located at src/directdecrypt/DLFromServer.java
+	DLSFromServer [host] [file] [dest]
+
+	
+EXPLOIT 3
+	I noticed that secureplayer first saves downloaded mp3 file into .mp3 file, encrypt it,
+	and then delete the mp3 file. So, if I give write permission to an empty file that I
+	would like to download to (in this case, the [name of music].mp3), and remove the write
+	permision of the directory (in this case, music/), then the secure player can only
+	write to the file but cannot delete the file. This way, the secure player cannot
+	delete the mp3 file it download.
+	The code is ./filePermExploit [name of file]
+
+
+EXPLOIT 4
+	Using decompiler, I decompiled KJStoreClient, and modified the encrypt method in the
+	class so that it does not encrypt, but just save whatever is given. Then I replace the
+	KJStoreClient.class file in the SecurePlayer.jar with the modified one. Then, downloading
+	the file using secure player saves actual mp3 file into [filename].mpS file.
+	The modified jar is loacated at mod_sec_player/SecurePlayer.jar
+
+	

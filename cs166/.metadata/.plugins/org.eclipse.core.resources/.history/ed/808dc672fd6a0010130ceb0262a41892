@@ -1,0 +1,57 @@
+package directdecrypt;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.security.InvalidKeyException;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
+public class DirectDecrypt {
+
+	public static void main(String[] args){
+		if(args.length < 2)
+			System.out.println("DirectDecrypt [password] [src file] [dest file]");
+		
+		String key = args[0];
+		
+		String filepath = args[1];
+		
+		if(key.length() > 8)
+			key = key.substring(0, 8);
+		while(key.length() < 8)
+			key = key.concat("0");
+		
+		DESKeySpec specs = new DESKeySpec(key.getBytes());
+		SecretKey hashkey = SecretKeyFactory.getInstance("DES").generateSecret(specs);
+		
+		FileInputStream file = new FileInputStream(new File(filepath));
+		
+		Cipher cipher;
+		try{
+			cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+			cipher.init(2, hashkey);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		CipherInputStream in = new CipherInputStream(file, cipher);
+		FileOutputStream out = new FileOutputStream(new File(args[2]));
+		
+		
+		byte[] buffer = new byte[1024];
+		int ret = 0;
+		while((ret = in.read(buffer)) >= 0){
+			out.write(buffer, 0, ret);
+		}
+		
+		out.close();
+		
+		System.exit(1);
+		
+	}
+}

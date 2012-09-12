@@ -1,0 +1,89 @@
+========================================================================
+                       Bochs x86 Emulator 2.4.6
+             Build from CVS snapshot, on February 22, 2011
+                   Compiled at Oct 20 2011, 00:47:28
+========================================================================
+[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221190656, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134512344, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184464, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184549, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221224100, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221195416, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221212395, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221172224, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134518900, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134513381, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221164060, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221195590, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221224252, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221189443, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221164076, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221186025, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184303, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221224976, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221212487, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221195590, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221224252, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221189748, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221186025, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184303, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221172300, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221155840, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221121828, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221139749, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221133999, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221139337, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221131193, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221138286, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134512200, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221156000, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134519156, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134514030, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221141363, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221133999, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221138286, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134512200, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221156000, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134519156, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134514030, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221141363, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221133999, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221190672, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221186646, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184303, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221172256, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221119156, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221138286, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134512200, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221156000, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134519156, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134514030, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221139749, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221133999, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221131193, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221122544, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221190672, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221186646, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184303, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221172256, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221144879, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221138286, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134512200, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221156000, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134519156, cause=6
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 134514030, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221139749, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221133999, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221131193, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221122544, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221190672, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221186646, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221184303, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221172256, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221144879, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221123421, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 3221123421, cause=4
+[0m[33;40mvm/pagefault.c:54 handle_pagefault(): access to 2281806185, cause=6
+[0mpanic in vm/pagefault.c:67 handle_pagefault(): assertion failed: vma
+Kernel Halting.
+

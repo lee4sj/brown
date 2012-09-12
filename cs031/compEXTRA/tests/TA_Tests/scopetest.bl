@@ -1,0 +1,28 @@
+int a;
+
+a := 0;
+
+output(a);
+
+if(1 > 2) {
+    int b;
+    a := 1;
+    b := 2;
+
+    output(a);
+    output(b);
+
+    while( b < 10 )
+        b := b + 1;
+} endif
+
+if(2 > 3) {
+    int a;
+    int b;
+
+    output(b);
+} endif
+
+output(a);
+output(b);
+	

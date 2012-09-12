@@ -1,0 +1,2 @@
+init -> /sbin/init
+halt -> /sbin/halt

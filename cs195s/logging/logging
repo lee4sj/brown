@@ -1,0 +1,59 @@
+SeungJi Lee
+sl136
+cs195s
+logging
+
+
+Question 1
+Because action_id 2 is never committed
+
+
+
+Question 2
+The studentC and student A should be active. The student A should have 900 and C, 3100.
+
+
+
+Question 3
+The studentC was not added to DB because the action 3 was not ended, thus not updeated to DB.
+
+
+
+Question 4
+I expect the state of DB to be
+  Account: studentA Value: 900
+  Account: studentC Value: 3100
+since assuming that wal-sys does roll-forward recovery, it will undo and then redo all the commits and end all active actions.
+
+
+
+Question 5
+This does match my expectation, since wal-sys actually follows the roll-forward recovery protocol.
+
+
+
+Question 6
+Loser: actions that were began, but never committed.
+Winners: actions that were committed, but not ended.
+Done: actions that are ended.
+
+
+
+Question 7
+checkpoint command does not commit the actions. They only log pending, committed, and done actions.
+
+
+
+Question 8
+6 lines were rolled back.
+The advantage of checkpoint is that the program only needs to roll back up to the check point and then forward scan.
+
+
+
+Question 9
+Yes, the state of DB is the same. This property is called idempotent.
+
+
+
+Question 10
+It guarantees the property by ending all "Winner" actions at the recovery phase.

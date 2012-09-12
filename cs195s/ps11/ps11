@@ -1,0 +1,25 @@
+SeungJi Lee
+sl136
+CS195S
+ps11
+
+
+9.10
+a) II
+
+b) The step c commits the meeting time.
+
+
+
+9.12
+a) A, B, C
+
+
+10.1
+a) Since the data is written to all of the three disk concurrently, when the power fails, all of the three disks are in middle of writing. Thus, all of the three disks are in inconsistent state; thus you cannot reconstruct the data for that sector.
+
+b) You can make the data written in a sequential order so that only one disk of the same sector is modified at a time.
+
+c) For each track, you should compare the data in the three disks. If two of the disk hold the same data for the track, then it is likely that this data is correct other than the different data on the third disk. However, there is also a probability that the track of the two disks may have corrupted to the same value.
+
+Also, if the corrupted tracks of the three or two of the three disks are all the same track numbers, then, we cannot recover the data.

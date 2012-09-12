@@ -1,0 +1,20 @@
+SeungJi Lee
+sl136
+CS195S
+Saltzer, End-to-End Paper Review
+
+
+1.
+The end-to-end principle is the principle applied to layered communication systems (for example, computer networks). The argument states that "providing the desired function as a feature of the communication system itself is not possible." In another words, the gaurantee of the properties in the lower subsystems do not gaurantee the properties at the end applications. For example, in a file transferring application, the application that handles files must check integrity of the file in order to gaurantee that the correct file is transferred. Checking integrity of packets at, say TCP level, does not gaurantee that the correct files are transferred to the file transfer application.
+
+
+2.
+The Multics file backup system provides its own error control, even though the magnetic tape subsystem format, which the Multics file backup system is built on, provides powerful error detection and correction features. This is the example of non-network end-to-end principle in application. Even if the lower subsystem that the file backup system is built on provides a desired property at that level, we still need the end application's (in this case, the Multic backup file system) gaurantee of the property (the error control).
+
+
+3.
+Yes, there are certain senarios where the end-to-end principle does not apply. This arises from the ambiguity of the "function" that you want to provide. What if the "function" that you want to provide is inherently embedded in the lower communication system. For example, what if you want to provide multicast routing from one host to other hosts? What if you want to provide packet fragmentation over the network? These functions are inherently communication specific properties that can be provided by the communication subsystem.
+
+
+4.
+End-to-end principle gaurantees the preservation of properties at the end application level. However, unreliable lower subsystems may decrease the performance. Thus, by providing error detection and correction in the lower network layers, we can find failures earlier and thus increase the performance.

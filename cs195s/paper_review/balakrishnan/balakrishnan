@@ -1,0 +1,16 @@
+SeungJi Lee
+sl136
+CS195S
+Balakrishnan Paper Review
+
+
+1. Transit relationship is where one ISP provides an access to all of it's routing table. Usually, financial deals are involved. Peering is where both ASes share portion of their routing table with each other. Thus, the transit relationship is more vertical and peering is more horizontal. The difference between the two relationship is that the transit relationship is more hierarchical whereas the peering is more flat; basically, transit can be interpreted as an ISP providing a service to its customer, whereas peering can be interpreted as two ASes "sharing" its networks for better network coverage.
+
+
+2. The providers' main business model is a service where the provider carries the customers' packets to their destination. Thus, they are inclined to dislike other carrying providers' packets; they do not want to use their resources for free and for other competitors' benefit. Carrying other providers' packets takes up portions of the bandwidth of the provider, which may cause unstable service to its customers.
+
+
+3. The routing table need not be this complicated. For example, one can simply assume a static network and fix a static routing table. However, the complexity of the routing is necessary to allow the flexibility in routing.
+
+
+4. IP hijacking is where a malicious AS (or BGP-speaking node) to broadcast to own a certain prefix, which in fact it does not own. Thus, it can cause the packets destined to that prefix to come to the AS, effectively hijacking IP addresses.

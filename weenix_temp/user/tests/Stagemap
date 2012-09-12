@@ -1,0 +1,7 @@
+libtest/libtest.a  -> /usr/lib/libtest.a
+libtest/libtest.so -> /usr/lib/libtest.so
+eatmem             -> /usr/bin/eatmem
+forkbomb           -> /usr/bin/forkbomb
+memtest            -> /usr/bin/memtest
+stress             -> /usr/bin/stress
+vfstest            -> /usr/bin/vfstest

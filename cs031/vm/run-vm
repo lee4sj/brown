@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Note to student:
+#  If you're running this on a non-departmental system, change the following path
+#  to point to the support jar that you copied from the department
+#  (be sure to change it in build.xml too)
+supportjar=/course/cs031/pub/vm/support.jar
+
+
+
+# Note to TAs: be very careful with the commands that you use in this shell
+# script, since it will be distributed to the student and run on platforms
+# as diverse as Mac OS X.  Mac OS X doesn't have all the commands that you're
+# used to on Linux (e.g. readlink is not on Mac).
+
+# Figure out where this script is located
+asgnpath=`dirname "$0"`
+
+# First try to build
+ant -q -f "$asgnpath/build.xml" compile || exit $?
+
+# Now run java, passing the command line arguments
+exec java -cp "$supportjar:$asgnpath/bin" vm.Emulator "$@"

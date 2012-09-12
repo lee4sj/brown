@@ -1,0 +1,29 @@
+SeungJi Lee (sl136)
+cs195s
+Problem Set 3
+
+
+6.1
+a)
+The clock rate of the processor is 100 megahertz = 1 * 10^8 cycles per second. Then, a clock cycle time is 10^(-8) seconds = 10 nanoseconds.
+Now, we want the average memory latency to be equal to the processor clock cycle, 10 nanoseconds. Then, we want 91 cache hits out of 100 memory lookups.
+Indeed, (1 * 91 + 101 * 9) / 100 = 10 nanoseconds.
+
+b)
+The best case senario (although impossible) is when the cache hit rate is 100%. Then, the average memory latency is 1 nanosecond.
+Then, the matching clock rate is 10^9 hertz.
+
+
+6.5
+The bottleneck of the RPC call may not be the network. Spawning and terminating a thread requires nontrivial overhead. Also, Ben's model spawns a thread per request. Running a large number of thread may slow down the system enormously. Thus the bottleneck of the RPC call may be the threading overhead rather than the network latency.
+
+
+6.7
+a) seek latency + rotational latency + transfer latency = 6.5 + 4 + 0.4 = 10.9 milliseconds
+b) DMA may be used to transfer data within the RAM, which may result in much faster transfer rate.
+c) 100h(25) + 100(1-h)(6.5 + 4 + 0.05) = 100h(25) + 100(1-h)(10.55) milliseconds.
+d) Running applications requires memory. By increasing disk cache on the RAM, the actual memory that can be used by the applications decreased. Ben may have increased disk cache too much, overlooking the usage of the memory by the applications.
+e) The first concern is if such rotational speed can be achieved without risking stable data transfers (read/write) from the magnet strips. The rotation of disks are mechanical. Moreover, even if the rotational latency is decreased almost to nothing, the seek latency still dominates the latency and thus the total latency is still large.
+
+6.11
+A

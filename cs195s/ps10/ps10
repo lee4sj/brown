@@ -1,0 +1,28 @@
+SeungJi Lee
+sl136
+cs195s
+ps10
+
+
+
+9.9
+B
+
+
+
+9.11
+a) The system may fail at one point in the update. However, since no state is kept, she cannot recover the old data.
+
+b) One major disadvantage of this design is that whenever the system recovers, it has to redo all the actions from scratch. This causes, in long run, extremely long logs, and thus long recovery time.
+
+c)
+T1: Undone
+T2: Redone
+T3: Neither
+T4: Neither
+T5: Redone
+
+
+
+10.2
+C

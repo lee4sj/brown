@@ -1,0 +1,6 @@
+EXTRA FEATURES:
+1. Implemented PATH.
+2. Implemented rm -r.
+
+NOTE ON REDIRECTION:
+     When the command include multiple redirection (i.e multiple in redirection or multiple out redirection), the program will use the last redirection.

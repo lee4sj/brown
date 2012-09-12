@@ -1,0 +1,34 @@
+===========================
+||  README for Compiler  ||
+===========================
+1. Directories
+    -----------------------
+    |   dir     contents  |
+    -----------------------
+        src/    code
+        bin/    executables: created by 'ant compile'
+
+2. Using "Ant"
+    "Ant" is a tool for structuring information about compiling and running
+    programs.  For those of you who are familiar with "make"--Ant is similar.  
+    We have written a build file such that you need only use a few short
+    commands to put your Compiler into action.  These are:
+    a.  clean: remove classfiles, to save storage for instance. 
+        Example usage:  
+        /home/cs031_student/course/cs031/compiler$ ant clean
+    
+    b.  compile: compile your Java class files into an executable if they have
+        changed since your most recent compile.
+        Example usage:
+        /home/cs031_student/course/cs031/compiler$ ant compile
+    
+    c.  run: run your compiler.
+        Example usage: (parses input.bl and outputs output.mal)
+        $ ant run
+        If you want to specify the filenames as input and output, do:
+        $ ant run -Dblaise=foo.bl -Dmal=bar.s
+     
+3. Problems
+        If you have problems with Ant or your Java configuration, please feel
+        free to contact the TA staff.  It makes us feel useful to answer
+        questions.

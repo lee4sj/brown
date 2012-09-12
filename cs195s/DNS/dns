@@ -1,0 +1,59 @@
+SeungJi Lee
+sl136
+CS195S
+
+DNS
+
+question 1:
+128.148.36.25
+
+
+
+question 2:
+CNAME is basically the synonyms in the terminalogy of chapter 4.
+
+
+
+question 3:
+86400
+
+
+
+question 4:
+cm: 128.148.10.131
+cm.: 195.24.205.60
+
+
+
+question 5:
+Note that cm is an unqualified domain name and cm. is a qualified domain name. That is, cm is ambiguous and cm. is unambiguous. So, when domain is specified, dns appends the domain to the unqualified name when searching. Thus, the first command actually searchs cm.brown.edu., whereas the second command searchs cm.
+
+
+
+question 6:
+dig @198.41.0.4 +norecurse database.cs.brown.edu.
+
+
+
+question 7:
+dig @198.41.0.4 +norecurse database.cs.brown.edu.
+dig @192.5.6.30 +norecurse database.cs.brown.edu.
+dig @128.111.1.1 +norecurse database.cs.brown.edu.
+ip address of database.cs.brown.edu is 128.148.36.3
+
+
+
+question 8:
+dig +norecurse www.dmoz.org.
+The local server did not have answer to the request. I knew it since the dns response had ANSWER field set to 0.
+The query took 0 msec.
+
+
+
+question 9:
+The query took 202 msec.
+
+
+
+question 10:
+The query took 0 msec. The cache served its purpose and the local dns server returned answer for the query.

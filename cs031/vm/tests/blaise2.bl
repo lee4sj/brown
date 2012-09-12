@@ -1,0 +1,19 @@
+int a;
+int b[100];
+int c[120000];
+
+a := 0;
+
+while(a < 100){
+	b[a] := a;
+	a := a+1;
+}
+
+output(b[a-1]);
+
+while(a < (120000 + 100)){
+	c[a - 100] := a;
+	a := a+1;
+}
+
+output(c[a-1]);

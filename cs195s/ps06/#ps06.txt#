@@ -1,0 +1,26 @@
+SeungJi Lee
+sl136
+CS195S
+Problem Set 6
+
+
+7.3
+C
+
+7.6
+False
+
+7.9
+D
+
+7.12
+a) RTT = 10ms. we want 800000 = 1000 * x / .010 sec
+   Then, x = window size = 80
+
+b) max throughput = 8000000 = 1/.010(1000 * 1 + 1000 * 2 + 1000 * 2^2 + ... + 1000 * 2^t)
+   Then, (1 + 2 + 2^2 + ... + 2^t) = 8000 * 0.010
+   Then, 5 > t > 4. Thus at least 6 roundtrips are needed to reach the max throughput.
+   Thus, it takes 6 * .010 = .060 seconds.
+
+c) Assuming that the client can send messages as fast as the throughput of the pipe, there will be (8000000 / 1000) * 0.010 outstanding packets after one roundtrip time.
+   Then, it only takes one roundtrip time (and thus 0.010 seconds).

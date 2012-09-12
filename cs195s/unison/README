@@ -1,0 +1,30 @@
+SeungJi Lee
+sl136
+
+UNISON HANDS ON
+
+
+
+METADATA:
+        Metadata of a directory is saved at each directory; the metadata is kept per directory that is getting synced with.
+        Each line (entry) in the metadata will hold
+             1) filename
+             2) modification time
+
+
+Design:
+1. I keep a hash table per directories (dir1_ht, dir2_ht) with key=filenames in the directories, and value = modification_time. This hts are used to keep track of newly added files after the check on already existing files is done.
+
+2. I mainly use hash tables to keep track of contents in the directory.
+
+3. General Pipeline:
+   1) SETUP phase: interpret metadata, get contents of the directories.
+   2) Phase 1: Look through the files recorded in the metadata and resolve differences.
+   3) Phase 2:Look through the files NOT recorded in the metadata and resolve differences.
+
+4. The modification times of the files are used to check for updates in the files
+
+5. Metadata is saved as ".unison_[path to directory that cwd is syncing with, "/" replaced by "_"]".
+
+6. The files starting with "." is ignored since by convention those files are metadata.
+

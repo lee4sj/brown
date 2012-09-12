@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Gets the redo files back out of that local temp directory.
+# Probably a good idea to run if you want to switch machines
+# and not have to rebuild from scratch...
+
+TMPDIR=$(readlink .redo)
+
+rm -f .redo
+cp -r $TMPDIR .redo
+rm -rf $TMPDIR

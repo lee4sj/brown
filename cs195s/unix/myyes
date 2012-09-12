@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo y
+sleep 1
+echo n

@@ -1,0 +1,26 @@
+# 2.4
+# Expression 1 = !Y & !Z | !W & !X & Z | X & Y & Z | !W & X & !Z
+# Expression 2 = !Y & !Z | W & !X & !Y | W & !Y & Z | !W & X & Y
+
+
+# 2.5
+# Part a.) 
+# Truth table for output A = 0000101011XXXXXX
+# Truth table for output B = 1100100001XXXXXX
+
+# Part b.) 
+# Karnaugh map for output A = 00010001XXXX11XX
+# Karnaugh map for output B = 11010000XXXX01XX
+
+
+# Part c.)
+# Minimum SOP expression for A
+	W | X & !Z
+
+# Minimum SOP expression for B
+	!W & !Y & !X | !W & !Y & !Z | W & !Y & Z
+
+
+
+
+# If you have any questions about the format, please ask a TA!

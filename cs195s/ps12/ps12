@@ -1,0 +1,25 @@
+SeungJi Lee
+sl136
+CS195S
+PS12
+
+
+11.2
+a) He has to run about 26^8 / 2 possibilities. Since each possibility takes one machine cycle to determine and the machine can run 600 * 10^-3 cycles per second (600 mHz), the project will take (26^8 / 2) / (0.6) = 1.74 * 10^11 seconds.
+
+b) Then it will take (78^8 / 2) / (0.6) = 1.14 * 10^15 seconds.
+
+c) we want (78^8 / 2) / x = (26^8 / 2) / (0.6). Then, x = 3936.6 cycles per second = 3936.6 Hz. Then, we need t such that 0.6 * 3^t = 3936.6: t = 8. Thus 16 years.
+
+
+
+11.3
+This is essentially the same as having one password key. First, the systemwide "password key" must be saved somewhere. Secondly, once a attacker finds the systemwide key, he has access to ALL users. Moreover, if the attacker is a user, then it is vulnerable to brute-force attack. The attacker can try to transform his username using a trial key and see if it matches the presented password; the attacker can brute-force attack in this way.
+
+
+
+11.7
+We need to establish that Louis speaks for Ben.
+We know that Jim speaks for Ben.
+Then, if Louis speaks for Jim, then Louis speaks for Ben.
+Thus, we only need A to establish the truth.

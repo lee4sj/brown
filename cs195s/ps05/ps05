@@ -1,0 +1,26 @@
+SeungJi Lee
+sl136
+cs195s
+Problem Set 5
+
+
+7.1
+The protocol stack uses layering as its primary organizing scheme.
+
+
+7.5
+a) This is not a good way to manage retrancsmission delays for Ethernet. Say we have two nodes trying to deliver a message. Say it happens that they both submit the messages at the same time. Since Ethernet is a shared medium, the messages become garbages and cannot be delivered. Now, both nodes times out at the same time since they wait 1/2^k on the k-1th try, and they both started at the same time. Thus, they transmit data at the same time causing conflicts at every try. Thus in the end, none of the data is transferred.
+
+b) This is not a good way to manage retransmission delays for receive-and-forward network. Say we have a really busy network. Thus, the first 9 packets are dropped. Now, the last packet barely survives and is queued in the routers. However, since the network is busy, it takes longer than usual to transmit the packet. Now, since the receive-and-forward network is waiting less and less, it does not wait for longer than usual (in fact, it waits shorter than usual). Thus, the software gives up before the acknowledgement comes.
+
+
+7.7
+a) 200 milliseconds
+
+b) E(success in sending) = (1-a) + (1-a)(a)2 + (1-a)(a^2)3 + ...
+                         = 1 + a^2 + a^3 + .....
+                         = 1/ (1 - a)
+
+
+7.15
+The packet forwarders themselves have to be organized hierarchically to take advantage of this space reduction, although not fully. The packet forwarders depending on its type (it may be a switch for the local network or the backbone router); most of the routers need to unpackage the packet up to the network layer in order to forward the messages correctly, whereas on switch, only up to the link layer is required.

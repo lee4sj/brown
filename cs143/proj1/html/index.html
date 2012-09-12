@@ -1,0 +1,47 @@
+<html>
+  <body>
+
+    <h1>CS143 Project1: Hybrid Images</h1>
+    <br/>
+    <br/>
+    <h2>Overview</h2>
+    <p>Hybrid Images are images that display different images depending on the frequency domain of the perception. People further away from the picture observe lower frequencies whereas people closer to the picture observe higher frequencies. Thus, by taking low frequency portion of a picture and high frequency portion of another, we can produce a hybrid image.</p>
+    <br/>
+    <h2>Methods</h2>
+    <p>1. Align the two images.<br/><br/>
+      2. Create gaussian and laplacian pyramids. The Gaussian pyramid is created simply by applying gaussian filter N times and then downsampling by 1/2 after each application of the gaussian filter. Laplacian pyramid is obtained by subtracting the unfiltered image (not necessarily the original image) with gaussian filtered image at each level of pyramid.<br/><br/>
+    3. Create the hybrid image. First take the highest(most filtered) gaussian filtered image of one. Then, add the laplacian filtered image as you resize the images. Then, at cutoff, switch the laplacian filtered image to that of the other image.<br/><br/>
+    4. Crop the image to right size.</p>
+    <h2>Results</h2>
+    <br/>
+    <h3>Derek and Cat</h3>
+    <img src="DerekPicture.jpg">
+    <img src="nutmeg.jpg"><br/>
+    <img src="Derek_Nutmeg.jpg" alt="Derek and nutmeg">
+    <h3>Dog and Marilyn</h3>
+    <img src="dog.jpg">
+    <img src="marilyn.jpg"><br/>
+    <img src="dog_marilyn.jpg" alt="dog and marilyn">
+    <br/>
+    <h3>Cat and Einstein</h3>
+    <img src="cat.jpg">
+    <img src="einstein.jpg"><br/>
+    <img src="cat_einstein.jpg" alt="cat and einsten">
+    <br/>
+    <h3>Car and Rhino</h3>
+    <img src="car.jpg">
+    <img src="rhino.jpg"><br/>
+    <img src="car_rhino.jpg" alt="car and rhino">
+    <br/>
+    <h2>Extra Credit</h2>
+    <h3>Goku Super Cyan</h3>
+    <p>Hybrid color image of Goku.</p>
+    <img src="goku.jpg">
+    <img src="goku_syan3.jpg"><br/>
+    <img src="goku_to_cyan.jpg" alt="super cyan goku">
+    <h3>Dark Knight</h3>
+    <img src="dark-knight.jpg">
+    <img src="dark_knight_logo.jpg"><br/>
+    <img src="batman_to_action.jpg" alt="dark knight to logo">
+  </body>
+</html>

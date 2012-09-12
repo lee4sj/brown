@@ -1,0 +1,5 @@
+args     -> /usr/bin/args
+hello    -> /usr/bin/hello
+kshell   -> /usr/bin/kshell
+segfault -> /usr/bin/segfault
+spin     -> /usr/bin/spin

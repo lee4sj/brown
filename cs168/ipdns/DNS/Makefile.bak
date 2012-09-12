@@ -1,0 +1,18 @@
+CC = gcc
+DEBUGFLAGS = -g -Wall
+LDFLAGS = -lfiredns
+OBJECTS = testtun.o base64.o
+
+all: testtun
+
+testtun: $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -lrt -o testtun `pkg-config --cflags --libs glib-2.0`
+
+testtun.o: testtun.c
+	$(CC) -lrt -c testtun.c `pkg-config --cflags --libs glib-2.0`
+
+base64.o: base64.c base64.h
+	$(CC) -c base64.c `pkg-config --cflags --libs glib-2.0`
+
+clean:
+	rm -f testtun $(OBJECTS)

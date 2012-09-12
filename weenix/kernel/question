@@ -1,0 +1,23 @@
+KERN 1
+1. do_waitpid: cancellable sleep?
+
+
+KERN 2:
+1. tty_create: use kmalloc?
+   when do we free stuff?
+
+2. tty_global_driver_callback: kfree okay?
+   in general what do I do with n_tty_receive_char? kmalloc or use some global structure?
+
+3. ata_write: deal with (const) buf
+
+
+S5FS:
+1. Do directory management differently so that dir->vn_len is the end of the last dirent entry (thus dir do not have any empty dirent (dirent with namelen 0)).
+
+
+
+VM:
+1. vma->vma_olink ?
+2. shadow objs?
+3. vmmap_remove, vmmap_map, anything else to do?

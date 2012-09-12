@@ -1,0 +1,1278 @@
+
+Invalid_Addition.bl
+Invalid_Addition.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected plus
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseFactor(Parser.java:330)
+	at comp.Parser.parseExpr(Parser.java:304)
+	at comp.Parser.parseExprSfx(Parser.java:348)
+	at comp.Parser.parseExpr(Parser.java:305)
+	at comp.Parser.parseInstr(Parser.java:202)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:341)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:341)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+Invalid_Subtraction.bl
+Invalid_Subtraction.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected minus
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseFactor(Parser.java:330)
+	at comp.Parser.parseExpr(Parser.java:304)
+	at comp.Parser.parseExprSfx(Parser.java:350)
+	at comp.Parser.parseExpr(Parser.java:305)
+	at comp.Parser.parseInstr(Parser.java:202)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:348)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:348)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Paren_Output.bl
+No_Paren_Output.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 1: expected ')'
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseInstr(Parser.java:234)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 1:  ) expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 1:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:217)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 1:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:217)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+Invalid_Division.bl
+Invalid_Division.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected DIVIDE
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseFactor(Parser.java:330)
+	at comp.Parser.parseExpr(Parser.java:304)
+	at comp.Parser.parseExprSfx(Parser.java:354)
+	at comp.Parser.parseExpr(Parser.java:305)
+	at comp.Parser.parseInstr(Parser.java:202)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:362)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:362)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Endif.bl
+No_Endif.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 6: expected 'endif'
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseInstr(Parser.java:216)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 6: endif expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 6: endif expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:166)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 6: endif expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:166)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Paren_while.bl
+No_Paren_while.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 5: expected RIGHTPAREN
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.expectToken(Parser.java:142)
+	at comp.Parser.parseInstr(Parser.java:225)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:191)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:191)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+Invalid_Mod.bl
+Invalid_Mod.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected MODULUS
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseFactor(Parser.java:330)
+	at comp.Parser.parseExpr(Parser.java:304)
+	at comp.Parser.parseExprSfx(Parser.java:356)
+	at comp.Parser.parseExpr(Parser.java:305)
+	at comp.Parser.parseInstr(Parser.java:202)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:369)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:369)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Paren_If.bl
+No_Paren_If.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 5: expected RIGHTPAREN
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.expectToken(Parser.java:142)
+	at comp.Parser.parseInstr(Parser.java:212)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:150)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 5:  ) expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:150)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Paren_while2.bl
+No_Paren_while2.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 4: expected LEFTPAREN
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.expectToken(Parser.java:142)
+	at comp.Parser.parseInstr(Parser.java:223)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:182)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:182)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+Invalid_Multiplication.bl
+Invalid_Multiplication.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected times
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseFactor(Parser.java:330)
+	at comp.Parser.parseExpr(Parser.java:304)
+	at comp.Parser.parseExprSfx(Parser.java:352)
+	at comp.Parser.parseExpr(Parser.java:305)
+	at comp.Parser.parseInstr(Parser.java:202)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:355)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 3: Unexpected expression!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.factor(Parser.java:498)
+     [java] 	at comp.Parser.expr(Parser.java:335)
+     [java] 	at comp.Parser.expr(Parser.java:355)
+     [java] 	at comp.Parser.instr(Parser.java:118)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Paren_If2.bl
+No_Paren_If2.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 4: expected LEFTPAREN
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.expectToken(Parser.java:142)
+	at comp.Parser.parseInstr(Parser.java:210)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:140)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 4:  ( expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:140)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+No_Semicolon.bl
+No_Semicolon.s
+
+Compiler Demo
+
+Exception in thread "main" comp.SyntaxException: SyntaxException: syntax error in line 2: expected ';'
+	at comp.Parser.die(Parser.java:128)
+	at comp.Parser.parseInstr(Parser.java:207)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseListInstr(Parser.java:187)
+	at comp.Parser.parseProgram(Parser.java:172)
+	at comp.Parser.parse(Parser.java:72)
+	at comp.Compiler.main(Compiler.java:79)
+
+MyCompiler
+
+Buildfile: build.xml
+
+get-jvm:
+
+check-jvm:
+
+init:
+
+compile:
+
+run:
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 2:  ';' expected!
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:194)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+     [java] Caused by: comp.SyntaxException: SyntaxException: syntax error in line 2:  ';' expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:122)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	... 20 more
+     [java] --- Nested Exception ---
+     [java] comp.SyntaxException: SyntaxException: syntax error in line 2:  ';' expected!
+     [java] 	at comp.Parser.die(Parser.java:618)
+     [java] 	at comp.Parser.instr(Parser.java:122)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.listInstr(Parser.java:319)
+     [java] 	at comp.Parser.parse(Parser.java:74)
+     [java] 	at comp.Compiler.main(Compiler.java:79)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)
+     [java] 	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:152)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.run(Java.java:747)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:201)
+     [java] 	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:104)
+     [java] 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:288)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+     [java] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+     [java] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+     [java] 	at java.lang.reflect.Method.invoke(Method.java:597)
+     [java] 	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:105)
+     [java] 	at org.apache.tools.ant.Task.perform(Task.java:348)
+     [java] 	at org.apache.tools.ant.Target.execute(Target.java:357)
+     [java] 	at org.apache.tools.ant.Target.performTasks(Target.java:385)
+     [java] 	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1329)
+     [java] 	at org.apache.tools.ant.Project.executeTarget(Project.java:1298)
+     [java] 	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+     [java] 	at org.apache.tools.ant.Project.executeTargets(Project.java:1181)
+     [java] 	at org.apache.tools.ant.Main.runBuild(Main.java:698)
+     [java] 	at org.apache.tools.ant.Main.startAnt(Main.java:199)
+     [java] 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:257)
+     [java] 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:104)
+
+BUILD SUCCESSFUL
+Total time: 0 seconds

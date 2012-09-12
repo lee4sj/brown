@@ -1,0 +1,5 @@
+#! /bin/sh
+
+cd /mnt/hgfs/home/course/cs166/syncity/SynCity_Client/bin/ #/u/sl136/course/cs166/syncity/SynCity_Client/bin/
+java PortKnockingClient $1 1111 1232 4432 4444 5555
+ssh $1 -o ConnectTimeout=15

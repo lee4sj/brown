@@ -1,0 +1,8 @@
+#!/bin/bash
+
+openvpn --mktun --dev $1 --comp-lzo no
+ip link set $1 up
+ip link set $1 mtu 200
+ip addr add 10.0.0.2 peer 10.0.0.1 dev $1
+ifconfig $1
+

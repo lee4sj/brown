@@ -1,0 +1,18 @@
+SeungJi Lee
+sl136
+CS195S
+Anderson Paper Review
+
+
+1.
+The cryptosystem refers to a system that involves cryptography. The cryptosystem encompasses machine, and communication.
+
+
+2.
+First, each Bank has their own PIN key (let's name it bank key). With this bank key, given an account number, they compute a "natural PIN" by the algorithm DES with input the bank key and the account number. Then, they add "offset" to the natural PIN. The result is the customer PIN.
+
+Now, at ATM, the customer's input (attempt to provide the customer PIN) is encrypted under a "terminal key," of which each ATM has. This encrypted input is sent to the central bank, decrypted, and see if it matches the customer's PIN.
+
+
+3.
+The details of quantitative measures differ by the usage of systems and components. However, the general theme in these quantitative measures will be how dependent is the security on the elements that compose this system. For example, ATM depends largely on human to keep the PIN secret from others. Also, it depends highly on keeping terminal key secret. These are single point of failure and thus will degrade the general grade of the system. Lastly, the measure of the entire system will be the minimum score of the components. This makes sense since security is as good as its worst point.

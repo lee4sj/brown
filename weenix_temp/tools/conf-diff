@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname $0)
+
+CONF_VARS=$(mktemp)
+REMOVE_VARS=$(mktemp)
+
+$SCRIPT_DIR/conf-vars $1 > $CONF_VARS
+$SCRIPT_DIR/conf-vars $2 > $REMOVE_VARS
+
+grep -v -F "-f$REMOVE_VARS" "$CONF_VARS"
+

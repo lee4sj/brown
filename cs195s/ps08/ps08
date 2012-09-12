@@ -1,0 +1,23 @@
+SeungJi Lee
+sl136
+CS195S
+Problem Set 8
+
+8.2
+B, C
+
+8.4
+For the memoryless random processes, the time does not affect the reliability function.
+In case A,
+   R(t) = exp(-1/6000) = 0.99983; thus R(6 hrs) = 0.99983
+In case B,
+   R(t) = exp(-1/5000) = 0.99980; thus R(5 hrs) = 0.99980
+   Thus, the flight A has a slightly better chance of not failing during the flight.
+
+
+8.6
+a) Pr(connected network) = Pr(no failure for all links) = (1 - Pr(failure for one link))^2 = (1-p)^2
+b) Pr(connected network) = Pr(no failure for one or no link) = (3 choose 2)*p*(1-p)^2 + (1-p)^3 = 3*p*(1-p)^2 + (1-p)^3.
+c) Daisy chain: Pr(connected network) = (1 - 0.000001)^2 = 0.999998
+   Fully connected: Pr(connected network) = 0.9999997
+   Thus fully connected network with three low-reliability links should be purchased.

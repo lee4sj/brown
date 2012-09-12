@@ -1,0 +1,212 @@
+#!/bin/bash
+
+USAGE="Usage: $0 [OPTION]...
+-h --help            Display this help dialog.
+-m --machine <arg>   Run on the specified machine. The default is
+                     the bochs emulator. Options are 'bochs'
+                     or 'vbox'.
+-d --debug <arg>     Run with debugging support. <arg> can be either
+                     'gdb' or 'dbg'. 'gdb' uses gdb to debug. 'dbg'
+                     uses the machine's built-in debugger.
+-n --new-disk        Use a fresh copy of the hard disk image.
+"
+
+cd $(dirname $0)
+
+eval $(./system-check -qe)
+source Config.sh
+source Vars.sh
+
+TEMP=$(getopt -o hm:d:n --long help,machine:,debug:,new-disk -n "$0" -- "$@")
+if [ $? != 0 ] ; then
+	exit 2
+fi
+
+machine=$DEFAULT_EMULATOR
+dbgmode="run"
+newdisk=
+eval set -- "$TEMP"
+while true ; do
+	case "$1" in
+		-h|--help) echo "$USAGE" >&2 ; exit 0 ;;
+		-n|--new-disk) newdisk=1 ; shift ;;
+		-m|--machine) machine="$2" ; shift 2 ;;
+		-d|--debug) dbgmode="$2" ; shift 2 ;;
+		--) shift ; break ;;
+		*) echo "Argument error." >&2 ; exit 2 ;;
+	esac
+done
+
+GDB_FLAGS="-x $GDB_TMP_INIT -s $KERN_DIR/$SYMBOLS -x $GDB_COMM_INIT -x $GDB_INIT"
+rm -f "$GDB_COMM_INIT"
+cat "$KERN_DIR/$GDBCOMM" | grep "\.gdb$" | while read file
+do
+	echo "source $file" >> "$GDB_COMM_INIT"
+done
+if [[ 0 -ne "$USE_PYTHON" ]]; then
+	cat "$KERN_DIR/$GDBCOMM" | grep "\.py$" | while read file
+	do
+		echo "source $file" >> "$GDB_COMM_INIT"
+	done
+else
+	echo "NOTE: gdb versions below 7.3 are not compatible with some specialized weenix commands, they have been disabled" >&2
+fi
+
+case $machine in
+	bochs)
+		if [[ -n "$newdisk" || ! ( -f disk0.img ) ]]; then
+			cp -f user/disk0.img disk0.img
+		fi
+
+		# Variables needed by Bochs
+		export MEMORY DISK_BLOCKS GDB_PORT KERN_DIR ISO_IMAGE LOG_FILE
+		case $dbgmode in
+			run)
+				if [[ -z "$BOCHS_RUN" ]]; then
+					echo "error: $BOCHS_RUN_ERROR" >&2
+					exit 1
+				fi
+				$BOCHS_RUN -qf bochsrc-run
+				;;
+			gdb)
+				if [[ -z "$BOCHS_GDB" ]]; then
+					echo "error: $BOCHS_GDB_ERROR" >&2
+					exit 1
+				fi
+				if [[ -z "$GDB" ]]; then
+					echo "error: $GDB_ERROR" >&2
+					exit 1
+				fi
+				# Build the gdb initialization script
+				echo "target remote localhost:$GDB_PORT" > $GDB_TMP_INIT
+				if [[ 0 -ne "$USE_PYTHON" ]]; then
+					echo "python sys.path.append(\"$(pwd)/$SCRIPT_DIR\")" >> $GDB_TMP_INIT
+				fi
+				$GDB_TERM -e $BOCHS_GDB -qf bochsrc-gdb &
+				sleep 1
+				$GDB $GDB_FLAGS
+				;;
+			dbg)
+				if [[ -z "$BOCHS_DBG" ]]; then
+					echo "error: $BOCHS_DBG_ERROR" >&2
+					exit 1
+				fi
+				export BSYMBOLS
+				$BOCHS_DBG -qf bochsrc-dbg
+				;;
+			*)
+				echo "'$dbgmode' is an unknown debug mode for the '$machine' machine type." >&2
+				echo "Valid modes: $BOCHS_MODES" >&2
+				echo "$USAGE" >&2
+				exit 1
+				;;
+		esac
+		;;
+	qemu)
+		if [[ -n "$newdisk" || ! ( -f disk0.img ) ]]; then
+			cp -f user/disk0.img disk0.img
+		fi
+
+		case $dbgmode in
+			run)
+				if [[ -z "$QEMU" ]]; then
+					echo "error: $QEMU_ERROR" >&2
+					exit 1
+				fi
+				$QEMU -m "$MEMORY" -cdrom "$KERN_DIR/$ISO_IMAGE" disk0.img -serial stdio
+				;;
+			gdb)
+				if [[ -z "$QEMU" ]]; then
+					echo "error: $QEMU_ERROR" >&2
+					exit 1
+				fi
+				if [[ -z "$GDB" ]]; then
+					echo "error: $GDB_ERROR" >&2
+					exit 1
+				fi
+				# Build the gdb initialization script
+				echo "target remote localhost:$GDB_PORT" > $GDB_TMP_INIT
+				if [[ 0 -ne "$USE_PYTHON" ]]; then
+					echo "python sys.path.append(\"$(pwd)/$SCRIPT_DIR\")" >> $GDB_TMP_INIT
+				fi
+
+				$GDB_TERM -e qemu -m "$MEMORY" -cdrom "$KERN_DIR/$ISO_IMAGE" disk0.img -serial stdio -s -S &
+				sleep 1
+				$GDB $GDB_FLAGS
+				;;
+			*)
+				echo "'$dbgmode' is an unknown debug mode for the '$machine' machine type." >&2
+				echo "Valid modes: $QEMU_MODES" >&2
+				echo "$USAGE" >&2
+				exit 1
+				;;
+		esac
+		;;
+	vbox)
+		if [[ -n "$newdisk" || ! ( -f disk0.vmdk ) ]]; then
+			VBoxManage convertfromraw disk0.img disk0.vmdk --format VMDK
+		fi
+
+		VBOX_OPTS=
+		case $dbgmode in
+			run) VBOX_OPTS= ;;
+			dbg) VBOX_OPTS="--debug" ;;
+			*)
+				echo "'$dbgmode' is an unknown debug mode for the '$machine' machine type." >&2
+				echo "The only valid mode is 'dbg'." >&2
+				echo "$USAGE" >&2
+				exit 1
+				;;
+		esac
+
+		function vbox-cleanup {
+			echo "Cleaning up virtual machine..." >&2
+			sleep 1
+			VBoxManage storageattach Weenix --storagectl ide --port 0 --device 0 --medium none
+			VBoxManage storageattach Weenix --storagectl ide --port 0 --device 1 --medium none
+			VBoxManage unregistervm Weenix --delete
+			exit 0
+		}
+
+		trap vbox-cleanup SIGINT
+		trap vbox-cleanup SIGQUIT
+
+		VBOX_NAME="Weenix"
+		if [[ $(VBoxManage list vms | grep "^\"$VBOX_NAME\" ") ]] ; then
+			echo "Deleting existing virtual machine: '$VBOX_NAME'..." >&2
+			VBoxManage storageattach Weenix --storagectl ide --port 0 --device 0 --medium none
+			if [[ -e disk0.vmdk ]] ; then
+				VBoxManage closemedium ide disk0.vmdk
+			fi
+			VBoxManage storageattach Weenix --storagectl ide --port 0 --device 1 --medium none
+			if [[ -e $KERN_DIR/$ISO_IMAGE ]] ; then
+				VBoxManage closemedium ide $KERN_DIR/$ISO_IMAGE
+			fi
+			VBoxManage unregistervm $VBOX_NAME --delete
+		fi
+
+		VBOX_PIPE="vbox_com1"
+		if [[ -e $VBOX_PIPE ]] ; then
+			rm -f $VBOX_PIPE
+		fi
+		socat UNIX-LISTEN:$VBOX_PIPE STDOUT &
+
+		echo "Creating new virtual machine: '$VBOX_NAME'..." >&2
+		VBoxManage createvm --name $VBOX_NAME --register
+		VBoxManage modifyvm $VBOX_NAME --cpus 1 --memory 32 --acpi on --ioapic on --bioslogodisplaytime 100
+		VBoxManage modifyvm $VBOX_NAME --uart1 0x3F8 4 --uartmode1 client $(pwd)/$VBOX_PIPE
+		VBoxManage storagectl $VBOX_NAME --name ide --add ide
+		VBoxManage storageattach $VBOX_NAME --storagectl ide --port 0 --device 0 --type hdd --medium disk0.vmdk
+		VBoxManage storageattach $VBOX_NAME --storagectl ide --port 0 --device 1 --type dvddrive --medium $KERN_DIR/$ISO_IMAGE
+
+		VirtualBox --startvm Weenix $VBOX_OPTS
+		vbox-cleanup
+		;;
+	*)
+		echo "'$machine' is an unknown machine type." >&2
+		echo "Valid machines: $EMULATORS" >&2
+		echo "$USAGE" >&2
+		exit 1
+		;;
+esac
+

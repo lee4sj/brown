@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PluginConfiguration>
+	<AgentControllerEnvironment configuration="default">
+		<Variable name="CLASSPATH_ORG_MX4J_JMX" position="replace" value="%PLUGINS_HOME%/org.mx4j.jmx_3.0.3.v200802291451/mx4j.jar"/>
+		<Variable name="CLASSPATH_ORG_MX4J_REMOTE_JMX" position="replace" value="%PLUGINS_HOME%/org.mx4j.jmx_3.0.3.v200802291451/mx4j-remote.jar"/>
+	</AgentControllerEnvironment>
+	<Option name="org.mx4j.jmx" type="version" value="3.0.3.v200802291451"/>
+</PluginConfiguration>

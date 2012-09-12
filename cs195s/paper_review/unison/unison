@@ -1,0 +1,13 @@
+SeungJi Lee
+sl136
+cs195s
+UNISON Paper Review
+
+
+1. Assume that the client process is started and thus the two roots for the synch are set up (in this case, the two directories to keep in synch). First, the update detection detects if there is any update in the replicas. Then, the process goes on to "merge" the list of updates in each of the replicas into a list called "task list". Then, Unison finalize the list with the consent of the user. Then, the list of updates are propagated between replicas.
+
+
+2.THe current design explained in the paper only discuss about the synchronization between two directories. However, the synchronization between more than two directories is possible by setting Unison between dir A and dir B, and then between dir B and dir C, effectively using two Unison processes to synch the three directories.
+
+
+3. The answer depends on the situation. If the two directories in synch are controlled by me alone, I would trust Unison. However, if the two directories are controlled by many people, I would not trust Unison; the two people in the two directories are sometimes not aware of the changes in the other replica, thus, creating a big room for conflicts.

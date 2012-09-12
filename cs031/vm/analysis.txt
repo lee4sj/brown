@@ -1,0 +1,40 @@
+Analysis
+CSCI0310
+SeungJi Lee(sl136)
+
+
+1. Run five different test programs with each of the three replacement strategies. Report the number of page faults for each of the 15 combinations. Which replacement strategy performs best overall?
+	A) LRU:
+		1)knapsack (-input knapsack.100, -pages 10): 1304 page faults
+		2)primes (-pages 5): 583 page faults
+		3)life (-pages 2): 812 page faults
+		4)maze (-pages 3): 14 page faults
+		5)blaise2: 120 page faults
+		***Average: 566.6
+
+	B) LFU:
+		1)knapsack (-input knapsack.100, -pages 10): 225131 page faults
+		2)primes (-pages 5): 238 page faults
+		3)life (-pages 2): 812 page faults
+		4)maze (-pages 3): 28 page faults
+		5)blaise2: 120 page faults
+		***Average: 45265.8
+
+	C) random:
+		1)knapsack (-input knapsack.100, -pages 10): 1341 page faults
+		2)primes (-pages 5): 265 page faults
+		3)life (-pages 2): 1185 page faults
+		4)maze (-pages 3): 16 page faults
+		5)blaise2: 143 page faults
+		***Average: 590.6
+
+	D) Overall, the LRU policy performed the best.
+
+2. The number of pag ins and outs for each policies on running primes with 4 pages:
+	A) LRU: 9800 page ins, 2167 page outs				Total Disk Access: 11967
+	B) LFU: 5474 page ins, 2167 page outs				Total Disk Access: 7641
+	C) random: 8195 page ins, 1298 page outs			Total Disk Access: 9493
+
+	*** The LFU policy performed to best. This happens because LFU policy looks at the frequency of the access to the page instead of the time of the last access. At one point, the size of the array keeping track of prime numbers require multiple pages to store. Now, since the number of accesses to the pages of the portion of the arrays are used for LFU, the first page of the array of primes will have the greatest frequency and would not be evicted. However, for LRU, the first page of the array will be evicted since if somehow the number is divisible by a prime in the second page of the array, the second page will have the greater LRU value than the first page.
+
+3. I ran a program called savingA which gives two page faults. This program never terminates when there is only one page memory. In fact, any non-trivial program never terminates when there is only one page memory. This happens because the instructions are also stored in the disk and thus the program needs to access the page with instructions (let's call it instruction page). However, when the program needs to access other pages (say page 1), we need to load that page to the memory, but having one page memory, this access will page out the instructions. Now that the program has the value, it will try to fetch instruction, but, since the instruction page is not on the memory, it will page fault to fetch the instructions. However, this will page out the page 1, and thus creating a loop. Therefore, the program will never terminate.

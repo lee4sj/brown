@@ -1,0 +1,37 @@
+#!/usr/bin/python
+
+import sys
+if len(sys.argv) <= 1:
+    print("Usage: %s network.net [dbgmodes]" % sys.argv[0])
+    sys.exit()
+
+import os
+if not os.path.exists(sys.argv[1]):
+    print "Error: file %s does not exist" % sys.argv[1]
+    sys.exit()
+
+dbgmodes = "tcp,tcpverb"
+if len(sys.argv) >= 3:
+    dbgmodes = " ".join(sys.argv[2:])
+
+#import time, random
+for l in open(sys.argv[1]):
+    s = l.split()
+    if s[0] == "node":
+        if len(s) < 3:
+            print "Bad line in .net file: %s" % l
+            continue
+        if len(s) >= 4:
+            _dbgmodes = s[3]
+        else:
+            _dbgmodes = dbgmodes
+
+        if len(s) >= 5:
+            _args = " ".join(s[4:]).strip()
+        else:
+            _args = ""
+            
+        cmd = "./runNodeWin %s.lnx \"%s\" %s" % (
+            s[1], _dbgmodes, _args)
+        print cmd
+        os.system(cmd)

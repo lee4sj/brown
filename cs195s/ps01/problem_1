@@ -1,0 +1,28 @@
+SeungJi Lee
+cs195s
+Textbook Problems 1.1 - 1.5
+
+
+1.1
+a) false: the problem of incommensurate scaling is not addressed in the modularity.
+b) true: modularity's power lies in its ability to reduce a complexity into multiple but less complex problems. Modularity reduces the complex in such a way by dividing works among multiple modules. Now, this division of the work helps the programmers to understand and manage the interactions between the modules, and thus helps to control the propagation of effects.
+
+1.2
+a) false: hierarchy does not reduce the size of individual modules.
+b) true: by only allowing interactions between modules of the same subsystem, hierarchy reduces the interconnections between elements.
+c) true: with smaller blocks, hierarchy builds larger blocks.
+d) true: hierarchy enforces triangular structure on the interconnections between elements.
+
+1.3
+False: the graph of friendship is not hierarchical structure. There is no notion of smaller(hence larger) component. Thus, no smaller components are there to build larger component.
+
+1.4
+C
+
+1.5
+a) 1600 lines
+b) 16*15 = 240
+c) 2000 lines
+d) submodules_interactions + main_modules_interactions = 4*(4 * 3) + 4 * 3 = 60
+e) Usage of hierarchy was a good decision. Ben used 1/4 more lines of code, but reduced the interactions by 3/4. This large reduction of interactions helps Ben to control and manage the program much better in the future at the cost of a little more lines of codes.
+

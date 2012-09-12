@@ -1,0 +1,23 @@
+README
+SNOWCAST
+CSCI1680
+SEUNGJI LEE
+
+
+
+
+* Server:
+	1. threads: I made a thread for each station.
+	
+	2. multiple clients: There is a linked list of clients that all threads can access. Each entry of the list (client) carries a file descriptor, sockaddr_in, udpport, current_station. The root of this list is always the same and is set to {-1, [sockaddr_in of the server], -1, -1} when setting the server. Each station thread will go through the list and see if there is a client with the corresponding current_station. If a client has the current_station, the station thread sends the current package to the client. Now, when we need to add or remove from the list, the main thread locks the list so that the station threads cannot access the list while writing.
+	
+	3. a seperate list of clients who have not finished a handshake is maintained.
+
+	4. Any input from stdin will be cut to 5 bytes if longer. Also to perform a single character command, only the first character of the input is considered and others are discarded.
+
+
+
+
+* Control:
+	1. Any input from stdin will be cut to 5 bytes if longer. Also to perform a single character command, only the first character of the input is considered and others are discarded. Moreover, if unrecognized command is inputted, the program recognize it as a command to change station to 0.
+

@@ -1,0 +1,30 @@
+SeungJi Lee
+sl136
+CS195S
+Problem Set 4
+
+
+5.1
+a) modularity, and abstraction
+b) The microkernel model uses modularity and abstraction. Indeed, the microkernel model is primarily based on the concept of client/service model, which as we discussed earlier arises from the modularity and abstraction.
+
+
+5.3
+a)
+A. The name maybe longer than the communication block, and thus may not fit in it.
+B. One program cannot tell wether the integer was written by itself or the other program.
+C. The other program must know the data structure before hand.
+D. The pagemap of the virtual address in the other program may already be mapped to other region.
+E. The small program's stack should also resides on the communication region.
+
+b) The problems mentioned in a) arose from the communication scheme; using one fixed shared memory block to communicate. Thus, most of the problems mentioned in a) should still be problems in the new scheme. However, the problems of virtual address such as D may be fixed.
+
+
+5.5
+B, C
+
+
+5.8
+a) No, the deadlock with 2 threads, cannot happen since three locks are used and are in AB-BC order. Now, the deadlock with 3 threads cannot happen since the C lock is never acquired before any other locks. Thus, in order to create a deadlock of 3 threads (where each threads hold one lock and is waiting on other locks), one of the threads must acquire the C lock; but, this lock is always acquired as the second lock and there is no wait on lock after acquiring C lock. Therefore, there should not be a deadlock.
+
+b) No, the order of release does not matter since you are not waiting on a lock, which is the source of deadlock.

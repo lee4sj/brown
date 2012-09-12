@@ -1,0 +1,79 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 107 (0x6b)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=Rhode Island, L=Providence, O=Brown CS, CN=cs166ta/emailAddress=cs166tas@cs.brown.edu
+        Validity
+            Not Before: Feb  9 00:30:11 2011 GMT
+            Not After : Feb  9 00:30:11 2012 GMT
+        Subject: C=US, ST=Rhode Island, O=Brown University, OU=CSCI1660, CN=sl136/emailAddress=sl136@cs.brown.edu
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (2048 bit)
+                Modulus (2048 bit):
+                    00:af:9e:43:5e:cc:2c:e9:1e:7a:b1:d9:74:54:56:
+                    cc:9c:90:6f:fc:69:c3:a0:77:ad:99:f7:83:60:60:
+                    a9:f5:ee:34:6c:c5:2c:b6:91:32:ea:63:36:c8:4e:
+                    be:4f:7b:4b:e4:b3:f5:95:5c:5c:92:0e:4d:bb:44:
+                    9b:76:53:55:b9:da:bc:71:05:53:0a:df:d7:24:bf:
+                    b3:03:34:e5:89:52:64:df:f1:71:c3:b4:39:9b:dd:
+                    94:a2:df:00:0f:2a:40:45:f9:9f:2d:30:02:36:91:
+                    46:db:d2:1e:b9:eb:5e:9c:6a:10:14:90:72:9e:50:
+                    cf:a6:1d:45:00:61:af:9b:27:06:98:4a:99:56:79:
+                    0b:4f:20:a0:d1:9d:f6:b7:d6:00:4d:29:aa:94:25:
+                    6b:65:15:5e:51:ba:37:41:a4:c1:2f:f2:e3:07:f9:
+                    ee:ec:9f:f9:71:69:72:31:fa:8d:51:9b:9f:6b:d1:
+                    6e:fa:5a:78:ea:bc:58:b9:a5:05:c6:a4:5a:43:aa:
+                    6e:83:02:89:69:df:86:4a:1a:71:59:97:1c:b9:eb:
+                    50:20:ce:22:95:57:fb:b5:6b:66:af:b9:88:be:04:
+                    9d:3d:af:fd:57:7f:36:47:5b:51:c8:62:4a:c4:c5:
+                    f7:3e:a2:61:99:d2:59:8b:31:94:5f:cf:e2:ef:4f:
+                    b2:71
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                5B:80:88:0F:9A:9E:45:27:EB:77:6E:BF:7C:6C:32:59:52:10:C5:FA
+            X509v3 Authority Key Identifier: 
+                keyid:B2:7F:84:F9:4B:E8:74:A5:D1:05:F9:63:2F:1B:40:4C:3A:90:92:25
+                DirName:/C=US/ST=Rhode Island/L=Providence/O=Brown CS/CN=cs166ta/emailAddress=cs166tas@cs.brown.edu
+                serial:EE:D8:BF:CB:A1:F9:BA:AD
+
+            Netscape CA Revocation Url: 
+                https://www.example.com/example-ca-crl.pem
+    Signature Algorithm: sha1WithRSAEncryption
+        46:d6:0b:8c:dd:b5:62:e1:6b:16:2b:58:30:f7:5d:29:29:fc:
+        96:77:9a:27:5b:07:e1:4d:93:a2:2f:9e:a5:f3:db:66:ad:d4:
+        ed:c6:10:08:36:aa:d4:2a:4a:a7:6d:b5:43:7d:f1:45:dd:c4:
+        a3:3e:fc:19:f1:19:13:e2:0f:66:f0:b6:8a:3c:3e:ab:6e:d6:
+        f1:fa:36:9d:89:8a:dd:aa:88:41:97:01:ea:7d:a0:73:9b:ee:
+        95:23:b2:1e:47:09:ce:ac:ad:c8:1f:0e:43:6a:21:3f:10:09:
+        0a:f3:46:a5:39:eb:7e:6e:c3:98:73:5b:e4:35:7e:9b:2e:83:
+        34:ea
+-----BEGIN CERTIFICATE-----
+MIIELDCCA5WgAwIBAgIBazANBgkqhkiG9w0BAQUFADCBhDELMAkGA1UEBhMCVVMx
+FTATBgNVBAgTDFJob2RlIElzbGFuZDETMBEGA1UEBxMKUHJvdmlkZW5jZTERMA8G
+A1UEChMIQnJvd24gQ1MxEDAOBgNVBAMTB2NzMTY2dGExJDAiBgkqhkiG9w0BCQEW
+FWNzMTY2dGFzQGNzLmJyb3duLmVkdTAeFw0xMTAyMDkwMDMwMTFaFw0xMjAyMDkw
+MDMwMTFaMIGFMQswCQYDVQQGEwJVUzEVMBMGA1UECBMMUmhvZGUgSXNsYW5kMRkw
+FwYDVQQKExBCcm93biBVbml2ZXJzaXR5MREwDwYDVQQLEwhDU0NJMTY2MDEOMAwG
+A1UEAxMFc2wxMzYxITAfBgkqhkiG9w0BCQEWEnNsMTM2QGNzLmJyb3duLmVkdTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK+eQ17MLOkeerHZdFRWzJyQ
+b/xpw6B3rZn3g2BgqfXuNGzFLLaRMupjNshOvk97S+Sz9ZVcXJIOTbtEm3ZTVbna
+vHEFUwrf1yS/swM05YlSZN/xccO0OZvdlKLfAA8qQEX5ny0wAjaRRtvSHrnrXpxq
+EBSQcp5Qz6YdRQBhr5snBphKmVZ5C08goNGd9rfWAE0pqpQla2UVXlG6N0GkwS/y
+4wf57uyf+XFpcjH6jVGbn2vRbvpaeOq8WLmlBcakWkOqboMCiWnfhkoacVmXHLnr
+UCDOIpVX+7VrZq+5iL4EnT2v/Vd/NkdbUchiSsTF9z6iYZnSWYsxlF/P4u9PsnEC
+AwEAAaOCASUwggEhMAkGA1UdEwQCMAAwHQYDVR0OBBYEFFuAiA+ankUn63duv3xs
+MllSEMX6MIG5BgNVHSMEgbEwga6AFLJ/hPlL6HSl0QX5Yy8bQEw6kJIloYGKpIGH
+MIGEMQswCQYDVQQGEwJVUzEVMBMGA1UECBMMUmhvZGUgSXNsYW5kMRMwEQYDVQQH
+EwpQcm92aWRlbmNlMREwDwYDVQQKEwhCcm93biBDUzEQMA4GA1UEAxMHY3MxNjZ0
+YTEkMCIGCSqGSIb3DQEJARYVY3MxNjZ0YXNAY3MuYnJvd24uZWR1ggkA7ti/y6H5
+uq0wOQYJYIZIAYb4QgEEBCwWKmh0dHBzOi8vd3d3LmV4YW1wbGUuY29tL2V4YW1w
+bGUtY2EtY3JsLnBlbTANBgkqhkiG9w0BAQUFAAOBgQBG1guM3bVi4WsWK1gw910p
+KfyWd5onWwfhTZOiL56l89tmrdTtxhAINqrUKkqnbbVDffFF3cSjPvwZ8RkT4g9m
+8LaKPD6rbtbx+jadiYrdqohBlwHqfaBzm+6VI7IeRwnOrK3IHw5DaiE/EAkK80al
+Oet+bsOYc1vkNX6bLoM06g==
+-----END CERTIFICATE-----

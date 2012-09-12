@@ -1,0 +1,33 @@
+SeungJi Lee
+sl136
+CS195S
+Hadoop Assignment
+
+
+WORDCOUNT
+1. the word "hath" appeared 52 times. However, the word "hath," appeared 2 times, and the word "Hath" appeared 8 times.
+
+2. The job took 28mins 4sec to finish. Only one reduce task is ran.
+
+3. The job took 12mins 30sec to finish. Only one reduce task is ran.
+   Assuming a linear model, we have that (5 GB, 28.067 mins), (15 GB, 12.5 mins).
+   Then, t = runtime = (input size)*1.5567
+
+
+Sort
+1. It took 3mins 51sec to finish. 28 reduce tasks were ran.
+
+2. 8 reduce tasks : 11mins 59sec
+   50 reduce tasks : 7mins 28sec
+   Thus, running with 28 reduce tasks seems to be the best.
+
+
+Grep
+1. The job took 3mins 18sec. Only one reduce task was ran. The word "systems" appeared 160311 times.
+
+2. The job took 3mins 20sec. 2 reduce tasks were ran.
+   The job took 3mins 43sec. 4 reduce tasks were ran.
+   The job took 4mins 2sec. 8 reduce tasks were ran.
+The runtime seems to stay the same even if we increase the number of the reduce tasks. This should be the case since the reduce algorithm is trivial in this case. Since we are "grepping" for one word, then, all emitted keys should be the same. Thus, they are assigned to one reduce task, and other reduce tasks has no input. Therefore, changing the number of reduce tasks does not help the runtime of the job.  This is different from sort in a couple of ways. First, in map phase, instead of doing nothing, Grep does regex grep on each line. Then on reduce phase, Grep counts the number of "count" of the same key.
+
+3. The wordcount algorithm simply sum "counts" in (key, count) pair of the same key. As explained above, since only one key is emitted by the mapping phase, only one reduce does have non-trivial input. Thus increasing the number of the reduce tasks does not help.

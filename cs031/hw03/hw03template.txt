@@ -1,0 +1,15 @@
+# 3.1
+# Part b.)
+I set the truth table so that W = S_0, X = S_1, Y = I_0, Z = I_1 where S_0 and S_1 denotes the current color of the light and I_0 and I_1 are inputs (buttons pressed).
+Moverover, 00 represents green, 01 yellow, and 10 and 11 red.
+
+# Truth table for output 1 = 0000111111110001
+
+# Truth table for output 2 = 0111000011110001
+
+# Part c.) 
+# Minimal SOP expression for output 1 = S_0 & !S_1 | !S_0 & S_1 | S_0 & I_0 & I_1
+
+# Minimal SOP expression for output 2 = !S_1 & I_1 | !S_1 & I_0 | S_0 & !S_1 | S_0 & I_0 & I_1
+
+				   

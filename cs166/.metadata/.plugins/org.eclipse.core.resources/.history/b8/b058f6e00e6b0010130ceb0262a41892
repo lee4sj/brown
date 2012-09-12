@@ -1,0 +1,58 @@
+package directdecrypt;
+
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+
+public class DLFromServer {
+	static public void main (String[] args){
+		
+		if(args.length < 3){
+			System.out.println("DLFromServer [host] [file] [dest]");
+			System.exit(0);
+		}
+		
+		String host = args[0];
+		String music = args[1];
+		
+		
+		BufferedWriter out = null;
+		BufferedReader in = null;
+		try{
+			Socket server = new Socket(host, 8000);
+			out = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
+			in = new BufferedReader(new InputStreamReader(server.getInputStream()));
+			
+			FileInputStream file = new FileInputStream(new File(filepath));
+			
+			out.write("ACCOUNT_VALIDATION_REQUEST\n");
+			out.flush();
+			out.write("sboger\n");
+			out.flush();
+			out.write("sboger\n");
+			out.flush();
+			
+			out.write("FILE_REQUEST\n");
+			out.flush();
+			out.write(music + "\n");
+			out.flush();
+			
+			String response = in.readLin();
+			
+			out.write("BEGIN_SONG_SEND\n");
+			out.flush();
+			
+			while((ret = in.read))
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		
+	}
+}

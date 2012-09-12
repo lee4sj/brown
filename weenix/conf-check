@@ -1,0 +1,31 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname $0)
+
+CURRENT_CONF=$1
+DEFAULT_CONF=$2
+
+MISSING_CONF=$("$SCRIPT_DIR/tools/conf-diff" "$DEFAULT_CONF" "$CURRENT_CONF")
+EXTRA_CONF=$("$SCRIPT_DIR/tools/conf-diff" "$CURRENT_CONF" "$DEFAULT_CONF")
+
+ERROR=0
+
+if [[ -n "$MISSING_CONF" ]]; then
+	echo "The following configuration variables are present in a default configuration file ($DEFAULT_CONF) but missing from the actual configuration ($CURRENT_CONF). This is probably because the variables are new and you have not yet configured them, please see $DEFAULT_CONF for a description of the variables and set them in $CURRENT_CONF:"
+	for var in $MISSING_CONF
+	do
+		echo "  $var"
+	done
+	ERROR=1
+fi
+
+if [[ -n "$EXTRA_CONF" ]]; then
+	echo "The following configuration variables are present a configuration file ($CURRENT_CONF) but not in the default configuration file ($DEFAULT_CONF). This indicates that the variable is no longer in use and you should remove it from $CURRENT_CONF to avoid problems:"
+	for var in $EXTRA_CONF
+	do
+		echo "  $var"
+	done
+	ERROR=1
+fi
+
+exit $ERROR

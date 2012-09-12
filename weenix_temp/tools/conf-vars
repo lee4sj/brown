@@ -1,0 +1,10 @@
+#!/bin/bash
+# This file takes a configuration file and prints out all the variables defined
+# inside.  It assumes that the only non-comment lines will be of the form:
+# "(optional space)VARIABLE=VALUE" and does no error checking
+
+cat $1 |
+sed -e 's/#.*//' |      # Remove comments
+sed -e 's/^[ \t]*//' |  # Remove leading whitespace
+sed -e '/^$/d' |        # Remove blank lines
+sed -e 's/=.*//'        # Remove everything after '='

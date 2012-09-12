@@ -1,0 +1,6 @@
+int a;
+a := 10;
+
+if  a == 10)
+	output(10);
+endif

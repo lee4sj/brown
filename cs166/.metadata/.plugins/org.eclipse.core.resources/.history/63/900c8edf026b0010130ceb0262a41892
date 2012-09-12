@@ -1,0 +1,17 @@
+package directdecrypt;
+
+import java.net.Socket;
+
+public class DLFromServer {
+	static public void main (String[] args){
+		
+		if(args.length < 4){
+			System.out.println("DLFromServer [host] [usr] [pswd] [file]");
+			System.exit(0);
+		}
+		
+		String host = args[0]; 
+		
+		Socket server = new Socket();
+	}
+}

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+openvpn --mktun --dev $1 
+ifconfig $1 up mtu 120 10.0.0.2 pointopoint 10.0.0.1
+route del 10.0.0.1
+route add -host  10.0.0.1 gw 10.0.0.2 $1

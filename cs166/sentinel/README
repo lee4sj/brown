@@ -1,0 +1,12 @@
+README
+CSCI1660
+SeungJi Lee
+sl136
+
+
+SENTINEL
+
+1. exploits that target machine using the vulnerability explained in the handout.
+2. IPs of the target machine are hardcoded in the code.
+3. runs at the boot up and at the propagation time.
+

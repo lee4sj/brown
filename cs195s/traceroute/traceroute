@@ -1,0 +1,89 @@
+SeungJi Lee
+sl136
+CS195S
+
+Traceroute
+
+
+question 1:
+1. www.cs.brown.edu: 100% successful packet pings
+                     min/avg/max/mdev = 2.653/11.475/41.483/12.751 ms
+
+2. www.berkeley.edu: 100% successful packet pings
+                     min/avg/max/mdev = 93.351/117.411/181.426/35.698 ms
+
+3. www.monash.edu.au: 100% successful packet pings
+                      min/avg/max/mdev = 236.229/236.626/237.306/0.469 ms
+
+4. www.kyoto-u.ac.jp: 100% successful packet pings
+                      min/avg/max/mdev = 191.839/196.488/220.974/8.534 ms
+
+
+question 2:
+The pinging location is the campus of Brown University.
+Now, the server of www.cs.brown.edu is located at Brown University which is the closest out of the four. The geological proximity of the four servers are in the same order of the minimum round trip time. This makes sense since rtt = transmission time + propagation time + processing time + queueing delay. Since ping messages have a constant process time and the same size, we can assume without loss of generality the differences come from the propagation time and queueing delay. THis perfectly makes sense since longer the physical distance, larger the propagation delay and more chance or getting higher queueing delay.
+
+
+
+
+question 3:
+1. www.cs.brown.edu:
+56        min/avg/max/mdev = 2.722/3.087/3.435/0.262 ms
+512       min/avg/max/mdev = 3.141/4.225/6.728/1.283 ms
+1024      min/avg/max/mdev = 3.755/5.873/9.454/1.984 ms
+
+2. www.berkeley.edu: 
+56        min/avg/max/mdev = 93.612/94.273/95.300/0.624 ms
+512       min/avg/max/mdev = 94.557/137.718/172.500/35.263 ms
+1024      min/avg/max/mdev = 95.304/96.018/97.256/0.765 ms
+
+3. www.monash.edu.au:
+56        min/avg/max/mdev = 236.868/237.681/239.024/0.976 ms
+512       min/avg/max/mdev = 237.154/238.089/239.082/0.772 ms
+1024      min/avg/max/mdev = 237.939/239.695/241.407/1.366 ms
+
+4. www.kyoto-u.ac.jp: 
+56        min/avg/max/mdev = 192.013/203.101/244.239/20.599 ms
+512       min/avg/max/mdev = 192.411/193.483/195.444/1.222 ms
+1024      min/avg/max/mdev = 193.631/205.919/242.167/18.412 ms
+
+The minimum round-trip times to the same host differ when using different sized packets because the larger the packet size, the more data needs to be transferred. This increases the transmission delay for the packet.
+
+
+
+
+question 4:
+For both hosts, there was no response to the ping; 0% responses.
+Some hosts may not send responses to ping due to several reasons. One reason is that there is processing cost to respond to ping, even if it is small. So, certain hosts are worried about an attacker who might deny the service of the host by spamming ping messages. Millions of ping requests at the same time may overload certain hosts, blocking them from performing their services. Thus, a host may choose to ignore the ping messages.
+
+
+
+
+question 5:
+The traceroute utility uses ttl (time to live). When ttl is 0 before the packet reaches its destination, the gateways respond to the source with ICMP TIME_EXCEEDED message. So, traceroute simply sets ttl=1 and send the packet. Everytime traceroute receives TIME_EXCEEDED response, it resends the packet with ttl incremented by 1, until the packet reaches the destination. The collection of TIME_EXCEEDED gives the routes (although they may not be the actual path that the packets took).
+
+
+
+
+
+question 6:
+after 10.1.64.131, all outputs are "*". This means that no response is received (more precisely, ICMP timed out). This may be caused because the host is not responding. The host may be down, or the host actaully accepts the udp packet and is not responding with unacceptible port number message.
+
+
+
+
+
+question 7:
+11078
+
+
+
+question 8:
+14325
+
+
+
+question 9:
+10578
+174
+3356

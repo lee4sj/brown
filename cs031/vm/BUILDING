@@ -1,0 +1,61 @@
+===============================
+||  BUILDING the VM Project  ||
+===============================
+
+Note: these instructions only apply if you are building and running VM
+from the command line.  If you're using Eclipse, you do everything through
+the GUI.
+
+1. Directories
+    -----------------------
+    |   dir      contents  |
+    -----------------------
+        src/     code
+        bin/     executables: created by 'ant compile'
+        samples/ a collection of sample programs provided by the TAs
+                 that might be useful for testing your code
+
+2. Using "Ant"
+    "Ant" is a tool for structuring information about compiling programs.
+    For those of you who are familiar with "make"--Ant is similar.  
+    We have written a build file such that you need only use a few short
+    commands to put your VM project into action.  These are:
+
+    a.  clean: remove class files, to save storage for instance. 
+        Example usage:  
+        
+                ant clean
+    
+    b.  compile: compile your Java class files into an executable if they have
+        changed since your most recent compile.
+        Example usage:
+        
+                ant compile
+
+3. Running your VM Project
+
+        To run your VM emulator, run the 'run-vm' script that's provided in
+        the top-level directory.
+
+        Example:
+                ./run-vm <arguments>
+        
+        (<arguments> are the command line arguments to your vm.Emulator main
+        method.  Consult the handout for the possible command line arguments.
+
+        Example with arguments:
+                ./run-vm -lfu life
+    
+4. Working from home
+        If you have copied the VM project to your own computer, be sure to also
+        copy the support code from /course/cs031/pub/vm/support.jar.
+
+        Then, you must change the supportjar variables in both 'build.xml' and
+        'run-vm' to point to the location on your own computer.  Instructions are
+        provided at the top of both those files.
+
+5. Problems
+        If you have problems with Ant or your Java configuration, please feel
+        free to contact the TA staff.  It makes us feel useful to answer
+        questions.
+

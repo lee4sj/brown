@@ -1,0 +1,24 @@
+digraph parse_tree {
+node [color=lightblue2, style=filled];
+N1[label="NodeProgram"];
+N1 -> N2;
+N2[label="NodeListInstrCons"];
+N2 -> N3;
+N2 -> N4;
+N3[label="NodeInstrIfthen: "];
+N3 -> N5;
+N3 -> N6;
+N5[label="NodeRelationLessThan"];
+N5 -> N7;
+N5 -> N8;
+N7[label="NodeExprInt: 1"];
+N8[label="NodeExprInt: 2"];
+N6[label="NodeInstrDeclSingle: a"];
+N4[label="NodeListInstrCons"];
+N4 -> N9;
+N4 -> N10;
+N9[label="NodeInstrOutput:"];
+N9 -> N11;
+N11[label="NodeExprVar: a"];
+N10[label="NodeListInstrNil "];
+}

@@ -1,0 +1,28 @@
+package directdecrypt;
+
+import java.io.FileInputStream;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
+public class DirectDecrypt {
+
+	public static void main(String[] args){
+		if(arg < 2)
+			System.out.println("DirectDecrypt [password]!");
+		
+		String key = args[0];
+		String filepath = args[1];
+		
+		if(key.length() > 8)
+			key = key.substring(0, 8);
+		while(key.length() < 8)
+			key = key.concat("0");
+		
+		DESKeySpec specs = new DESKeySpec(key.getBytes());
+		SecretKey hashkey = SecretKeyFactory.getInstance("DES").generateSecret(specs);
+		
+		FileInputStream file = new FileInputStream(new File(filepath));
+		
+	}
+}

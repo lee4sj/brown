@@ -1,0 +1,6 @@
+int bar;
+bar:=0;
+while(bar<17) {
+ output(17-bar);
+ bar:=bar+1;
+}

@@ -1,0 +1,19 @@
+README
+CSCI0310
+Seungji Lee (sl136)
+
+BUGS:
+- all the bugs that are found have been fixed.
+
+Design:
+	1. Usage of page table:
+		a) Word0: physical address
+		b) Word1: LRU or LFU informations
+		c) Bit0: validity
+		d) Bit1: dirty bit
+
+	2. MyOperatingSystem: An array indexed by physical page number( = physical address/ physical page) is used to keep track of virtual page number that each page in the physical memory correspond to. -1 is stored if the physical page in the memory is unused. This array is iterated to determine evicting page.
+
+Note:
+	1. I refer to physical frame as physical page number.
+	2. The LRU info and LFU info are not left as it was when paged in. So if the page was used and then paged out, then the LRU or LFU info just before paging out will be kept and be reused when it is paged in again. This doesn't matter for LRU but may matter for LFU since for LFU number of access to the page is counted.

@@ -1,0 +1,41 @@
+Building Weenix
+====================
+"redo" is a competitor to the "make" build system.  Unlike make, redo does not
+have its own syntax.  Instead, it uses a shell interpreter (in our case, bash)
+to execute the build files.  Also unlike make, redo does not have a central
+Makefile with all the build rules and dependencies.  Instead, when attempting to
+build a file, redo searches for a file called '<filename>.do', then for a file
+called 'default.<extension>.do', then finally for a file called 'default.do'.
+
+Before building Weenix, you must run "./tools/setup" from the root of the
+repository to generate the appropriate redo files.
+
+After the setup, run "redo -j 8" to build Weenix.  The -j option allows you to
+specify the number of jobs to run in parallel, reducing build time.
+
+To run Weenix, run "./weenix" from the root of the repository.  Note that this
+uses the old disk image by default.  In order to run with a fresh disk image,
+run "./weenix -n".  The first time you run Weenix you must use "./weenix -n"
+because you don't have a disk image yet.
+
+To choose your emulator, use the "-m" option.
+
+To debug Weenix, use the "-d" option.  Run "./weenix -h" for detailed usage
+information.
+
+Dependencies
+================
+Weenix has the following dependencies:
+
+git - Version control system
+gcc - GNU C compiler
+gdb - GNU Debugger
+qemu OR bochs - Open source processor emulators
+genisoimage OR mkisofs - Tools to generate the disk image used by the emulator
+python - Used for many utilities and gdb plugins.  Also used for redo.
+cscope - Not required to run weenix, but very useful for Weenix development
+redo - Build system.  Run the following commands to install redo:
+	git clone https://github.com/apenwarr/redo.git
+	cd redo
+	./redo
+	./redo install (or set up symlinks manually)

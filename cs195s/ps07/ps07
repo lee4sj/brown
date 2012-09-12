@@ -1,0 +1,16 @@
+SeungJi Lee
+sl136
+CS195S
+Problem Set 7
+
+4.5
+A. When M does not have any record of (even partial record of) www.cslab.scholarly.edu in the cache and recursion is off, the M will contact the root server.
+   Fore example, if M holds any partial address (e.g. scholarly.edu), then M will contact that nameserver instead of the root server.
+
+B. If the cached record of www.cslab.scholarly.edu in M is not expired.
+
+C. If the cached record of cslab.scholarly.edu (but www.cslab.scholarly.edu is not in the cache) in M is not expired.
+
+D. If the name server for sholarly.edu is the name server for www.cslab.scholarly.edu or does hold the record of www.cslab.scholarly.edu in the cache.
+
+E. If the name server for cslab.sholarly.edu is the name server for www.cslab.scholarly.edu or does hold the record of www.cslab.scholarly.edu in the cache.

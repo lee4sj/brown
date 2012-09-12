@@ -1,0 +1,107 @@
+# This file is meant to configure weenix to build and run on your system. If the
+# file name has a '.default' extension DO NOT edit it, instead create a file with
+# the same name but without the '.default' extension (or run the build process,
+# it will auto-create the appropriate file even if the build fails). Editing the
+# default configuration will stop the build system from being able to properly
+# recognize configuration errors.
+
+# Variables in this file should meet the following criteria:
+# * They only needs to be set once per machine-type that weenix is built and run
+#   on. For example course staff at University A would create a customized version
+#   of this file to work on their department systems while course staff at University
+#   B create a different version. However, students at both universities should not
+#   need to modify the files once they are given to them as long as they are working
+#   on department systems. If the students wish to use personal computers they will
+#   may need to change some of the configuration.
+# * They change some behavior in the building or running of weenix that someone
+#   using weenix for educational purposes could reasonably want to change. Note that
+#   variables like CFLAGS are not defined here because they should generally not be
+#   changed.
+# * The system-check script performs any necessesary checking of the configuration
+#   and prints user-friendly error messages. For example if a variable should point
+#   to a binary, but that binary does not exist the system-check script should say
+#   so instead of letting the build fail with a cryptic error like 'command not
+#   found: -t'. Note that if the system-check script does not handle a variable
+#   it will not actually be set in the build (see the system-check script for more
+#   information).
+
+# BINUTILS/GCC
+# It is recomended that Weenix be built with a specific binutils/gcc combination.
+# To create this system use the ./compiler/install script. See ./compiler/README for
+# details. Once the compiler is built set COMPILER_PREFIX to the same prefix the
+# ./compiler/install script was run with. If COMPILER_PREFIX is not set your PATH
+# will be searched for binutils on your system. On some systems these tools may
+# be able to build Weenix properly, however they are not recomended as they may
+# introduce small differences in the generated kernel binary that cause
+# non-obvious bugs.
+COMPILER_PREFIX=
+if [[ -n $COMPILER_PREFIX ]]; then
+	CC=$COMPILER_PREFIX/bin/i686-elf-gcc
+	LD=$COMPILER_PREFIX/bin/i686-elf-ld
+	AS=$COMPILER_PREFIX/bin/i686-elf-as
+	AR=$COMPILER_PREFIX/bin/i686-elf-ar
+	OBJCOPY=$COMPILER_PREFIX/bin/i686-elf-objcopy
+	OBJDUMP=$COMPILER_PREFIX/bin/i686-elf-objdump
+	STRINGS=$COMPILER_PREFIX/bin/i686-elf-strings
+	STRIP=$COMPILER_PREFIX/bin/i686-elf-strip
+	SIZE=$COMPILER_PREFIX/bin/i686-elf-size
+	READELF=$COMPILER_PREFIX/bin/i686-elf-readelf
+	ADDR2LINE=$COMPILER_PREFIX/bin/i686-elf-addr2line
+	NM=$COMPILER_PREFIX/bin/i686-elf-nm
+else
+	CC=
+	LD=
+	AS=
+	AR=
+	OBJCOPY=
+	OBJDUMP=
+	STRINGS=
+	STRIP=
+	SIZE=
+	READELF=
+	ADDR2LINE=
+	NM=
+fi
+
+# CSCOPE
+# Cscope is a tool for browsing large C source code bases. If it is installed on
+# your system you can use it on the Weenix code base. The build system will
+# build index files to speed up cscope commands. If you have cscope installed,
+# but it is not in your PATH you can set this variable to its location.
+CSCOPE=
+
+# GDB
+# gdb is the main debugger for Weenix. Weenix should work with any version of
+# gdb, however Weenix includes special extensions to gdb writen using gdb's
+# python extension api. In order to use these extensions you must be using at
+# at least gdb version 7.3, so if the gdb version in your PATH is lower you
+# can specify a different binary here.
+GDB=
+
+# PYTHON
+# If the python binary in your PATH is not compatible with python 2.6 you need
+# to specify an alternate binary here.
+PYTHON=
+
+# Emulators
+# Weenix has currently been tested on two emulators: bochs and qemu. You need
+# to have at least one of these installed to run Weenix. Weenix will work with
+# any standard installation of qemu. If the qemu binary is not in your PATH
+# you can set the QEMU variable here. Bochs is more complicated as it requires
+# a custom compilation. You can build it using the makefile found in the ./bochs
+# (move the ./bochs directory to a public location before building it first if
+# you want other people to be able to use it). Then simply point the
+# BOCHS_INSTALL_DIR variable to the location of the bochs directory. Make sure
+# to set DEFAULT_EMULATOR to either 'bochs' or 'qemu'.
+DEFAULT_EMULATOR=bochs
+QEMU=qemu
+BOCHS_INSTALL_DIR=/course/cs169/vm/bochs
+if [[ -n $BOCHS_INSTALL_DIR ]]; then
+	BOCHS_RUN=$BOCHS_INSTALL_DIR/run/bin/bochs
+	BOCHS_DBG=$BOCHS_INSTALL_DIR/dbg/bin/bochs
+	BOCHS_GDB=$BOCHS_INSTALL_DIR/gdb/bin/bochs
+else
+	BOCHS_RUN=
+	BOCHS_DBG=
+	BOCHS_GDB=
+fi

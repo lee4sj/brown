@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Run this script right after checking out weenix
+
+# Want to be in top-level of weenix
+cd $(dirname $0)/..
+
+# Copy over the default config file, but "tweak" it a little
+echo "Generating build environment..."
+cp Config.sh.default Config.sh
+cat >> Config.sh <<-!
+	DRIVERS=1
+	VFS=1
+	S5FS=1
+	VM=1
+	DYNAMIC=1
+!
+
+# Build everything
+redo all -j 8
+
+# List all targets, and save this list for cleaning purposes
+echo "Generating targets list..."
+redo-targets > .redo-all-targets
+
+# Clean everything
+redo clean -j 8
+# Save .redo database (for this "delocalize" stuff)
+cp -r .redo .redo.backup
+
+echo "Generating default configuration..."
+# Copy over the configuration again
+cp -f Config.sh.default Config.sh

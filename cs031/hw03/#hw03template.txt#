@@ -1,0 +1,21 @@
+# 3.1
+# Part b.) 
+# Truth table for output 1, 
+I set it so that S0 = w, S1 = X, S
+
+from W=0, X=0, Y=0, Z=0 through W=1, X=1, Y=1, Z=1
+# Use 'x' to denote "don't care"
+
+# Truth table for output 2
+
+# Part c.)
+# Minimal SOP expression for output 1
+# Express your SOP by using '|' for or, '&' for and, '!' for not, and
+# W, X, Y, and Z as your variables
+# For example, W & !Z | X & Y & Z | !X
+
+# Minimal SOP expression for output 2
+
+
+
+# If you have any questions about the format, please ask a TA!

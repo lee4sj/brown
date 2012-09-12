@@ -1,0 +1,6 @@
+#Wed Apr 20 15:46:46 GMT-05:00 2011
+spelling_locale_initialized=true
+useAnnotationsPrefPage=true
+content_assist_disabled_computers=org.eclipse.cdt.ui.cdtNoTypeProposalCategory\u0000org.eclipse.cdt.ui.cdtTypeProposalCategory\u0000org.eclipse.cdt.ui.textProposalCategory\u0000org.eclipse.cdt.ui.templateProposalCategory\u0000
+eclipse.preferences.version=1
+useQuickDiffPrefPage=true

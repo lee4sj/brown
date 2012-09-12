@@ -1,0 +1,6 @@
+#! /bin/sh
+
+cd /mnt/hgfs/home/course/cs166/syncity/SynCity_Server/bin/
+fwflush
+fwprep
+java -Djava.library.path=/opt/jpcap/ -jar Server.jar

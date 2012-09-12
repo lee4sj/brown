@@ -1,0 +1,15 @@
+int index;
+int fibs[20];
+int curr;
+
+index := 0;
+while (index < 20) {
+  if (index < 2)
+    curr := 1;
+  else
+    curr := fibs[index-2] + fibs[index-1];
+  endif
+  fibs[index] := curr;
+  output(fibs[index]);
+  index := index + 1;
+}

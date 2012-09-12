@@ -1,0 +1,23 @@
+SeungJi Lee
+cs195s
+Textbook Problems 2.3, 4.2, 4.3, 4.4
+
+2.3
+a) One problem posed by synonyms in the explained scheme is that the cache might be filled with synonyms. One object may be really popular at one point but is referred by different names (synonyms). Thus the cache might have {name, object} pairs that contains different names, but the same objects. This might happen frequently basically defeating the purpose of using cache. However, such problem is not a concern in the scheme that does not support synonyms, since different names refer to different objects.
+
+b) We can keep another list with entries {unique ID, list of names}. Then on the cache, we can save {list of names, unique ID, object}. Then, when we want to resolve the name, we first look at the list of names in the cache. Then, if miss, we look at the list and save {list of name, unique ID, object} entry on the cache.
+-----
+
+4.2
+a) The client/service model primarily use modularity and abstractions as its organizing scheme. The separation of the machines naturally provide modularity and abstraction. The server and client serve roughly as different modules (there may be more complex modularity schemes) and only the narrow network connection serves as the interaction between the two modules providing abstraction.
+
+b) Remote procedure call uses the modularity with abstractions. First by separating caller and executioner of the procedure into two different modules, RPC uses modularity. Furthermore, by running the procedure on the different machine naturally provide abstraction by hiding implementation details of the procedure from the caller; the caller only knows about the API of the procedure.
+-----
+
+4.3
+E
+-----
+
+4.4
+A
+-----

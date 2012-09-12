@@ -1,0 +1,9 @@
+#!/usr/local/bin/bash
+
+cd ~/course/cs168/snowcast
+
+gcc -g -o snowcast_listener snowcast_listener.c
+
+gcc -g -o snowcast_control snowcast_control.c
+
+gcc -g -o snowcast_server snowcast_server.c -lpthread

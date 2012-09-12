@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo Resetting redo to its initial configuration
+find . -name .redo | xargs rm -rf
+redo clean
+rm -rf .redo
+rm -f Config.build
+rm -f System.build

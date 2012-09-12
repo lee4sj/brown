@@ -1,0 +1,27 @@
+Config.sh
+Config.build
+System.sh
+System.build
+bochsout.txt
+inittmp.gdb
+commands.gdb
+
+# normal build system output
+disk0.img
+disk0.vmdk
+.redo
+.redo-all-targets
+.redo.backup
+*.[oad]
+*.pyc
+*.gdbcomm
+*.so
+
+# editor temporary files
+\#*\#
+*~
+.*.swp
+*.tmp
+*.bak
+*.orig
+*.nfs*

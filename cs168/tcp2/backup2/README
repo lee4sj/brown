@@ -1,0 +1,15 @@
+SeungJi Lee
+Matthew Carroll
+sl136, mcsl
+README
+
+TCP
+
+SLIDING WINDOW
+**READ
+1. recv_buffer:
+   a) buffer size must be divisible by the size of the sequence number space.
+2. buffer_list:
+   a) a linked list is maintained to keep track of received segments that are out of order.
+   b) The merging of segments happens as received. So that the list is maintained fully merged as possible.
+   c) the list is ordered in respected to the sequence number, relation in the modular space.

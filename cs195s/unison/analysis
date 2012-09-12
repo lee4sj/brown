@@ -1,0 +1,16 @@
+SeungJi Lee
+sl136
+ANALYSIS FOR UNISON HANDS ON
+
+
+
+1.
+The fingerprint does not capture when the file is modified. Moreover, there may be collision. In other words, two different files may have the same fingerprint. Also, the fingerprint does not capture the content of the file.
+
+2. Let n be the number of all possible md5sum. Since md5sum does distribute the hashes more or less uniformly, we can assume the uniform distribution of the md5sums of the 100 files. Then, Pr(collision) = 1 - Pr(no collision) = 1 - (n * (n-1) * (n-2) * .... * (n - 99)) / (n^100). This value turns out to be extremely small (almost 0) since n is large (2^128) and 100 is extremely small relative to n. Thus, this is acceptable collision rate.
+
+3. To add network capability, I need to take in acount that the modification time may not be entirely in sync. Thus, I should use some kind of fingerprint to distinguish the files. Moreover, one need to consider the cases of network failures.
+
+4. In case of low-bandwidth connection, I would change the file sychronizer so that I do not have to copy entire files over the network. Usually, changes to a file is small compared to entire file. Thus, I would only propagate the portions that are changed. (Although, this is going to introduce a huge headache to implement)
+
+5. If we were to synchronize the directories, we would have to remove the directories when they are removed from one root directory. We simply use the same guidelines for the directories as the files, except we would have to check for the files inside the directories and distinguish the directories and files since the two use different functions.

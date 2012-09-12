@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my $verbose = 0;
+
+my %node_hosts = ();
+my %node_links = ();
+my %host_ports = ();
+my %link_ports = ();
+
+
+my %link_ips = ();
+my %used_ips;
+
+srand(1);                       # We like determinism
+
+while (<>) {
+  chomp;
+  if (m/^node /) {
+    my (undef, $name, $host) = split;
+    die "$name appears twice\n" if exists $node_hosts{$name};
+    $node_hosts{$name} = $host;
+    $node_links{$name} = [];
+    $host_ports{$host} = 17000;
+    next;
+  }
+  if (m/^(\w+)\s*<->\s*(\w+)/) {
+    my ($left, $right) = ($1, $2);
+    die "$left, in link '$_' does not exist\n" unless $node_hosts{$left};
+    die "$right, in link '$_' does not exist\n" unless $node_hosts{$right};
+    push @{$node_links{$left}}, $right;
+    push @{$node_links{$right}}, $left;
+    next;
+  }
+}
+
+sub dotquad($) {
+  my ($i) = @_;
+  return sprintf("%d.%d.%d.%d", $i>>24, ($i>>16)&255, ($i>>8)&255, $i&255);
+}
+
+sub mac($$) {
+  my ($host, $port) = @_;
+  return "$host:$port";
+}
+
+for my $node (sort keys %node_hosts) {
+  my $host = $node_hosts{$node};
+
+  my $file = "$node.lnx";
+  print "Creating $file\n";
+
+  open LNX, "> $file" or die "$file: $!\n";
+  for my $other_node (@{$node_links{$node}}) {
+    my $other_host = $node_hosts{$other_node};
+
+    my $pair = "$node:$other_node";
+    my $swap = $other_node lt $node;
+    $pair = "$other_node:$node" if $swap;
+
+    my $ports  = $link_ports{$pair};
+    if (! $ports) {
+      my $lport = $host_ports{$host}++;
+      my $rport = $host_ports{$other_host}++;
+      $link_ports{$pair} = $ports = [$lport, $rport];
+    }
+    $ports = [$ports->[1], $ports->[0]] if $swap;
+
+    my $ips = $link_ips{$pair};
+    if (! $ips) {
+      my $ip;
+      do {$ip = 10*2**24 + int rand 2**24;} while $used_ips{$ip};
+      my $lip = dotquad($ip);
+      $used_ips{$ip}++;
+      do {$ip = 10*2**24 + int rand 2**24;} while $used_ips{$ip};
+      my $rip = dotquad($ip);
+      $used_ips{$ip}++;
+      $link_ips{$pair} = $ips = [$lip, $rip];
+    }
+    $ips = [$ips->[1], $ips->[0]] if $swap;
+
+    my $local = mac($host, $ports->[0]);
+    print LNX "$local $ips->[0] ";
+    my $remote = mac($other_host, $ports->[1]);
+    print LNX "$remote $ips->[1]";
+    print LNX " # $node <-> $other_node" if $verbose;
+    print LNX "\n";
+  }
+  close LNX;
+}

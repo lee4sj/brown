@@ -1,0 +1,87 @@
+9/24/2010
+Logisim Diglog ROM Program Loading README
+
+Once the gates, tri-states, buses, and everything else have been laid
+out in a .circ file for your RISC, you must add programs to your ROMs
+so that the proper behavior can be observed.  Program ROMs must output
+the proper opcodes and source/dest bits, and Control ROMs should
+output the proper bits that correspond to your control wires being
+used in RISC.
+
+First, these assembly programs must be written in hex.  An example is
+listed below.
+
+lim  r0,3	-> 0100 0000 00000011	-> 0x4003
+mov  r0,r1	-> 0011 0000 0001 XXXX	-> 0x301X
+add  r0,r0,r1	-> 0000 0000 0000 0001 	-> 0x0001
+lim  r2,-1	-> 0100 0010 11111111	-> 0x42FF
+add  r3,r2,r0	-> 0000 0011 0010 0000	-> 0x0320
+sub  r4,r0,r1	-> 0010 0100 0000 0001	-> 0x2401
+sw   r4,r1	-> 0110 XXXX 0100 0001	-> 0x6X41
+lw   r4,r3	-> 0101 0100 0011 XXXX	-> 0x534X
+
+Note that X means that this field or bit is not used in this instruction, and
+therefore can have any value.
+
+Instruction	   Expected values
+-----------------------------------------------------
+lim  r0,3	; r0:3
+mov  r0,r1	; r0:3, r1:3
+add  r0,r0,r1	; r0:6, r1:3
+lim  r2,-1	; r0:6, r1:3, r2:-1
+add  r3,r2,r0	; r0:6, r1:3, r2:-1 r3:5
+sub  r4,r0,r2	; r0:6, r1:3, r2:-1 r3:5 r4:7
+sw   r4,r1	; r0:6, r1:3, r2:-1 r3:5 r4:7 mem address 7:3
+lw   r4,r3	; r0:6, r1:3, r2:-1 r3:3 r4:7 mem address 7:3
+
+The human-readable assembly instructions must be converted to their
+binary representations and then to hexidecimal charactrs.  In the first line,
+lim has an opcode of 0100, and 3 is represented in binary as 00000011.  
+The 3 is to be placed in register 0, so 0000 is listed.  So now the 
+binary representation is 0100 0000 00000011 or 0100000000000011, which is 
+represented as 4003 in hex.  This is then written in the program rom 
+file, which should have an extension of .img
+
+Note that to save time, you could write an assembler which will just
+automate this process for you.
+
+Once your assembly program has been converted into hex, it should be
+place in a file that looks like the following:
+
+v2.0 raw
+4003 301X 0001 42FF 0320 2401 6X41 534X
+
+Note that these hex codes correspond with the translations made
+above. You can look at the provided .img files for more examples of
+the correct format.
+
+For a control rom, the same procedure should be followed.
+
+Establish a chart of some sort where the operations are listed on the
+left, and the proper output wire bits are listed in corresponding
+columns along the top.  You will have varying control wires because it
+depends on how your control ROMS are set up.
+
+Name these files with .img extensions as well.
+
+Finally, now that the files have been written, they must be loaded
+into the control roms.  Open Logisim and right click on the ROM or RAM
+you want to load the .img file into. Select "Load image..." and select
+the .img file you created. You can verify that the file has been
+loaded correctly by checking that the hex displayed on the ROM or RAM
+in Logisim is correct.
+
+You can then run simulation and have your program tested.
+
+If you prefer, you could also write the hex into the RAM or ROM in
+Logisim itself and then save the file as a .img file.
+
+Testing note: if something is going wrong, you might not know if it's
+a bug in your hardware (the Logisim circuit) or a bug in your software
+(the assembly code). If you feel up to it, you could write a simple
+simulator which reads in assembly code and simulates what the RISC
+machine should do. Once that's working, it'll be much easier to write
+interesting programs. Note that this is not required at all, and you
+won't be graded on it, but it might be worthwhile if you have the
+extra time.
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pushd $(dirname $0) >/dev/null
+SCRIPT_DIR=$(pwd)
+popd >/dev/null
+
+eval $("$SCRIPT_DIR/system-check" -qe)
+
+if [ -z $PYTHON ] ; then
+        echo "$PYTHON_ERROR" >&2
+        exit 1
+else
+	$PYTHON "$SCRIPT_DIR/tools/fsmaker/sh.py" "$@"
+fi

@@ -1,0 +1,12 @@
+# cscope
+cscope.files
+cscope.in.out
+cscope.out
+cscope.po.out
+
+/basefs/staging/*
+!/basefs/staging/default.do
+/staging/
+disk*.img
+*.static
+*.dynamic

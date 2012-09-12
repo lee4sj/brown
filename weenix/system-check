@@ -1,0 +1,296 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname $0)
+
+USAGE="Usage: $0 [OPTION]...
+-h --help           Display this help dialog.
+-q --quiet          Don't output error messages to stderr.
+                    If combined with the -e option error
+                    messages will be stored in a variable
+                    with the same name as the command, but
+                    with the _ERROR suffix (e.g. if an error
+                    with the python command is detected the
+                    PYTHON_ERROR variable will contain a
+                    human readable description of the error.
+                    Note that only errors will be passed like
+                    this, warnings will be lost.
+-e --eval           Output system configuration information
+                    in a form which can be sourced by other
+                    scripts.
+-c --conf <file>    Read system configuration from the given
+                    file. The default is the System.sh file
+                    in the same directory as this script.
+-d --default <file> The default system configuration file, as
+                    distributed with your version of weenix.
+                    This is used to make sure that the configuration
+                    file specified with -c sets all the appropriate
+                    variables. Defaults to <conf file>.default.
+"
+
+TEMP=$(getopt -o hqec: --long help,quiet,eval,conf: -n "$0" -- "$@")
+if [ $? != 0 ] ; then
+	exit 2
+fi
+
+quiet=
+eval=
+conf=
+conf_default=
+eval set -- "$TEMP"
+while true ; do
+	case "$1" in
+		-h|--help) echo "$USAGE" >&2 ; exit 0 ;;
+		-q|--quiet) quiet=1 ; shift 1 ;;
+		-e|--eval) eval=1 ; shift 1 ;;
+		-c|--conf) conf="$2" ; shift 2 ;;
+		-d|--default) conf_default="$2" ; shift 2 ;;
+		--) shift ; break ;;
+		*) echo "Argument error." >&2 ; exit 2 ;;
+	esac
+done
+
+if [[ -z $conf ]]; then
+	conf=$SCRIPT_DIR/System.sh
+	if [[ ! -f "$conf" ]]; then
+		cp "$conf.default" "$conf"
+		if [[ 0 -ne $? ]]; then
+			echo "no default system configuration exists, aborting" >&2
+			exit 1
+		fi
+	fi
+fi
+
+if [[ -z "$conf_default" ]]; then
+	conf_default="$conf.default"
+fi
+
+"$SCRIPT_DIR/conf-check" "$conf" "$conf_default" >&2
+if [[ 0 -ne $? ]]; then
+	exit 1
+fi
+source $conf
+
+function success {
+	local var=$1
+	eval local val=\$$var
+
+	if [[ -n $eval ]]; then
+		echo "$var=\"$val\""
+		if [[ -n $quiet ]]; then
+			echo "${var}_ERROR="
+		fi
+	fi
+}
+
+function error {
+	local var=$1
+	local val=$2
+
+	if [[ -n $quiet ]]; then
+		if [[ -n $eval ]]; then
+			echo "$var="
+			echo "${var}_ERROR=\"$val\""
+		fi
+	else
+		echo "error: $val" >&2
+		if [[ -n $eval ]]; then
+			echo "$var="
+		fi
+	fi
+}
+
+function check-var {
+	local var=$1
+	local default=$2
+	eval local val=\$$var
+	if [[ -z $val ]]; then
+		local tmp=$(which $default 2>/dev/null)
+		if [[ -z $tmp ]]; then
+			if [[ -n $default ]]; then
+				error "$var" "$conf does not specify a value for $var and '$default' cannot be found in PATH"
+			fi
+			return 1
+		else
+			eval $var=$tmp
+			return 0
+		fi
+	else
+		which $val >/dev/null 2>/dev/null
+		if [[ 0 -ne $? ]]; then
+			error "$var" "$conf specifies $var=$val, but $val does not exist"
+			return 1
+		else
+			return 0
+		fi
+	fi
+}
+
+# BINUTILS
+check-var CC gcc
+if [[ 0 -eq $? ]]; then
+	success CC
+fi
+check-var LD ld
+if [[ 0 -eq $? ]]; then
+	success LD
+fi
+check-var AS as
+if [[ 0 -eq $? ]]; then
+	success AS
+fi
+check-var AR ar
+if [[ 0 -eq $? ]]; then
+	success AR
+fi
+check-var OBJCOPY objcopy
+if [[ 0 -eq $? ]]; then
+	success OBJCOPY
+fi
+check-var OBJDUMP objdump
+if [[ 0 -eq $? ]]; then
+	success OBJDUMP
+fi
+check-var STRINGS strings
+if [[ 0 -eq $? ]]; then
+	success STRINGS
+fi
+check-var STRIP strip
+if [[ 0 -eq $? ]]; then
+	success STRIP
+fi
+check-var SIZE size
+if [[ 0 -eq $? ]]; then
+	success SIZE
+fi
+check-var READELF readelf
+if [[ 0 -eq $? ]]; then
+	success READELF
+fi
+check-var ADDR2LINE addr2line
+if [[ 0 -eq $? ]]; then
+	success ADDR2LINE
+fi
+check-var NM nm
+if [[ 0 -eq $? ]]; then
+	success NM
+fi
+
+# gdb
+check-var GDB gdb
+if [[ 0 -eq $? ]]; then
+	GDB_VERSION=$(gdb -v | head -n 1 | sed "s/^.* //")
+	GDB_MAJOR=$(echo $GDB_VERSION | sed "s/\..*//")
+	GDB_MINOR=$(echo $GDB_VERSION | sed "s/[^\.]*\.//" | sed "s/\..*//")
+	if [ \( $GDB_MAJOR -lt 7 \) -o \( \( $GDB_MAJOR -eq 7 \) -a \( $GDB_MINOR -lt 3 \) \) ]; then
+		if [[ -n "$eval" ]]; then
+			echo "USE_PYTHON=0"
+		fi
+		if [[ -z "$quiet" ]]; then
+			echo "warning: some weenix-specific gdb commands are not compatible with version $GDB_VERSION, they require version 7.3 or greater" >&2
+		fi	
+	else
+		if [[ -n "$eval" ]]; then
+			echo "USE_PYTHON=1"
+		fi
+	fi
+	success GDB
+fi
+
+# PYTHON
+check-var PYTHON python
+if [[ 0 -eq $? ]]; then
+	PYTHON_VERSION=$($PYTHON <<EOF
+import platform
+print(platform.python_version())
+EOF
+	)
+
+	PYTHON_MAJOR=$(echo $PYTHON_VERSION | sed "s/\..*//")
+	PYTHON_MINOR=$(echo $PYTHON_VERSION | sed "s/[^\.]*\.//" | sed "s/\..*//")
+	if [ \( $PYTHON_MAJOR -ne 2 \) -o \( $PYTHON_MINOR -lt 6 \) ]; then
+		error "PYTHON" "python binary at '$PYTHON' has version $PYTHON_VERSION, but weenix requires version in the range [2.6, 3.0)"
+	else
+		success PYTHON
+	fi
+fi
+
+# CSCOPE
+check-var CSCOPE cscope
+if [[ 0 -eq $? ]]; then
+	success CSCOPE
+fi
+
+# Emulator detection
+EMULATORS=
+if [[ -z "$quiet" ]]; then
+	echo "available run modes:" >&2
+fi
+
+# QEMU
+QEMU_MODES=
+check-var QEMU
+if [[ 0 -eq $? ]]; then
+	success QEMU
+	QEMU_MODES+="run gdb"
+	if [[ -z "$quiet" ]]; then
+		echo "qemu: $QEMU_MODES" >&2
+	fi
+	if [[ -n "$eval" ]]; then
+		echo "QEMU_MODES=\"$QEMU_MODES\""
+	fi
+	EMULATORS+="qemu "
+fi
+
+# BOCHS
+BOCHS_MODES=
+check-var BOCHS_RUN
+if [[ 0 -eq $? ]]; then
+	success BOCHS_RUN
+	BOCHS_MODES+="run "
+fi
+check-var BOCHS_DBG
+if [[ 0 -eq $? ]]; then
+	success BOCHS_DBG
+	BOCHS_MODES+="dbg "
+fi
+check-var BOCHS_GDB
+if [[ 0 -eq $? ]]; then
+	success BOCHS_GDB
+	BOCHS_MODES+="gdb "
+fi
+if [[ -n "$BOCHS_MODES" ]]; then
+	if [[ -z "$quiet" ]]; then
+		echo "bochs: $BOCHS_MODES" >&2
+	fi
+	if [[ -n "$eval" ]]; then
+		echo "BOCHS_MODES=\"$BOCHS_MODES\""
+	fi
+	EMULATORS+="bochs "
+fi
+
+if [[ -z "$EMULATORS" ]]; then
+	if [[ -z "$quiet" ]]; then
+		echo "error: there are no properly configured emulators" >&2
+	fi
+else
+	if [[ -n "$eval" ]]; then
+		echo "EMULATORS=\"$EMULATORS\""
+	fi
+fi
+
+# Default emulator
+EMULATOR=
+for emul in $EMULATORS
+do
+	if [[ "$emul" == "$DEFAULT_EMULATOR" ]]; then
+		EMULATOR=$DEFAULT_EMULATOR
+	fi
+done
+if [[ -n "$eval" ]]; then
+	echo "DEFAULT_EMULATOR=$EMULATOR"
+fi
+if [[ -z "$quiet" ]]; then
+	if [[ -z "$EMULATOR" ]]; then
+		echo "error: '$DEFAULT_EMULATOR' specified as DEFAULT_EMULATOR in $conf is not a configured emulator" >&2
+	fi
+fi

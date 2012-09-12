@@ -1,0 +1,10 @@
+int a;
+int b;
+a := 10;
+b := 3;
+
+output(a/b);
+
+int a1;
+a1 := 2;
+output(a1);

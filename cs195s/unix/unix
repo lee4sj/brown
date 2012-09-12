@@ -1,0 +1,54 @@
+SeungJi Lee (sl136)
+cs195s
+unix
+
+
+Question 1
+The first command (ls | head -1) works but the second command gives you an error. The problem here is that the second command redirects the output of ls to a file temp, which requires write privilege. Then it reads the temp file and redirects it as an input to head command, which requires read privilege. If you only had a read privilege in the folder and temp file is already created, the second command will print error for the first part of the command (ls), and then print the first line of the content of temp; this is a different behavior then the first command. The second command may overwrite the "temp" file. This becomes a problem if the "temp" file contains valuable information; then, the user loses the information unknowingly.
+
+
+Question 2
+The first command gives you ynyn whereas the second command gives you yynn. What is happening here is that the first command, which was called with ;, first executes the first myyes and then executes the second myyes when the first terminates. However, the second command, with &, calls the two myyes asynchronously. So after calling the first myyes, without waiting for it to finish, the terminal calls the second myyes. This is exactly the expected behavior.
+
+
+Question 3
+The write and read system call does not take the offset as an argument because of the structure of the IO. The system keeps a list of "open" files. In that list is file descriptors and other information about the "open" file; among them is the current offset of the file (not real offset of the physical memory). This is how the Unix system does not take the offset as an argument. To write to a specific offset in a file, one can use seek system call to "seek" to the offset, then call write/read system call.
+
+
+Question 4
+Changing to '.' directory does not change the current working directory. Changing to '..' directory changes the current working directory to the parent of the current working directory.
+
+
+Question 5
+'.' directory is the current working directory. When you want to copy a file to the current directory, you can simply use '.'
+
+
+Question 6
+The Modify and Change sections are different. This changed since I made a change to the entries of the directory. I created files foo and bar, which extends the directory's entries to include foo and bar.
+
+
+Question 7
+Same sections as in question 6 and linkcount are changed this time. These changed since the creation of directory changed the directory entries. Also, the creation of the directory causes '..' inside the new directory to link to the current directory. Thus, the linkcount of the current directory is increased.
+
+
+Question 8
+One reason why symbolic link is useful is that one can link directories using symbolic link whereas the hard links only links files. Also, symbolic links allows linkage between two different disks. However, one disadvantage of the symbolic link is that the linkcount on the inode is not affected by the symlink. For example, say I made a symbolic link named cur to a file named temp.txt. Then, I delete the temp.txt. In case of a hard link, this is not a problem, since the hard link still holds a linkcount to the inode and thus the file is still on the disk. However, in case of the symbolic link, it is broken (ie. 'cur' is broken), since the temp.txt may only be referrenced by the deleted link.
+
+
+Question 9
+I used command 'ps -e | grep less' to find the PID of the less process.
+
+
+Question 10
+The link count of the file that I just deleted is 0. This can happen because the only hard link to the inode is /tmp/foo. The others are the symbolic links.
+
+
+Question 11
+One can simply save the currently open 'less.' Another way to do it is to use the command 'cat 4 > /tmp/foo' in the process's directory.
+
+
+Question 12
+1. 'ps u | rgrep leesj* | sort -k 11'
+2. 'cat /usr/share/dict/words | grep -v [aeiou] | wc -w'
+3. 'echo "1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0" | fmt --width=10'
+4. 'ls -la /etc | grep config | sort -k 5 | head -5'
