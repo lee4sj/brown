@@ -1,0 +1,6 @@
+function out=findstruc(pos,st,~)
+n=size(pos,1); st=[3+(1:n)' double(st)+3]; pos=[-1 -1 0;0 -1 0;0 0 0;pos];
+out=[st(:,2:end)-3 sqrt(sum((pos(st(:,1),:)-pos(st(:,2),:)).^2,2))...
+    angle(pos(st(:,1:3))',pos(st(:,1:3)+n+3)',pos(st(:,1:3)+2*(n+3))')*180/pi...
+    dihedral(pos(st)',pos(st+n+3)',pos(st+2*(n+3))')*180/pi];
+if nargin==3, out(:,1:3)=out(:,1:3)+3;out=[0 -1 -2 0 0 0;1 0 -1 1 0 0;2 1 0 1 90 0;out]; end
