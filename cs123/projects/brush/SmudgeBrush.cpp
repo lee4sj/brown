@@ -34,7 +34,7 @@ SmudgeBrush::SmudgeBrush(BGRA color, int flow, int radius) : QuadraticBrush(colo
 SmudgeBrush::~SmudgeBrush()
 {
     // @TODO: [BRUSH] Be sure not to leak memory!
-    if (temp_buffer != NULL)
+    if (temp_buffer)
         delete[] temp_buffer;
 }
 
@@ -48,7 +48,6 @@ void SmudgeBrush::makeMask()
     //        existing implementations. The choice is yours!
     //
 
-    QuadraticBrush::makeMask();
     temp_buffer = new BGRA[(m_radius * 2 + 1) * (m_radius * 2 + 1)];
 }
 

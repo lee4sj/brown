@@ -20,7 +20,8 @@ QuadraticBrush::QuadraticBrush(BGRA color, int flow, int radius) : Brush(color, 
 QuadraticBrush::~QuadraticBrush()
 {
     // @TODO: [BRUSH] Delete any resources owned by this brush, so you don't leak memory.
-
+    if (m_mask != NULL)
+        delete[] m_mask;
 }
 
 void QuadraticBrush::makeMask()

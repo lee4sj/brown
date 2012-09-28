@@ -85,6 +85,7 @@ void Canvas2D::mouseDown(int x, int y)
 
     if (brush != NULL) {
         delete brush;
+        brush = NULL;
     }
 
     switch (currentBrush) {
@@ -101,6 +102,11 @@ void Canvas2D::mouseDown(int x, int y)
         brush = new SmudgeBrush(currentColor, currentFlow, currentRadius);
         ((SmudgeBrush *)brush)->pickUpPaint(x, y, this);
         break;
+    default:
+        if (brush != NULL)
+            delete brush;
+        brush = NULL;
+        break;
     }
     // you're going to need to leave the alpha value on the canvas itself at 255, but
     // you will need to use the actual alpha value to compute the new color of the pixel
@@ -110,13 +116,21 @@ void Canvas2D::mouseDown(int x, int y)
 void Canvas2D::mouseDragged(int x, int y)
 {
     // TODO: [BRUSH] Mouse interaction for Brush.
+    if (!brush)
+        return;
+
     brush->paintOnce(x, y, this);
 }
 
 void Canvas2D::mouseUp(int x, int y)
 {
     // TODO: [BRUSH] Mouse interaction for Brush.
+    if (!brush)
+        return;
+
     brush->paintOnce(x, y, this);
+    delete brush;
+    brush = NULL;
 }
 
 

@@ -1,0 +1,30 @@
+SeungJi Lee (sl136)
+cs123
+Shape Algorithm
+
+1 Cube
+  1. the parameter 1 = the number of squares
+  2. all of the triangles have the normal vector (0, 0, 1)
+
+2 Cylinder
+  1. The equation of the circle is x^2 + z^2 = (.5)^2.
+     Now changing the variables to polar coordinates, we get x = (.5) * cos(theta) and z = (.5) * sin(theta).
+     Since we are dividing the circle with equal number of points indicated by the parameter 2, we can simply divide (360) by the number indicated by the parameter 2. Then, use it to increment the theta when drawing the circle.
+
+  2. The normal vector of the surface of a sylinder always points out. Thus, the normal vector at point p = (x0, y0, z0) is norm(x0, 0, z0).
+
+
+3 Cone
+  1. At each increase of p1, two triangles are added to the side. Now, when p1 = 1, only one triangle makes up one side of the cone. Thus, we have (2 * p1) - 1 triangles per side.
+
+  2. Please look below for the drawing.
+
+  3. -2
+
+  4. the magnitude of the horizontal component is 2/sqrt(5)
+
+  5. the magnitude of the vertical component is 1/sqrt(5)
+
+
+4 Sphere
+  1. The surface normal of a point p in a sphere is the simply norm(p).
