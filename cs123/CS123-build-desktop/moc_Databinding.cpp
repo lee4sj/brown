@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Databinding.h'
 **
-** Created: Wed Sep 12 20:33:29 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
+** Created: Sat Sep 29 10:30:28 2012
+**      by: The Qt Meta Object Compiler version 62 (Qt 4.6.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -11,7 +11,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'Databinding.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.4. It"
+#error "This file was generated using the moc from 4.6.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_DataBinding[] = {
 
  // content:
-       5,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -85,7 +85,7 @@ void DataBinding::dataChanged()
 static const uint qt_meta_data_IntBinding[] = {
 
  // content:
-       5,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -168,7 +168,7 @@ void IntBinding::updateString(QString _t1)
 static const uint qt_meta_data_FloatBinding[] = {
 
  // content:
-       5,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -251,7 +251,7 @@ void FloatBinding::updateString(QString _t1)
 static const uint qt_meta_data_BoolBinding[] = {
 
  // content:
-       5,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -310,7 +310,7 @@ int BoolBinding::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 static const uint qt_meta_data_ChoiceBinding[] = {
 
  // content:
-       5,       // revision
+       4,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
