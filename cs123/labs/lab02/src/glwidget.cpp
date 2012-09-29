@@ -34,7 +34,22 @@ GLWidget::~GLWidget()
 void GLWidget::renderTarget()
 {
     //TODO: implement this method
+    double angleSize = M_PI/12;
 
+    setTargetPosition(Vector3(0, 0, 3));
+
+    glPushMatrix();
+    glTranslatef(m_targetPos.x, m_targetPos.y, m_targetPos.z);
+
+    glBegin(GL_TRIANGLES);
+    for(double i = 0; i < (2*M_PI); i+=angleSize) {
+        glVertex3f(0, 0, 0);
+        glVertex3f((m_targetRadius * cos(i + angleSize)), (m_targetRadius * sin(i + angleSize)), 0);
+        glVertex3f((m_targetRadius * cos(i)), (m_targetRadius * sin(i)), 0);
+    }
+    glEnd();
+
+    glPopMatrix();
 }
 
 /**
@@ -44,7 +59,14 @@ void GLWidget::renderTarget()
 void GLWidget::renderTargetSphere()
 {
     //TODO: implement this method
+    glPushMatrix();
 
+    glTranslatef(m_targetPos.x, m_targetPos.y, m_targetPos.z);
+    glScalef(m_targetRadius, m_targetRadius, m_targetRadius);
+
+    gluSphere(m_quadric, 1.0, 10, 10);
+
+    glPopMatrix();
 }
 
 /**
@@ -54,7 +76,14 @@ void GLWidget::renderTargetSphere()
 void GLWidget::renderArrowSphere()
 {
     //TODO: implement this method
+    glPushMatrix();
 
+    glTranslatef(m_arrowPos.x, m_arrowPos.y, m_arrowPos.z);
+    glScalef(m_arrowRadius, m_arrowRadius, m_arrowRadius);
+
+    gluSphere(m_quadric, 1.0, 10, 10);
+
+    glPopMatrix();
 }
 
 /**
@@ -486,7 +515,14 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
 }
 
 /**
-  Modifies the angle that the user is looking via deltaX and deltaY
+  Modifies the angle that the user is looking via deltaX and deltaY    double d = sqrt((pos.x - m_targetPos.x) * (pos.x - m_targetPos.x) +
+                    (pos.y - m_targetPos.y) * (pos.y - m_targetPos.y) +
+                    (pos.z - m_targetPos.z) * (pos.z - m_targetPos.z));
+
+    if (d <= m_arrowRadius + m_targetRadius) {
+        m_canCollide = true;
+        m_targetPos = pos;
+    }
   **/
 void GLWidget::rotateCamera(float deltaX, float deltaY)
 {
