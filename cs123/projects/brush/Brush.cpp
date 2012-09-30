@@ -101,13 +101,13 @@ void Brush::paintOnce(int mouse_x, int mouse_y, Canvas2D* canvas)
             int im_y = mouse_y + y;
             if ((0 <= im_x && im_x < width) && (0 <= im_y && im_y < height) &&
                     m_mask[(x + m_radius) + x_size * (y + m_radius)] != 0) {
-                pix[im_x + height * im_y].r = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
-                                                        alpha, m_color.r / (float)255, pix[im_x + height * im_y].r/ (float)255);
-                pix[im_x + height * im_y].g = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
-                                                        alpha, m_color.g / (float)255, pix[im_x + height * im_y].g / (float)255);
-                pix[im_x + height * im_y].b = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
-                                                        alpha, m_color.b / (float)255, pix[im_x + height * im_y].b / (float)255);
-                pix[im_x + height * im_y].a = 255;
+                pix[im_x + width * im_y].r = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                                                        alpha, m_color.r / (float)255, pix[im_x + width * im_y].r/ (float)255);
+                pix[im_x + width * im_y].g = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                                                        alpha, m_color.g / (float)255, pix[im_x + width * im_y].g / (float)255);
+                pix[im_x + width * im_y].b = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                                                        alpha, m_color.b / (float)255, pix[im_x + width * im_y].b / (float)255);
+                pix[im_x + width * im_y].a = 255;
             }
         }
     }

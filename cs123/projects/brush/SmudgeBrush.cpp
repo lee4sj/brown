@@ -96,19 +96,19 @@ void SmudgeBrush::paintOnce(int mouse_x, int mouse_y, Canvas2D* canvas)
             int im_y = mouse_y + y;
             if ((0 <= im_x && im_x < width) && (0 <= im_y && im_y < height) &&
                     m_mask[(x + m_radius) + x_size * (y + m_radius)] != 0) {
-                im[im_x + height * im_y].r = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                im[im_x + width * im_y].r = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
                                                       alpha,
                                                       temp_buffer[(x + m_radius) + x_size * (y + m_radius)].r / (float)255,
-                                                      im[im_x + height * im_y].r / (float)255);
-                im[im_x + height * im_y].g = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                                                      im[im_x + width * im_y].r / (float)255);
+                im[im_x + width * im_y].g = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
                                                       alpha,
                                                       temp_buffer[(x + m_radius) + x_size * (y + m_radius)].g / (float)255,
-                                                      im[im_x + height * im_y].g / (float)255);
-                im[im_x + height * im_y].b = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
+                                                      im[im_x + width * im_y].g / (float)255);
+                im[im_x + width * im_y].b = calcBlend(m_mask[(x + m_radius) + x_size * (y + m_radius)],
                                                       alpha,
                                                       temp_buffer[(x + m_radius) + x_size * (y + m_radius)].b / (float)255,
-                                                      im[im_x + height * im_y].b / (float)255);
-                im[im_x + height * im_y].a = 255;
+                                                      im[im_x + width * im_y].b / (float)255);
+                im[im_x + width * im_y].a = 255;
             }
         }
     }

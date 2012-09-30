@@ -37,9 +37,9 @@ void ConstantBrush::makeMask()
         for (int y = -m_radius; y <= m_radius; y++) {
             //change coordinate relative to the center
             if (x*x + y*y <= radius_sq)
-                m_mask[x_size * (x + m_radius) + (y + m_radius)] = 1;
+                m_mask[(x + m_radius) + x_size * (y + m_radius)] = 1;
             else
-                m_mask[x_size * (x + m_radius) + (y + m_radius)] = 0;
+                m_mask[(x + m_radius) + x_size * (y + m_radius)] = 0;
         }
     }
 }
