@@ -9,7 +9,7 @@
 #define SHAPESSCENE_H
 
 #include "OpenGLScene.h"
-
+#include "shapes/Shapes.h"
 
 /**
 
@@ -61,6 +61,8 @@ private:
 
     CS123SceneLightData  m_light;
     CS123SceneMaterial   m_material;
+
+    Shapes *currentShape;
 
 };
 

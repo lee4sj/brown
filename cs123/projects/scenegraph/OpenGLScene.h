@@ -56,7 +56,6 @@ protected:
     //! Enable the light and perform the necessary glLight*() calls to switch light properties.
     void setLight(const CS123SceneLightData &light);
 
-private:
     Vector4 m_cameraEye;
 
 };

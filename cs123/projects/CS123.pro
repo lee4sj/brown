@@ -1,4 +1,5 @@
-QT += opengl xml
+QT += opengl \
+    xml
 TARGET = CS123
 TEMPLATE = app
 SOURCES += brush/SmudgeBrush.cpp \
@@ -23,8 +24,12 @@ SOURCES += brush/SmudgeBrush.cpp \
     ui/Databinding.cpp \
     ui/Canvas3D.cpp \
     ui/Canvas2D.cpp \
-    main.cpp
-
+    main.cpp \
+    scenegraph/shapes/Cube.cpp \
+    scenegraph/shapes/Shapes.cpp \
+    scenegraph/shapes/Cylinder.cpp \
+    scenegraph/shapes/Cone.cpp \
+    scenegraph/shapes/Sphere.cpp
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -53,24 +58,54 @@ HEADERS += brush/SmudgeBrush.h \
     ui/mainwindow.h \
     ui/Databinding.h \
     ui/Canvas3D.h \
-    ui/Canvas2D.h
+    ui/Canvas2D.h \
+    scenegraph/shapes/Cube.h \
+    scenegraph/shapes/Shapes.h \
+    scenegraph/shapes/Cylinder.h \
+    scenegraph/shapes/Cone.h \
+    scenegraph/shapes/Sphere.h
 FORMS += ui/mainwindow.ui
-INCLUDEPATH += brush camera lib math scenegraph ui
-DEPENDPATH += brush camera lib math scenegraph ui
+INCLUDEPATH += brush \
+    camera \
+    lib \
+    math \
+    scenegraph \
+    ui
+DEPENDPATH += brush \
+    camera \
+    lib \
+    math \
+    scenegraph \
+    ui
 DEFINES += TIXML_USE_STL
-OTHER_FILES +=
+OTHER_FILES += 
 
 # Don't add the -pg flag unless you know what you are doing. It makes QThreadPool freeze on Mac OS X
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CXXFLAGS_WARN_ON -= -Wall
-QMAKE_CXXFLAGS_WARN_ON += -Waddress -Warray-bounds -Wc++0x-compat -Wchar-subscripts -Wformat\
-                          -Wmain -Wmissing-braces -Wparentheses -Wreorder -Wreturn-type \
-                          -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow=1 -Wswitch \
-                          -Wtrigraphs -Wuninitialized -Wunused-label -Wunused-variable \
-                          -Wvolatile-register-var -Wno-extra
-# QMAKE_CXX_FLAGS_WARN_ON += -Wunknown-pragmas -Wunused-function -Wmain
+QMAKE_CXXFLAGS_WARN_ON += -Waddress \
+    -Warray-bounds \
+    -Wc++0x-compat \
+    -Wchar-subscripts \
+    -Wformat \
+    -Wmain \
+    -Wmissing-braces \
+    -Wparentheses \
+    -Wreorder \
+    -Wreturn-type \
+    -Wsequence-point \
+    -Wsign-compare \
+    -Wstrict-aliasing \
+    -Wstrict-overflow=1 \
+    -Wswitch \
+    -Wtrigraphs \
+    -Wuninitialized \
+    -Wunused-label \
+    -Wunused-variable \
+    -Wvolatile-register-var \
+    -Wno-extra
 
-macx {
-    QMAKE_CXXFLAGS_WARN_ON -= -Warray-bounds -Wc++0x-compat
-}
+# QMAKE_CXX_FLAGS_WARN_ON += -Wunknown-pragmas -Wunused-function -Wmain
+macx:QMAKE_CXXFLAGS_WARN_ON -= -Warray-bounds \
+    -Wc++0x-compat

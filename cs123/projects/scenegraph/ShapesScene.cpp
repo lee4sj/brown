@@ -4,6 +4,10 @@
 #include <qgl.h>
 #include <SupportCanvas3D.h>
 
+#include "shapes/Cube.h"
+#include "shapes/Cylinder.h"
+#include "shapes/Cone.h"
+#include "shapes/Sphere.h"
 
 Vector4 lightDirection = Vector4(1, -1, -1, 0).getNormalized();
 
@@ -26,13 +30,16 @@ ShapesScene::ShapesScene()
     m_light.id = 0;
 
     //TODO: [SHAPES] Allocate any additional memory you need...
+    printf("created\n");
 
+    currentShape = NULL;
 }
 
 ShapesScene::~ShapesScene()
 {
     //TODO: [SHAPES] Don't leak memory!
-
+    if (currentShape)
+        delete currentShape;
 }
 
 void ShapesScene::setLights(const Camera *follow)
@@ -67,13 +74,53 @@ void ShapesScene::renderGeometry(bool useMaterials)
     if (useMaterials)
         applyMaterial(m_material);
 
-    // Draw the polygon
-    glBegin(GL_TRIANGLES);
-    glNormal3f(0, 0, 1); // glNormal*() applies to all glVertex*() below it
-    glVertex3f(-1, -1, 0);
-    glVertex3f(+1, -1, 0);
-    glVertex3f(0, +1, 0);
-    glEnd();
+    switch (settings.shapeType) {
+    case SHAPE_CUBE:
+        if (!currentShape)
+            currentShape = new Cube();
+        else if (currentShape->shapeType != SHAPE_CUBE) {
+            delete currentShape;
+            currentShape = new Cube();
+        }
+        break;
+    case SHAPE_CYLINDER:
+        if (!currentShape)
+            currentShape = new Cylinder();
+        else if (currentShape->shapeType != SHAPE_CYLINDER) {
+            delete currentShape;
+            currentShape = new Cylinder();
+        }
+        break;
+    case SHAPE_CONE:
+        if (!currentShape)
+            currentShape = new Cone();
+        else if (currentShape->shapeType != SHAPE_CONE) {
+            delete currentShape;
+            currentShape = new Cone();
+        }
+        break;
+    case SHAPE_SPHERE:
+        if (!currentShape)
+            currentShape = new Sphere();
+        else if (currentShape->shapeType != SHAPE_SPHERE) {
+            delete currentShape;
+            currentShape = new Sphere();
+        }
+        break;
+    default:
+        if (currentShape)
+            delete currentShape;
+        currentShape = NULL;
+    }
+
+    if (!currentShape)
+        return;
+
+    currentShape->renderGeometry(settings.shapeParameter1,
+                                 settings.shapeParameter2,
+                                 settings.shapeParameter3);
+
+
 
 }
 
@@ -86,9 +133,10 @@ void ShapesScene::renderNormals()
     //      this method in.
     //
 
-    Vector4 normal = Vector4(0, 0, 1, 0);
-    renderNormal(Vector4(-1, -1, 0, 1), normal);
-    renderNormal(Vector4(+1, -1, 0, 1), normal);
-    renderNormal(Vector4(0, +1, 0, 1), normal);
+    if (currentShape)
+        currentShape->renderNormals(settings.shapeParameter1,
+                                    settings.shapeParameter2,
+                                    settings.shapeParameter3,
+                                    m_cameraEye);
 }
 
