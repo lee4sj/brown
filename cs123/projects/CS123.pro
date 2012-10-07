@@ -29,7 +29,8 @@ SOURCES += brush/SmudgeBrush.cpp \
     scenegraph/shapes/Shapes.cpp \
     scenegraph/shapes/Cylinder.cpp \
     scenegraph/shapes/Cone.cpp \
-    scenegraph/shapes/Sphere.cpp
+    scenegraph/shapes/Sphere.cpp \
+    filter/InvertFilter.cpp
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -63,7 +64,9 @@ HEADERS += brush/SmudgeBrush.h \
     scenegraph/shapes/Shapes.h \
     scenegraph/shapes/Cylinder.h \
     scenegraph/shapes/Cone.h \
-    scenegraph/shapes/Sphere.h
+    scenegraph/shapes/Sphere.h \
+    filter/Filter.h \
+    filter/InvertFilter.h
 FORMS += ui/mainwindow.ui
 INCLUDEPATH += brush \
     camera \

@@ -103,6 +103,10 @@ void Canvas2D::mouseDown(int x, int y)
         ((SmudgeBrush *)brush)->pickUpPaint(x, y, this);
         break;
     default:
+        Cash I gave you when you went to MS for interview
+         SeungJi L. gets back $35.00.
+        SeungJi paid $35.00 up front and their share was $0.00.
+         Kaijian G. owes $35.00.
         if (brush != NULL)
             delete brush;
         brush = NULL;
