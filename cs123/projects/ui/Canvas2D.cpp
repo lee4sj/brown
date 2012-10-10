@@ -33,6 +33,7 @@
 #include "filter/InvertFilter.h"
 #include "filter/GreyscaleFilter.h"
 #include "filter/EdgeDetectFilter.h"
+#include "filter/BlurFilter.h"
 
 Canvas2D::Canvas2D()
 {
@@ -43,6 +44,7 @@ Canvas2D::Canvas2D()
     filters[FILTER_INVERT] = new InvertFilter();
     filters[FILTER_GREYSCALE] = new GreyscaleFilter();
     filters[FILTER_EDGE_DETECT] = new EdgeDetectFilter();
+    filters[FILTER_BLUR] = new BlurFilter();
 }
 
 Canvas2D::~Canvas2D()
@@ -152,16 +154,12 @@ void Canvas2D::filterImage()
     // TODO: [FILTER] Filter the image. Some example code to get the filter type is provided below.
 
     switch (settings.filterType) {
-    case FILTER_INVERT:
-        filters[FILTER_INVERT]->applyFilter(this);
-        break;
-    case FILTER_GREYSCALE:
-        filters[FILTER_GREYSCALE]->applyFilter(this);
-        break;
     case FILTER_EDGE_DETECT:
         ((EdgeDetectFilter *)filters[FILTER_EDGE_DETECT])->applyFilter(this, settings.edgeDetectThreshold);
         break;
     default:
+        if (filters[settings.filterType])
+            filters[settings.filterType]->applyFilter(this);
         break;
     }
     update();

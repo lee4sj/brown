@@ -33,7 +33,8 @@ SOURCES += brush/SmudgeBrush.cpp \
     filter/InvertFilter.cpp \
     filter/Filter.cpp \
     filter/GreyscaleFilter.cpp \
-    filter/EdgeDetectFilter.cpp
+    filter/EdgeDetectFilter.cpp \
+    filter/BlurFilter.cpp
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -71,7 +72,8 @@ HEADERS += brush/SmudgeBrush.h \
     filter/Filter.h \
     filter/InvertFilter.h \
     filter/GreyscaleFilter.h \
-    filter/EdgeDetectFilter.h
+    filter/EdgeDetectFilter.h \
+    filter/BlurFilter.h
 FORMS += ui/mainwindow.ui
 INCLUDEPATH += brush \
     camera \
