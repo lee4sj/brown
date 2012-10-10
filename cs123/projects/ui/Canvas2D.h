@@ -9,12 +9,14 @@
 #define CANVAS2D_H
 
 #include "SupportCanvas2D.h"
+#include "Settings.h"
 
 class RayScene;
 
 class Camera;
 
 class Brush;
+class Filter;
 
 /*!
    @class Canvas2D
@@ -63,8 +65,7 @@ private:
 
     //TODO: [BRUSH, INTERSECT, RAY] Put your member variables here.
     Brush *brush;
-
-
+    Filter *filters[NUM_FILTER_TYPES];
 };
 
 #endif // CANVAS2D_H

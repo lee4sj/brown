@@ -29,12 +29,20 @@
 #include "brush/QuadraticBrush.h"
 #include "brush/SmudgeBrush.h"
 
+#include "filter/Filter.h"
+#include "filter/InvertFilter.h"
+#include "filter/GreyscaleFilter.h"
+#include "filter/EdgeDetectFilter.h"
+
 Canvas2D::Canvas2D()
 {
     // @TODO: Initialize any pointers in this class here.
     m_scene = NULL;
     brush = NULL;
 
+    filters[FILTER_INVERT] = new InvertFilter();
+    filters[FILTER_GREYSCALE] = new GreyscaleFilter();
+    filters[FILTER_EDGE_DETECT] = new EdgeDetectFilter();
 }
 
 Canvas2D::~Canvas2D()
@@ -103,10 +111,6 @@ void Canvas2D::mouseDown(int x, int y)
         ((SmudgeBrush *)brush)->pickUpPaint(x, y, this);
         break;
     default:
-        Cash I gave you when you went to MS for interview
-         SeungJi L. gets back $35.00.
-        SeungJi paid $35.00 up front and their share was $0.00.
-         Kaijian G. owes $35.00.
         if (brush != NULL)
             delete brush;
         brush = NULL;
@@ -148,12 +152,19 @@ void Canvas2D::filterImage()
     // TODO: [FILTER] Filter the image. Some example code to get the filter type is provided below.
 
     switch (settings.filterType) {
-    case FILTER_BLUR:
-        // ...
+    case FILTER_INVERT:
+        filters[FILTER_INVERT]->applyFilter(this);
         break;
-        // fill in the rest
+    case FILTER_GREYSCALE:
+        filters[FILTER_GREYSCALE]->applyFilter(this);
+        break;
+    case FILTER_EDGE_DETECT:
+        ((EdgeDetectFilter *)filters[FILTER_EDGE_DETECT])->applyFilter(this, settings.edgeDetectThreshold);
+        break;
+    default:
+        break;
     }
-
+    update();
 }
 
 void Canvas2D::setScene(RayScene *scene)

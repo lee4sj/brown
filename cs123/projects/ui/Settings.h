@@ -34,7 +34,7 @@ enum BrushType
 enum FilterType
 {
     FILTER_INVERT,
-    FILTER_GRAYSCALE,
+    FILTER_GREYSCALE,
     FILTER_EDGE_DETECT,
     FILTER_BLUR,
     FILTER_SCALE,
