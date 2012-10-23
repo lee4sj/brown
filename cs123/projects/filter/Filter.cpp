@@ -13,6 +13,19 @@ bool Filter::checkBoundary(QPoint &start, QPoint &end, int width, int height)
         return true;
     }
 
+    //see if start and the end is flipped
+    if (start.x() > end.x()) {
+        int tempX = start.x();
+        start.setX(end.x());
+        end.setX(tempX);
+    }
+
+    if (start.y() > end.y()) {
+        int tempY = start.y();
+        start.setY(end.y());
+        end.setY(tempY);
+    }
+
     if (start.x() < 0) start.setX(0);
     if (start.x() > width) return false; //out of boundary : start.setX(width);
     if (start.y() < 0) start.setY(0);

@@ -13,21 +13,21 @@ void EdgeDetectFilter::computeGx(BGRA *image, float convIm[], QPoint &start, QPo
     float temp[heightConvIm * widthConvIm];
 
     //1. first convolve with [-1 0 1]
-    for (int y = start.y(); y < end.y(); y++) {
-        for (int x = start.x() + 1; x < end.x() - 1; x++) {
-            temp[x + widthConvIm * y] = (-image[(x - 1) + width*y].r + image[(x + 1) + width*y].r) / 255.0;
+    for (int yIm = start.y(), y = 0; yIm < end.y(); yIm++, y++) {
+        for (int xIm = start.x() + 1, x = 1; xIm < end.x() - 1; xIm++, x++) {
+            temp[x + widthConvIm * y] = (-image[(xIm - 1) + width*yIm].r + image[(xIm + 1) + width*yIm].r) / 255.0;
         }
 
         //get the edge cases
         //Using mirror
-        temp[start.x() + widthConvIm * y] = 0;
+        temp[widthConvIm * y] = 0;
 
-        temp[(end.x() - 1) + widthConvIm * y] = 0;
+        temp[(widthConvIm - 1) + widthConvIm * y] = 0;
     }
 
     //2. convolve with [1 2 1]'
-    for (int x = start.x(); x < end.x(); x++) {
-        for (int y = start.y() + 1; y < end.y() - 1; y++) {
+    for (int x = 0; x < widthConvIm; x++) {
+        for (int y = 1; y < heightConvIm - 1; y++) {
             convIm[x + widthConvIm * y] = temp[x + widthConvIm*(y+1)] +
                                           2*temp[x + widthConvIm*y] +
                                           temp[x + widthConvIm*(y-1)];
@@ -35,11 +35,11 @@ void EdgeDetectFilter::computeGx(BGRA *image, float convIm[], QPoint &start, QPo
 
         //get the edge cases
         //Using mirror
-        convIm[x + widthConvIm * start.y()] = 2*temp[x + widthConvIm*(start.y() + 1)] +
-                                              2*temp[x + widthConvIm*start.y()];
+        convIm[x] = 2*temp[x + widthConvIm] +
+                    2*temp[x];
 
-        convIm[x + widthConvIm * (end.y() - 1)] = 2*temp[x + widthConvIm*(end.y() - 1)] +
-                                                  2*temp[x + widthConvIm*(end.y() - 2)];
+        convIm[x + widthConvIm * (heightConvIm - 1)] = 2*temp[x + widthConvIm*(heightConvIm - 1)] +
+                                                  2*temp[x + widthConvIm*(heightConvIm - 2)];
     }
 }
 
@@ -51,33 +51,33 @@ void EdgeDetectFilter::computeGy(BGRA *image, float *convIm, QPoint &start, QPoi
     float temp[heightConvIm * widthConvIm];
 
     //1. first convolve with [1 2 1]
-    for (int y = start.y(); y < end.y(); y++) {
-        for (int x = start.x() + 1; x < end.x() - 1; x++) {
-            temp[x + widthConvIm * y] = (image[(x - 1) + width*y].r +
-                                         2*image[x + width*y].r +
-                                         image[(x + 1) + width*y].r) / 255.0;
+    for (int yIm = start.y(), y = 0; yIm < end.y(); yIm++, y++) {
+        for (int xIm = start.x() + 1, x = 1; xIm < end.x() - 1; xIm++, x++) {
+            temp[x + widthConvIm * y] = (image[(xIm - 1) + width*yIm].r +
+                                         2*image[xIm + width*yIm].r +
+                                         image[(xIm + 1) + width*yIm].r) / 255.0;
         }
 
         //get the edge cases
         //Using mirror
-        temp[start.x() + widthConvIm * y] = (2*image[start.x() + width*y].r +
-                                             2*image[(start.x() + 1) + width*y].r) / 255.0;
+        temp[widthConvIm * y] = (2*image[start.x() + width*yIm].r +
+                                             2*image[(start.x() + 1) + width*yIm].r) / 255.0;
 
-        temp[(end.x() - 1) + widthConvIm * y] = (2*image[(end.x() - 2) + width*y].r +
-                                                 2*image[(end.x() - 1) + width*y].r) / 255.0;
+        temp[(widthConvIm - 1) + widthConvIm * y] = (2*image[(end.x() - 2) + width*yIm].r +
+                                                 2*image[(end.x() - 1) + width*yIm].r) / 255.0;
     }
 
     //2. convolve with [-1 0 1]'
-    for (int x = start.x(); x < end.x(); x++) {
-        for (int y = start.y() + 1; y < end.y() - 1; y++) {
+    for (int x = 0; x < widthConvIm; x++) {
+        for (int y = 1; y < heightConvIm - 1; y++) {
             convIm[x + widthConvIm * y] = -temp[x + widthConvIm*(y+1)] + temp[x + widthConvIm*(y-1)];
         }
 
         //get the edge cases
         //Using mirror
-        convIm[x + widthConvIm * start.y()] = 0;
+        convIm[x] = 0;
 
-        convIm[x + widthConvIm * (end.y() - 1)] = 0;
+        convIm[x + widthConvIm * (heightConvIm - 1)] = 0;
     }
 }
 
@@ -112,7 +112,7 @@ void EdgeDetectFilter::applyFilter(Canvas2D *canvas, double filterSensitivity)
     int indexConvIm = 0;
     for (int x = start.x(); x < end.x(); x++) {
         for (int y = start.y(); y < end.y(); y++) {
-            indexConvIm = x + xSize*y;
+            indexConvIm = x - start.x() + xSize*(y - start.y());
             indexIm = x + width*y;
             val = sqrt(Gx[indexConvIm]*Gx[indexConvIm] + Gy[indexConvIm]*Gy[indexConvIm]) * filterSensitivity ;
             val = fmax(0, fmin(val, 1)) * 255;

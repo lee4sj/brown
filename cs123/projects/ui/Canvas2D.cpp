@@ -34,6 +34,8 @@
 #include "filter/GreyscaleFilter.h"
 #include "filter/EdgeDetectFilter.h"
 #include "filter/BlurFilter.h"
+#include "filter/ScaleFilter.h"
+#include "filter/SharpenFilter.h"
 
 Canvas2D::Canvas2D()
 {
@@ -45,6 +47,8 @@ Canvas2D::Canvas2D()
     filters[FILTER_GREYSCALE] = new GreyscaleFilter();
     filters[FILTER_EDGE_DETECT] = new EdgeDetectFilter();
     filters[FILTER_BLUR] = new BlurFilter();
+    filters[FILTER_SCALE] = new ScaleFilter();
+    filters[FILTER_SPECIAL_1] = new SharpenFilter();
 }
 
 Canvas2D::~Canvas2D()
@@ -157,12 +161,18 @@ void Canvas2D::filterImage()
     case FILTER_EDGE_DETECT:
         ((EdgeDetectFilter *)filters[FILTER_EDGE_DETECT])->applyFilter(this, settings.edgeDetectThreshold);
         break;
+    case FILTER_BLUR:
+        ((BlurFilter *)filters[FILTER_BLUR])->applyFilter(this, settings.blurRadius);
+        break;
+    case FILTER_SCALE:
+        ((ScaleFilter *)filters[FILTER_SCALE])->applyFilter(this, settings.scaleX, settings.scaleY);
+        break;
     default:
         if (filters[settings.filterType])
             filters[settings.filterType]->applyFilter(this);
         break;
     }
-    update();
+    this->update();
 }
 
 void Canvas2D::setScene(RayScene *scene)
