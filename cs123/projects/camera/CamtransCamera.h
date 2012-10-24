@@ -79,6 +79,10 @@ public:
     //! Sets the near and far clip planes for this camera.
     void setClip(float nearPlane, float farPlane);
 
+private:
+    REAL m_aspectRatio, m_heightAngle, m_near, m_far;
+    Vector4 pos;
+    Vector4 u, v, w;
 };
 
 #endif // CAMTRANSCAMERA_H
