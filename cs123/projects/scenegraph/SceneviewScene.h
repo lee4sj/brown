@@ -11,6 +11,9 @@
 #include "OpenGLScene.h"
 #include "SelectionRecorder.h"
 
+#include "shapes/Shapes.h"
+#include "Settings.h"
+
 
 /**
 
@@ -65,6 +68,7 @@ private:
     SelectionRecorder m_selectionRecorder;
     int m_selectionIndex;
 
+    Shapes *shapes[NUM_SHAPE_TYPES];
 };
 
 #endif // SCENEVIEWSCENE_H

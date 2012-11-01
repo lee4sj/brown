@@ -18,6 +18,11 @@ class Camera;
 class CS123ISceneParser;
 
 
+struct SceneListNode {
+    CS123ScenePrimitive primitive;
+    Matrix4x4 mat;
+};
+
 /**
 
  @class Scene
@@ -55,6 +60,11 @@ protected:
 
     /*! Sets the global data for the scene. */
     virtual void setGlobal(const CS123SceneGlobalData &global);
+
+    QList<SceneListNode> *sceneList;
+    QList<CS123SceneLightData> *m_lights;
+    CS123SceneGlobalData m_global;
+
 
 //private:
     //Camera *m_camera;
