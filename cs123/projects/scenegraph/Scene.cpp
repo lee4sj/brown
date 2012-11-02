@@ -25,6 +25,19 @@ void Scene::parse(Scene *sceneToFill, CS123ISceneParser *parser)
     /* Use two stack, one for the transformation and the other for the node.
        Then using the two stack, perform breadth first traversal to form the list. */
 
+    /* Deal with global */
+    CS123SceneGlobalData global;
+    if (parser->getGlobalData(global))
+        sceneToFill->setGlobal(global);
+
+    /* Deal with lights */
+    CS123SceneLightData light;
+    for (int i = 0; i < parser->getNumLights(); i++) {
+        if (parser->getLightData(i, light))
+            sceneToFill->addLight(light);
+    }
+
+    /* Deal with Objects */
     QQueue<CS123SceneNode*> nodeQ;
     QQueue<Matrix4x4> matQ;
 

@@ -12,6 +12,9 @@
 SceneviewScene::SceneviewScene()
 {
     // TODO: [SCENEVIEW] Set up anything you need for your Sceneview scene here...
+
+    memset(shapes, 0, sizeof(Shapes *) * NUM_SHAPE_TYPES);
+
     shapes[SHAPE_CUBE] = new Cube();
     shapes[SHAPE_CONE] = new Cone();
     shapes[SHAPE_SPHERE] = new Sphere();
@@ -37,7 +40,7 @@ void SceneviewScene::setLights(const Camera *follow)
 
     for (int i = 0; i < m_lights->size(); i++) {
         CS123SceneLightData light = m_lights->at(i);
-        OpenGLScene::setLight(light);
+        setLight(light);
     }
 }
 
@@ -55,27 +58,42 @@ void SceneviewScene::renderGeometry(bool useMaterials)
         Matrix4x4 mat = shape.mat;
 
         glMatrixMode(GL_MODELVIEW);
+        glEnable(GL_NORMALIZE);
         glPushMatrix();
+
+        if (useMaterials) {
+            CS123SceneMaterial m = prim.material;
+            m.cAmbient.r *= m_global.ka;
+            m.cAmbient.g *= m_global.ka;
+            m.cAmbient.b *= m_global.ka;
+            m.cDiffuse.r *= m_global.kd;
+            m.cDiffuse.g *= m_global.kd;
+            m.cDiffuse.b *= m_global.kd;
+
+            OpenGLScene::applyMaterial(m);
+        }
+
         switch(prim.type) {
         case PRIMITIVE_CUBE:
-            glMultMatrixd(mat.data);
-            shapes[SHAPE_CUBE]->renderGeometry(30, 30, 30);
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CUBE]->renderGeometry(10, 10, 10);
             break;
         case PRIMITIVE_CONE:
-            glMultMatrixd(mat.data);
-            shapes[SHAPE_CONE]->renderGeometry(30, 30, 30);
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CONE]->renderGeometry(30, 30, 10);
             break;
         case PRIMITIVE_CYLINDER:
-            glMultMatrixd(mat.data);
-            shapes[SHAPE_CYLINDER]->renderGeometry(30, 30, 30);
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CYLINDER]->renderGeometry(30, 30, 10);
             break;
         case PRIMITIVE_TORUS:
             break;
         case PRIMITIVE_SPHERE:
-            glMultMatrixd(mat.data);
-            shapes[SHAPE_SPHERE]->renderGeometry(30, 30, 30);
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_SPHERE]->renderGeometry(30, 30, 10);
             break;
         case PRIMITIVE_MESH:
+
             break;
         }
         glPopMatrix();
@@ -93,6 +111,41 @@ void SceneviewScene::renderNormals()
     // quite right. Your Shapes might be incorrect, and if that's the case, you'll
     // need to go back and fix your buggy shapes code before turning in Sceneview.
     //
+
+    for (int i = 0; i < sceneList->size(); i++) {
+        SceneListNode shape = sceneList->at(i);
+        CS123ScenePrimitive prim = shape.primitive;
+        Matrix4x4 mat = shape.mat;
+
+        glMatrixMode(GL_MODELVIEW);
+        glEnable(GL_NORMALIZE);
+        glPushMatrix();
+
+        switch(prim.type) {
+        case PRIMITIVE_CUBE:
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CUBE]->renderNormals(30, 30, 10, m_cameraEye);
+            break;
+        case PRIMITIVE_CONE:
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CONE]->renderNormals(30, 30, 10, m_cameraEye);
+            break;
+        case PRIMITIVE_CYLINDER:
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_CYLINDER]->renderNormals(30, 30, 10, m_cameraEye);
+            break;
+        case PRIMITIVE_TORUS:
+            break;
+        case PRIMITIVE_SPHERE:
+            glMultMatrixd(mat.getTranspose().data);
+            shapes[SHAPE_SPHERE]->renderNormals(30, 30, 10, m_cameraEye);
+            break;
+        case PRIMITIVE_MESH:
+
+            break;
+        }
+        glPopMatrix();
+    }
 }
 
 

@@ -19,7 +19,7 @@ typedef double REAL;
 #define CS123_MATRIX_NO_ELEMENTS    (M * N)
 #define CS123_MATRIX_SIZE           (sizeof(T) * CS123_MATRIX_NO_ELEMENTS)
 
-#define SQ(x) (x)*(x)
+#define SQ(x) (x)*f(x)
 
 /* These vector operations are used in all other vector classes, so we use the compiler
 to make all the vector operations generic enough that they can be used with specific
