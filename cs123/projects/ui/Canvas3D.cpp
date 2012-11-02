@@ -46,7 +46,7 @@ void Canvas3D::initializeGL()
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 
     // TODO: might want to do this for textured scenes
-    glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
+    //glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
 
     // Hide backfaces so you can tell when triangles are backwards (counter-clockwise
     // triangles will be visible)

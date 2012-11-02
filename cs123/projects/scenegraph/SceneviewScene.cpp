@@ -38,6 +38,9 @@ void SceneviewScene::setLights(const Camera *follow)
     // will most likely be stored in CS123SceneLightData structures.
     //
 
+    for (int i = 0; i < 8; i++)
+        glDisable(GL_LIGHT0 + i);
+
     for (int i = 0; i < m_lights->size(); i++) {
         CS123SceneLightData light = m_lights->at(i);
         setLight(light);
@@ -76,7 +79,7 @@ void SceneviewScene::renderGeometry(bool useMaterials)
         switch(prim.type) {
         case PRIMITIVE_CUBE:
             glMultMatrixd(mat.getTranspose().data);
-            shapes[SHAPE_CUBE]->renderGeometry(10, 10, 10);
+            shapes[SHAPE_CUBE]->renderGeometry(15, 10, 10);
             break;
         case PRIMITIVE_CONE:
             glMultMatrixd(mat.getTranspose().data);
@@ -124,7 +127,7 @@ void SceneviewScene::renderNormals()
         switch(prim.type) {
         case PRIMITIVE_CUBE:
             glMultMatrixd(mat.getTranspose().data);
-            shapes[SHAPE_CUBE]->renderNormals(30, 30, 10, m_cameraEye);
+            shapes[SHAPE_CUBE]->renderNormals(10, 30, 10, m_cameraEye);
             break;
         case PRIMITIVE_CONE:
             glMultMatrixd(mat.getTranspose().data);
@@ -141,7 +144,8 @@ void SceneviewScene::renderNormals()
             shapes[SHAPE_SPHERE]->renderNormals(30, 30, 10, m_cameraEye);
             break;
         case PRIMITIVE_MESH:
-
+            break;
+        default:
             break;
         }
         glPopMatrix();
