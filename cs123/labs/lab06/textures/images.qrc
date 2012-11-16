@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/textures">
+        <file>particle1.bmp</file>
+        <file>particle2.bmp</file>
+        <file>particle3.jpg</file>
+    </qresource>
+</RCC>
