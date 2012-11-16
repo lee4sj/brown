@@ -75,6 +75,28 @@ Matrix4x4 CamtransCamera::getModelviewMatrix() const
     return M3*M4;
 }
 
+Matrix4x4 CamtransCamera::getViewMatrix() const
+{
+    REAL tHeight = tan(m_heightAngle * M_PI / 180 / 2);
+    REAL tWidth = m_aspectRatio * tHeight;
+    Matrix4x4 M2 = Matrix4x4(1/(m_far * tWidth), 0, 0, 0,
+                             0, 1/(m_far * tHeight), 0, 0,
+                             0, 0, 1/m_far, 0,
+                             0, 0, 0, 1);
+
+    Matrix4x4 M3 = Matrix4x4(u.x, u.y, u.z, 0,
+                             v.x, v.y, v.z, 0,
+                             w.x, w.y, w.z, 0,
+                             0, 0, 0, 1);
+
+    Matrix4x4 M4 = Matrix4x4(1, 0, 0, -pos.x,
+                             0, 1, 0, -pos.y,
+                             0, 0, 1, -pos.z,
+                             0, 0, 0, 1);
+
+    return (M4.getInverse() * M3.getInverse() * M2.getInverse());
+}
+
 Vector4 CamtransCamera::getPosition() const
 {
     // @TODO: [CAMTRANS] Fill this in...

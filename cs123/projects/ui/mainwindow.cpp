@@ -289,10 +289,11 @@ void MainWindow::fileOpen()
             CS123XmlSceneParser parser(file.toAscii().data());
             if (parser.parse())
             {
-                SceneviewScene *scene = new SceneviewScene;
+                RayScene *scene = new RayScene;
                 Scene::parse(scene, &parser);
                 ui->canvas3D->setScene(scene); /* ownership transfer of scene pointer - the
                                                   old scene is deleted automatically */
+                ui->canvas2D->setScene(scene, false);
                 ui->showSceneviewInstead->setChecked(true);
 
                 // Set the camera for the new scene

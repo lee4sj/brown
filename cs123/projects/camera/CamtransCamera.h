@@ -43,8 +43,10 @@ public:
     //! Returns the modelview matrix given the current camera settings.
     virtual Matrix4x4 getModelviewMatrix() const;
 
+    virtual Matrix4x4 getViewMatrix() const;
+
     //! Returns the current position of the camera.
-    Vector4 getPosition() const;
+    virtual Vector4 getPosition() const;
 
     //! Returns the current 'look' vector for this camera.
     Vector4 getLook() const;

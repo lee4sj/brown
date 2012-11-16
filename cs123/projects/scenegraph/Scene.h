@@ -17,12 +17,6 @@
 class Camera;
 class CS123ISceneParser;
 
-
-struct SceneListNode {
-    CS123ScenePrimitive primitive;
-    Matrix4x4 mat;
-};
-
 /**
 
  @class Scene

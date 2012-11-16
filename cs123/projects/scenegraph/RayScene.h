@@ -8,19 +8,23 @@
 #ifndef RAYSCENE_H
 #define RAYSCENE_H
 
-#include "Scene.h"
+#include "SceneviewScene.h"
 
 
 /*!
   @class RayScene
   @brief Students will implement this class as necessary in the Ray project.
 **/
-class RayScene : public Scene
+class RayScene : public SceneviewScene
 {
 public:
     RayScene();
     virtual ~RayScene();
 
+    void trace(BGRA *data, Camera *camera, int width, int height);
+
+private:
+    void findEyeRays(QList<Vector4> &eyeRays, int width, int height, Camera *camera);
 };
 
 #endif // RAYSCENE_H

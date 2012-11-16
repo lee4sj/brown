@@ -33,7 +33,7 @@ public:
     Canvas2D();
     virtual ~Canvas2D();
 
-    void setScene(RayScene *scene);
+    void setScene(RayScene *scene, bool del);
 
     //! UI will call this from the button on the "Ray" dock
     void renderImage(Camera *camera, int width, int height);

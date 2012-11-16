@@ -165,5 +165,12 @@ struct CS123SceneNode
    std::vector<CS123SceneNode*> children;
 };
 
+struct SceneListNode
+{
+    CS123ScenePrimitive primitive;
+    Matrix4x4 mat;
+};
+
+
 #endif
 

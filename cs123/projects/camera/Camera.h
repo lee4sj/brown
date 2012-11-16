@@ -39,6 +39,10 @@ public:
     //! Return the modelview matrix for the current camera settings.
     virtual Matrix4x4 getModelviewMatrix() const = 0;
 
+    virtual Matrix4x4 getViewMatrix() const = 0;
+
+    virtual Vector4 getPosition() const = 0;
+
     //
     // The following functions will be called for mouse events on the 3D canvas tab.
     //

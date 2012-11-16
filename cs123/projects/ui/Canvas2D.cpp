@@ -175,9 +175,10 @@ void Canvas2D::filterImage()
     this->update();
 }
 
-void Canvas2D::setScene(RayScene *scene)
+void Canvas2D::setScene(RayScene *scene, bool del)
 {
-    delete m_scene;
+    if (m_scene && del)
+        delete m_scene;
     m_scene = scene;
 }
 
@@ -191,6 +192,10 @@ void Canvas2D::renderImage(Camera *camera, int width, int height)
 
         // If you want the interface to stay responsive, make sure to call
         // QCoreApplication::processEvents() periodically during the rendering
+
+        newImage();
+        resize(width, height);
+        m_scene->trace(this->data(), camera, width, height);
 
     }
 }

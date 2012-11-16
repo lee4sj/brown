@@ -50,6 +50,16 @@ Matrix4x4 OrbitingCamera::getModelviewMatrix() const
     return m_modelviewMatrix;
 }
 
+Matrix4x4 OrbitingCamera::getViewMatrix() const
+{
+    return Matrix4x4::identity();
+}
+
+Vector4 OrbitingCamera::getPosition() const
+{
+    return Vector4(0, 0, 0, 0);
+}
+
 void OrbitingCamera::mouseDown(int x, int y)
 {
     m_oldX = x;

@@ -36,7 +36,8 @@ SOURCES += brush/SmudgeBrush.cpp \
     filter/EdgeDetectFilter.cpp \
     filter/BlurFilter.cpp \
     filter/ScaleFilter.cpp \
-    filter/SharpenFilter.cpp
+    filter/SharpenFilter.cpp \
+    scenegraph/RayThread.cpp
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -77,7 +78,8 @@ HEADERS += brush/SmudgeBrush.h \
     filter/EdgeDetectFilter.h \
     filter/BlurFilter.h \
     filter/ScaleFilter.h \
-    filter/SharpenFilter.h
+    filter/SharpenFilter.h \
+    scenegraph/RayThread.h
 FORMS += ui/mainwindow.ui
 INCLUDEPATH += brush \
     camera \

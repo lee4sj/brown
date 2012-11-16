@@ -28,7 +28,7 @@ void SupportCanvas2D::resize(int width, int height)
     delete m_image;
     m_image = new QImage(width, height, QImage::Format_RGB32 /* this corresponds to the BGRA struct */);
 
-    // set the new image to black
+    // set the new image to blackr
     memset(m_image->bits(), 0, width * height * sizeof(BGRA));
 
     // Reset the marquee when we change canvas size

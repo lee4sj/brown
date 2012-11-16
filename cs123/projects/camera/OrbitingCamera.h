@@ -37,6 +37,9 @@ public:
 
     virtual Matrix4x4 getProjectionMatrix() const;
     virtual Matrix4x4 getModelviewMatrix() const;
+    virtual Matrix4x4 getViewMatrix() const;
+
+    virtual Vector4 getPosition() const;
 
     virtual void mouseDown(int x, int y);
     virtual void mouseDragged(int x, int y);
