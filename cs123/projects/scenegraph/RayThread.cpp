@@ -10,7 +10,9 @@ RayThread::RayThread(QList<SceneListNode> *sceneList,
                      CS123SceneGlobalData global,
                      Vector4 eyePos,
                      QList<Vector4> *eyeRays,
-                     BGRA *data)
+                     BGRA *data,
+                     int start,
+                     int end)
 {
     m_sceneList = sceneList;
     m_lights = lights;
@@ -18,6 +20,8 @@ RayThread::RayThread(QList<SceneListNode> *sceneList,
     m_eyePos = eyePos;
     m_eyeRays = eyeRays;
     m_data = data;
+    m_start = start;
+    m_end = end;
 
     memset(shapes, 0, sizeof(Shapes *) * NUM_SHAPE_TYPES);
 
@@ -50,7 +54,7 @@ void RayThread::run()
     REAL t;
     int index;
     /* for each ray*/
-    for (int i = 0; i < m_eyeRays->size(); i++) {
+    for (int i = m_start; i < m_end; i++) {
         ray = m_eyeRays->at(i);
 
         /* 1) find the closest intersecting object if any */
@@ -66,6 +70,7 @@ void RayThread::run()
         //normalObj.w = 1;
         normalWorld = closestObj.mat.getInverse().getTranspose() * normalObj;
         normalWorld.w = 0;
+        normalWorld.normalize();
 
         intersectionWorld = m_eyePos + ray * t;
 

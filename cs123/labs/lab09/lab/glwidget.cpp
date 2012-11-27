@@ -232,7 +232,7 @@ void GLWidget::paintGL()
     m_shaderPrograms["brightpass"]->bind();
     glBindTexture(GL_TEXTURE_2D, m_framebufferObjects["fbo_1"]->texture());
     renderTexturedQuad(width, height, true);
-    m_shaderPrograms["brightness"]->release();
+    m_shaderPrograms["brightpass"]->release();
     glBindTexture( GL_TEXTURE_2D, 0);
     m_framebufferObjects["fbo_2"]->release();
 

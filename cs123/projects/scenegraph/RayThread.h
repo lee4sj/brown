@@ -16,7 +16,9 @@ public:
               CS123SceneGlobalData global,
               Vector4 eyePos,
               QList<Vector4> *eyeRays,
-              BGRA *data);
+              BGRA *data,
+              int start,
+              int end);
     virtual ~RayThread();
 
     void run();
@@ -28,6 +30,7 @@ private:
     Vector4 m_eyePos;
     QList<Vector4> *m_eyeRays;
     BGRA *m_data;
+    int m_start, m_end;
 
     Shapes *shapes[NUM_SHAPE_TYPES];
 

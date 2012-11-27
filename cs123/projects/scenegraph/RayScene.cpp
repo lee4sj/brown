@@ -36,9 +36,31 @@ void RayScene::trace(BGRA *data, Camera *camera, int width, int height)
     Vector4 eyePos = camera->getPosition();
 
     /* 2. For each ray, compute */
-    RayThread *rayThread = new RayThread(sceneList, m_lights, m_global, eyePos, &eyeRays, data);
+
     QThreadPool *threadPool = QThreadPool::globalInstance();
-    threadPool->start(rayThread);
+
+    if (settings.useMultiThreading) {
+        int numCPU = sysconf( _SC_NPROCESSORS_ONLN );
+        int stepSize = eyeRays.size() / numCPU;
+        int begin, end;
+        RayThread *rayThread;
+
+        for (int i = 0; i < numCPU-1; i++) {
+            begin = i * stepSize;
+            end = (i+1) * stepSize - 1;
+            rayThread = new RayThread(sceneList, m_lights, m_global, eyePos, &eyeRays, data, begin, end);
+            threadPool->start(rayThread);
+        }
+
+        begin = (numCPU-1) * stepSize;
+        rayThread = new RayThread(sceneList, m_lights, m_global, eyePos, &eyeRays, data, begin, eyeRays.size());
+        threadPool->start(rayThread);
+    }
+    else {
+        RayThread *rayThread = new RayThread(sceneList, m_lights, m_global, eyePos, &eyeRays, data, 0, eyeRays.size());
+        threadPool->start(rayThread);
+    }
+
     threadPool->waitForDone();
 }
 
