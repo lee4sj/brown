@@ -38,6 +38,10 @@ RayThread::RayThread(QList<SceneListNode> *sceneList,
 
 RayThread::~RayThread()
 {
+    map<string, QImage *>::iterator it;
+    for (it = m_texturesAll.begin(); it != m_texturesAll.end(); it++)
+        delete (*it).second;
+
     m_texturesAll.clear();
     for (int i = 0; i < NUM_SHAPE_TYPES; i++) {
         if (shapes[i])
