@@ -12,8 +12,6 @@ ParticleEmitter::ParticleEmitter(GLuint textureId, float3 color, float3 velocity
 
     for (unsigned i = 0; i < m_maxParticles; ++i)
         m_particles[i].active = false;
-
-    numTimes = 0;
 }
 
 ParticleEmitter::~ParticleEmitter()
@@ -24,6 +22,7 @@ ParticleEmitter::~ParticleEmitter()
         m_particles = 0;
     }
 
+    glDeleteTextures(1, &m_textureID);
 }
 
 /**
@@ -35,6 +34,7 @@ ParticleEmitter::~ParticleEmitter()
 void ParticleEmitter::resetParticle(unsigned i)
 {
     m_particles[i].pos.zero();
+
     m_particles[i].life = 1;
     m_particles[i].decay = urand(.0025, .15);
     m_particles[i].color = m_color;
@@ -94,17 +94,11 @@ void ParticleEmitter::updateParticles()
 void ParticleEmitter::drawParticles()
 {
     //Put your code here
-    if( numTimes == 0)
-    {
-        glEnable(GL_ACCUM);
-        glClearAccum(0,0,0,0);
-
-        glClear(GL_ACCUM_BUFFER_BIT);
-        numTimes = 1;
-    }
+    glAccum(GL_MULT, 1);
+    glAccum(GL_ACCUM, 1);
     glAccum(GL_RETURN, 1);
     glDisable(GL_DEPTH_TEST);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     glEnable(GL_BLEND);
     glDepthMask(false);
 

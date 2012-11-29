@@ -59,7 +59,6 @@ protected:
     QTimer *m_timer;
     /** Contains the camera's current position and orientation */
     Camera *m_camera;
-    GLuint m_textureID;
 
 protected slots:
     void mouseDragEvent(QMouseEvent *event){ Q_UNUSED(event); }

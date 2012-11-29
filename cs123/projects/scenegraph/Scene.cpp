@@ -98,7 +98,11 @@ void Scene::parse(Scene *sceneToFill, CS123ISceneParser *parser)
 
 void Scene::addPrimitive(const CS123ScenePrimitive &scenePrimitive, const Matrix4x4 &matrix)
 {
-    SceneListNode listNode = {scenePrimitive, matrix};
+    SceneListNode listNode = {scenePrimitive, matrix, (*scenePrimitive.material.textureMap)};
+//    listNode.textureMap.isUsed = scenePrimitive.material.textureMap->isUsed;
+//    listNode.textureMap.filename = scenePrimitive.material.textureMap->filename;
+//    listNode.textureMap.repeatU = scenePrimitive.material.textureMap->repeatU;
+//    listNode.textureMap.repeatV = scenePrimitive.material.textureMap->repeatV;
     sceneList->append(listNode);
 }
 

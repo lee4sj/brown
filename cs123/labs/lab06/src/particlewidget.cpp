@@ -37,7 +37,6 @@ ParticleWidget::~ParticleWidget()
     SAFE_DELETE(m_camera);
     SAFE_DELETE(m_emitter);
     makeCurrent();
-    glDeleteTextures(1, &m_textureID);
 }
 
 /**
@@ -55,6 +54,7 @@ GLuint ParticleWidget::loadTexture(const QString &path)
     image.load(file.fileName());
     texture = QGLWidget::convertToGLFormat(image);
 
+    //Put your code here
     GLuint ID = 0;
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);
@@ -62,8 +62,10 @@ GLuint ParticleWidget::loadTexture(const QString &path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture.width(), texture.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, texture.bits() );
-    m_textureID = ID;
-    return ID; /* return something meaningful */
+
+    return ID;
+    
+    /* return something meaningful */
 }
 
 /**
@@ -76,10 +78,10 @@ void ParticleWidget::initializeGL()
 {
     glClearColor(0.0f,0.0f,0.0f,0.0f);
 
-    m_emitter = new ParticleEmitter(loadTexture(":/textures/particle1.bmp"));
+    m_emitter = new ParticleEmitter(loadTexture(":/textures/particle2.bmp"));
     glDisable(GL_DITHER);
     glDisable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
+
 
     updateCamera();
     emit _glInit(); //leave this

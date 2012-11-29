@@ -169,6 +169,7 @@ struct SceneListNode
 {
     CS123ScenePrimitive primitive;
     Matrix4x4 mat;
+    CS123SceneFileMap textureMap;
 };
 
 

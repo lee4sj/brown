@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Canvas3D.h'
 **
-** Created: Fri Nov 16 10:27:17 2012
+** Created: Wed Nov 28 03:43:17 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.3)
 **
 ** WARNING! All changes made in this file will be lost!

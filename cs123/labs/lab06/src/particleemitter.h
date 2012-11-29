@@ -133,7 +133,6 @@ protected:
     float3 m_velocity;
     /** The force vector applied to every particle emitted into the scene */
     float3 m_force;
-    int numTimes;
 };
 
 
