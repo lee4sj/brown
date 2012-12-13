@@ -37,7 +37,10 @@ SOURCES += brush/SmudgeBrush.cpp \
     filter/BlurFilter.cpp \
     filter/ScaleFilter.cpp \
     filter/SharpenFilter.cpp \
-    scenegraph/RayThread.cpp
+    scenegraph/RayThread.cpp \
+    final/FractalTree.cpp \
+    final/BranchCylinder.cpp \
+    final/term/circle.cc
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -79,7 +82,10 @@ HEADERS += brush/SmudgeBrush.h \
     filter/BlurFilter.h \
     filter/ScaleFilter.h \
     filter/SharpenFilter.h \
-    scenegraph/RayThread.h
+    scenegraph/RayThread.h \
+    final/FractalTree.h \
+    final/BranchCylinder.h \
+    final/term/circle.hh
 FORMS += ui/mainwindow.ui
 INCLUDEPATH += brush \
     camera \

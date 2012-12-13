@@ -9,6 +9,8 @@
 #include "shapes/Cone.h"
 #include "shapes/Sphere.h"
 
+#include "final/FractalTree.h"
+
 Vector4 lightDirection = Vector4(1, -1, -1, 0).getNormalized();
 
 ShapesScene::ShapesScene()
@@ -33,6 +35,8 @@ ShapesScene::ShapesScene()
     printf("created\n");
 
     currentShape = NULL;
+    tree = new FractalTree();
+
 }
 
 ShapesScene::~ShapesScene()
@@ -40,6 +44,8 @@ ShapesScene::~ShapesScene()
     //TODO: [SHAPES] Don't leak memory!
     if (currentShape)
         delete currentShape;
+
+    delete tree;
 }
 
 void ShapesScene::setLights(const Camera *follow)
@@ -74,44 +80,54 @@ void ShapesScene::renderGeometry(bool useMaterials)
     if (useMaterials)
         applyMaterial(m_material);
 
-    switch (settings.shapeType) {
-    case SHAPE_CUBE:
-        if (!currentShape)
-            currentShape = new Cube();
-        else if (currentShape->shapeType != SHAPE_CUBE) {
-            delete currentShape;
-            currentShape = new Cube();
-        }
-        break;
-    case SHAPE_CYLINDER:
-        if (!currentShape)
-            currentShape = new Cylinder();
-        else if (currentShape->shapeType != SHAPE_CYLINDER) {
-            delete currentShape;
-            currentShape = new Cylinder();
-        }
-        break;
-    case SHAPE_CONE:
-        if (!currentShape)
-            currentShape = new Cone();
-        else if (currentShape->shapeType != SHAPE_CONE) {
-            delete currentShape;
-            currentShape = new Cone();
-        }
-        break;
-    case SHAPE_SPHERE:
-        if (!currentShape)
-            currentShape = new Sphere();
-        else if (currentShape->shapeType != SHAPE_SPHERE) {
-            delete currentShape;
-            currentShape = new Sphere();
-        }
-        break;
-    default:
-        if (currentShape)
-            delete currentShape;
-        currentShape = NULL;
-    }
+//    switch (settings.shapeType) {
+//    case SHAPE_CUBE:
+//        if (!currentShape)
+//            currentShape = new Cube();
+//        else if (currentShape->shapeType != SHAPE_CUBE) {
+//            delete currentShape;
+//            currentShape = new Cube();
+//        }
+//        break;
+//    case SHAPE_CYLINDER:
+//        if (!currentShape)
+//            currentShape = new Cylinder();
+//        else if (currentShape->shapeType != SHAPE_CYLINDER) {
+//            delete currentShape;
+//            currentShape = new Cylinder();
+//        }
+//        break;
+//    case SHAPE_CONE:
+//        if (!currentShape)
+//            currentShape = new Cone();
+//        else if (currentShape->shapeType != SHAPE_CONE) {
+//            delete currentShape;
+//            currentShape = new Cone();
+//        }
+//        break;
+//    case SHAPE_SPHERE:
+//        if (!currentShape)
+//            currentShape = new Sphere();
+//        else if (currentShape->shapeType != SHAPE_SPHERE) {
+//            delete currentShape;
+//            currentShape = new Sphere();
+//        }
+//        break;
+
+//    case SHAPE_SPECIAL_1:
+//        tree->generateTree();
+//        break;
+
+//    default:
+//        if (currentShape)
+//            delete currentShape;
+//        currentShape = NULL;
+//        break;
+//    }
+
+    tree->generateTree();
+
+
 
     if (!currentShape)
         return;

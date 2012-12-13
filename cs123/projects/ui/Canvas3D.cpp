@@ -61,7 +61,6 @@ void Canvas3D::initializeGL()
     getOrbitingCamera()->updateMatrices();
 }
 
-
 void Canvas3D::paintGL()
 {
     OpenGLScene *glScene = this->getScene();
@@ -82,7 +81,6 @@ void Canvas3D::paintGL()
         getCamera()->setAspectRatio((float)width() / (float)height());
 
         glScene->render(this);
-
     }
     else
     {

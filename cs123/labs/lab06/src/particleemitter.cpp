@@ -94,9 +94,7 @@ void ParticleEmitter::updateParticles()
 void ParticleEmitter::drawParticles()
 {
     //Put your code here
-    glAccum(GL_MULT, 1);
-    glAccum(GL_ACCUM, 1);
-    glAccum(GL_RETURN, 1);
+
     glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     glEnable(GL_BLEND);
@@ -125,5 +123,7 @@ void ParticleEmitter::drawParticles()
     glDepthMask(true);
     glAccum(GL_MULT, .6);
     glAccum(GL_ACCUM, .3);
+    glAccum(GL_RETURN, 1);
+
 
 }

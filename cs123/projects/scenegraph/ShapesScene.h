@@ -33,6 +33,9 @@
  @date    9/1/2010
 
 **/
+
+class FractalTree;
+
 class ShapesScene : public OpenGLScene
 {
 public:
@@ -63,7 +66,7 @@ private:
     CS123SceneMaterial   m_material;
 
     Shapes *currentShape;
-
+    FractalTree *tree;
 };
 
 #endif // SHAPESSCENE_H
