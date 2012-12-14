@@ -1,0 +1,1 @@
+cat tree-stringy.dna noanimate.dna noanimate.dna noanimate.dna animate-long-fern.dna weirdo.dna noanimate.dna noanimate.dna noanimate.dna animate-long.dna tree-3.dna noanimate.dna noanimate.dna noanimate.dna noanimate.dna tree-2.dna noanimate.dna noanimate.dna noanimate.dna noanimate.dna | ./pongish 0,-50,100,0,160 1,-400,0,0,0 2,800,100,0,0 2,600,300,0,180 3,-800,100,0,0

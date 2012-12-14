@@ -9,6 +9,8 @@
 #define CANVAS3D_H
 
 #include "SupportCanvas3D.h"
+#include <QHash>
+#include <QGLShaderProgram>
 
 /*!
    @class Canvas3D
@@ -31,6 +33,18 @@ public:
     //! This will be called when the settings have changed
     virtual void settingsChanged();
 
+private:
+    virtual void initializeResources();
+    void loadCubeMap();
+    GLuint loadTexture(const QString &filename);
+
+
+    // Resources
+    QHash<QString, QGLShaderProgram *> m_shaderPrograms; // hash map of all shader programs
+    QHash<QString, GLuint> m_textures;
+    GLuint m_skybox; // skybox call list ID
+    GLuint m_cubeMap; // cubeMap texture ID
+    QFont m_font; // font for rendering tex
 };
 
 #endif // CANVAS3D_H

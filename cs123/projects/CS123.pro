@@ -40,7 +40,8 @@ SOURCES += brush/SmudgeBrush.cpp \
     scenegraph/RayThread.cpp \
     final/FractalTree.cpp \
     final/BranchCylinder.cpp \
-    final/term/circle.cc
+    final/term/circle.cc \
+    final/resourceloader.cpp
 HEADERS += brush/SmudgeBrush.h \
     brush/QuadraticBrush.h \
     brush/LinearBrush.h \
@@ -85,7 +86,10 @@ HEADERS += brush/SmudgeBrush.h \
     scenegraph/RayThread.h \
     final/FractalTree.h \
     final/BranchCylinder.h \
-    final/term/circle.hh
+    final/term/circle.hh \
+    final/resourceloader.h \
+    final/glm.h \
+    math/vector.h
 FORMS += ui/mainwindow.ui
 INCLUDEPATH += brush \
     camera \
@@ -100,7 +104,9 @@ DEPENDPATH += brush \
     scenegraph \
     ui
 DEFINES += TIXML_USE_STL
-OTHER_FILES += 
+OTHER_FILES += \ 
+    final/bump.vert \
+    final/bump.frag
 
 # Don't add the -pg flag unless you know what you are doing. It makes QThreadPool freeze on Mac OS X
 QMAKE_CXXFLAGS_RELEASE -= -O2

@@ -76,6 +76,9 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
     double yStep = length/(double)param1;
     double thetaStep = 2*M_PI/((double)param2 + 2);
 
+    double totalLength = length * (rStart/ rEnd);
+    Vector3 normal(0.0,totalLength,0.0);
+
     double x;
 //    double y = -0.5;
     double z;
@@ -106,10 +109,26 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
             xNextRNext = (r - rStep) * cos(theta - thetaStep);
             zNextRNext = (r - rStep) * sin(theta - thetaStep);
 
-            normX = cos(theta)/sqrt(5.0/4);
-            normZ = sin(theta)/sqrt(5.0/4);
-            normXNext = cos(theta - thetaStep)/sqrt(5.0/4);
-            normZNext = sin(theta - thetaStep)/sqrt(5.0/4);
+//            normal.x = cos(theta)*rStart;
+//            normal.z = sin(theta)*rStart;
+//            normal.normalize();
+//            normX = normal.x;
+//            normZ = normal.z;
+//            normal = Vector3(cos(theta - thetaStep)*rStart, totalLength, sin(theta - thetaStep)*rStart);
+//            normal.normalize();
+//            normXNext = normal.x;
+//            normZNext = normal.z;
+
+//            normX = cos(theta)/sqrt(5.0/4);
+//            normZ = sin(theta)/sqrt(5.0/4);
+//            normXNext = cos(theta - thetaStep)/sqrt(5.0/4);
+//            normZNext = sin(theta - thetaStep)/sqrt(5.0/4);
+
+            normX = cos(theta);
+            normZ = sin(theta);
+            normXNext = cos(theta-thetaStep);
+            normZNext = sin(theta-thetaStep);
+            normY = 0;
 
             glNormal3f(normX, normY, normZ);
             glVertex3f(x, y, z);
@@ -173,3 +192,42 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
     glEnd();
 
 }
+
+
+
+void BranchCylinder::renderNormals(float length, double rStart, double rEnd)
+{
+    int param1 = 10;
+    int param2 = 10;
+
+    double rStep = (rStart - rEnd)/(double)param1;
+    double yStep = length/(double)param1;
+    double thetaStep = 2*M_PI/((double)param2 + 2);
+
+    double totalLength = length * (rStart/ rEnd) / (rStart/rEnd - 1);
+    Vector4 normal(0.0,totalLength,0.0, 0.0);
+
+    double x, z;
+    double r = rStart;
+
+    for (double y = 0; y <= length - yStep/2; y += yStep) {
+        for (double theta = 2*M_PI; theta > 0; theta -= thetaStep) {
+            x = r * cos(theta);
+            z = r * sin(theta);
+
+//            normal.x = cos(theta)*rStart;
+//            normal.z = sin(theta)*rStart;
+//            normal.normalize();
+
+//            Vector4 curPos(x, y, z, 1.0);
+//            renderNormal(curPos, normal);
+
+
+            Vector4 normal = Vector4(cos(theta) / sqrt(5.0/4), 1.0/(2 * sqrt(5.0/4)), sin(theta) / sqrt(5.0/4), 1);
+            Vector4 curPos(x, y, z, 1.0);
+            renderNormal(curPos, normal);
+        }
+        r -= rStep;
+    }
+}
+

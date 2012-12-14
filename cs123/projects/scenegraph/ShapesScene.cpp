@@ -61,6 +61,13 @@ void ShapesScene::setLights(const Camera *follow)
         glDisable(GL_LIGHT0 + id);
 
     m_light.dir = lightDirection * follow->getModelviewMatrix().getInverse().getTranspose();
+    m_light.color.r = 1.0;
+    m_light.color.g = 1.0;
+    m_light.color.b = 1.0;
+
+    m_light.pos.x = 3.0;
+    m_light.pos.y = 3.0;
+    m_light.pos.z = 3.0;
 
     // Load one light in the upper left (subclasses will have to load lights
     // for sceneview anyway, so they will overwrite this light).
@@ -80,52 +87,55 @@ void ShapesScene::renderGeometry(bool useMaterials)
     if (useMaterials)
         applyMaterial(m_material);
 
-//    switch (settings.shapeType) {
-//    case SHAPE_CUBE:
-//        if (!currentShape)
-//            currentShape = new Cube();
-//        else if (currentShape->shapeType != SHAPE_CUBE) {
-//            delete currentShape;
-//            currentShape = new Cube();
-//        }
-//        break;
-//    case SHAPE_CYLINDER:
-//        if (!currentShape)
-//            currentShape = new Cylinder();
-//        else if (currentShape->shapeType != SHAPE_CYLINDER) {
-//            delete currentShape;
-//            currentShape = new Cylinder();
-//        }
-//        break;
-//    case SHAPE_CONE:
-//        if (!currentShape)
-//            currentShape = new Cone();
-//        else if (currentShape->shapeType != SHAPE_CONE) {
-//            delete currentShape;
-//            currentShape = new Cone();
-//        }
-//        break;
-//    case SHAPE_SPHERE:
-//        if (!currentShape)
-//            currentShape = new Sphere();
-//        else if (currentShape->shapeType != SHAPE_SPHERE) {
-//            delete currentShape;
-//            currentShape = new Sphere();
-//        }
-//        break;
+    switch (settings.shapeType) {
+    case SHAPE_CUBE:
+        if (!currentShape)
+            currentShape = new Cube();
+        else if (currentShape->shapeType != SHAPE_CUBE) {
+            delete currentShape;
+            currentShape = new Cube();
+        }
+        break;
+    case SHAPE_CYLINDER:
+        if (!currentShape)
+            currentShape = new Cylinder();
+        else if (currentShape->shapeType != SHAPE_CYLINDER) {
+            delete currentShape;
+            currentShape = new Cylinder();
+        }
+        break;
+    case SHAPE_CONE:
+        if (!currentShape)
+            currentShape = new Cone();
+        else if (currentShape->shapeType != SHAPE_CONE) {
+            delete currentShape;
+            currentShape = new Cone();
+        }
+        break;
+    case SHAPE_SPHERE:
+        if (!currentShape)
+            currentShape = new Sphere();
+        else if (currentShape->shapeType != SHAPE_SPHERE) {
+            delete currentShape;
+            currentShape = new Sphere();
+        }
+        break;
 
-//    case SHAPE_SPECIAL_1:
-//        tree->generateTree();
-//        break;
+    case SHAPE_SPECIAL_1:
+        if (currentShape) {
+            delete currentShape;
+            currentShape = NULL;
+        }
+        tree->generateTree();
+        break;
 
-//    default:
-//        if (currentShape)
-//            delete currentShape;
-//        currentShape = NULL;
-//        break;
-//    }
-
-    tree->generateTree();
+    default:
+        if (currentShape)
+            delete currentShape;
+        currentShape = NULL;
+        break;
+    }
+//    tree->generateTree();
 
 
 
@@ -154,5 +164,7 @@ void ShapesScene::renderNormals()
                                     settings.shapeParameter2,
                                     settings.shapeParameter3,
                                     m_cameraEye);
+    if (tree)
+        tree->renderNormal();
 }
 

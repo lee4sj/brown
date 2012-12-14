@@ -1,0 +1,13 @@
+ReadMe
+------------------------------------------
+Brett Foster
+0239553
+
+make all - Makes the application
+make test-precompute - Runs the test application
+make tree-type test - Generates a tree and displays it.
+
+********
+Please review readme.pdf for a description of the work, the
+progress made, and a description of the available commands.
+********

@@ -257,8 +257,8 @@ struct vec4 {
     };
 };
 
-#define Vector2 vec2<REAL>
-#define Vector3 vec3<REAL>
+//#define Vector2 vec2<REAL>
+//#define Vector3 vec3<REAL>
 #define Vector4 vec4<REAL>
 
 /* Include inline implementations */
@@ -523,4 +523,6 @@ extern Matrix4x4 getInvRotMat  (const Vector4 &p, const Vector4 &v, const REAL a
 //@}-----------------------------------------------------------------------------
 
 #endif // __CS123_ALGEBRA_H__
+
+#include "vector.h"
 

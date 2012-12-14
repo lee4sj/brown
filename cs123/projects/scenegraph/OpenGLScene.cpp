@@ -131,9 +131,9 @@ void OpenGLScene::setLight(const CS123SceneLightData &light)
     glLightfv(id, GL_AMBIENT, zero);
     glLightfv(id, GL_DIFFUSE, &light.color.r);
     glLightfv(id, GL_SPECULAR, &light.color.r);
-    glLightf(id, GL_CONSTANT_ATTENUATION, light.function.data[0]);
-    glLightf(id, GL_LINEAR_ATTENUATION, light.function.data[1]);
-    glLightf(id, GL_QUADRATIC_ATTENUATION, light.function.data[2]);
+    glLightf(id, GL_CONSTANT_ATTENUATION, light.function.x);//.data[0]);
+    glLightf(id, GL_LINEAR_ATTENUATION, light.function.y);//.data[1]);
+    glLightf(id, GL_QUADRATIC_ATTENUATION, light.function.z);//.data[2]);
 
     if (glIsEnabled(id))
         cout << "warning: GL_LIGHT" << light.id << " enabled more than once, not supposed to happen" << endl;

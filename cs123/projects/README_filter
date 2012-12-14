@@ -1,0 +1,8 @@
+SeungJi Lee
+sl136
+cs123
+filter
+
+1. Gaussian kernel is used for blur filter
+2. For fast computation, I tried to minimize branching code inside the for loop.
+3. For the special filter, the sharpen filter is choosen. (kernel [-1 -1 -1; -1 9 -1; -1 -1 -1] is used to "sharpen" or accent the difference between the pixel and its neighbors. )

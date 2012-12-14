@@ -5,6 +5,10 @@
 #include <OrbitingCamera.h>
 #include <OpenGLScene.h>
 
+#include <QDir>
+
+#include "final/resourceloader.h"
+
 Canvas3D::Canvas3D(QWidget *parent) : SupportCanvas3D(parent)
 {
 
@@ -20,6 +24,19 @@ Canvas3D::~Canvas3D()
 
 void Canvas3D::initializeGL()
 {
+    //final
+    glEnable(GL_TEXTURE_2D);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+
+    glDisable(GL_DITHER);
+
+    glDisable(GL_LIGHTING);
+    glShadeModel(GL_SMOOTH);
+
+
     // Track the camera settings so we can generate deltas
     m_oldPosX = settings.cameraPosX;
     m_oldPosY = settings.cameraPosY;
@@ -57,9 +74,140 @@ void Canvas3D::initializeGL()
     static float one[] = { 1, 1, 1, 1 };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, one);
 
+    initializeResources();
+
     // Calculate the orbiting camera matrices now that the OpenGL context is created.
     getOrbitingCamera()->updateMatrices();
 }
+
+void Canvas3D::initializeResources()
+{
+    m_skybox = ResourceLoader::loadSkybox();
+    cout << "Loaded skybox..." << endl;
+
+    loadCubeMap();
+    cout << "Loaded cube map..." << endl;
+
+    const QGLContext *ctx = context();
+    m_shaderPrograms["bump"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/bump.vert",
+                                                                "../projects/final/bump.frag");
+    m_shaderPrograms["reflect"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/reflect.vert",
+                                                                   "../final/shaders/reflect.frag");
+    m_shaderPrograms["refract"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/refract.vert",
+                                                                   "../final/shaders/refract.frag");
+
+
+
+
+    //prepare textures
+    QImage bump_base, bump_temp;
+    GLuint textureId;
+
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+////    bump_base.load("textures/ship_texture.png");
+//    bump_base.load("textures/NormalMap.jpg");
+//    bump_base = bump_base.mirrored(false,true);
+//    bump_temp = QGLWidget::convertToGLFormat(bump_base);
+////    bump_temp = bump_temp.scaledToWidth(1024,Qt::SmoothTransformation);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bump_temp.width(), bump_temp.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, bump_temp.bits());
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//    m_textures["bump"] = textureId;
+
+
+    // Make sure the image file exists
+//    QFile file("../projects/textures/NormalMap.jpg");
+//    if (!file.exists()) {
+//        cout << "was not able to open texture file" << endl;
+//        exit(-1);
+//    }
+
+//    // Load the file into memory
+//    QImage image;
+//    image.load(file.fileName());
+//    image = image.mirrored(false, true);
+//    QImage texture = QGLWidget::convertToGLFormat(image);
+
+//    // Generate a new OpenGL texture ID to put our image into
+//    GLuint id = 0;
+//    glGenTextures(1, &id);
+
+//    // Make the texture we just created the new active texture
+//    glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
+
+//    // Copy the image data into the OpenGL texture
+//    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, texture.width(), texture.height(), GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
+
+//    // Set filtering options
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+//    // Set coordinate wrapping options
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+//    glBindTexture(GL_TEXTURE_2D, 0);
+
+    m_textures["bump"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
+
+}
+
+GLuint Canvas3D::loadTexture(const QString &filename)
+{
+    // Make sure the image file exists
+    QFile file(filename);
+    if (!file.exists()) {
+        cout << "load failed" << endl;
+        return -1;
+    }
+
+    // Load the file into memory
+    QImage image;
+    image.load(file.fileName());
+    image = image.mirrored(false, true);
+    QImage texture = QGLWidget::convertToGLFormat(image);
+
+    // Generate a new OpenGL texture ID to put our image into
+    GLuint id = 0;
+    glGenTextures(1, &id);
+
+    // Make the texture we just created the new active texture
+    glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
+
+    // Copy the image data into the OpenGL texture
+    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, texture.width(), texture.height(), GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
+
+    // Set filtering options
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Set coordinate wrapping options
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+    return id;
+}
+
+
+/**
+  Load a cube map for the skybox
+ **/
+void Canvas3D::loadCubeMap()
+{
+    QList<QFile *> fileList;
+    fileList.append(new QFile("../projects/textures/astra/posx.jpg"));
+    fileList.append(new QFile("../projects/textures/astra/negx.jpg"));
+    fileList.append(new QFile("../projects/textures/astra/posy.jpg"));
+    fileList.append(new QFile("../projects/textures/astra/negy.jpg"));
+    fileList.append(new QFile("../projects/textures/astra/posz.jpg"));
+    fileList.append(new QFile("../projects/textures/astra/negz.jpg"));
+    m_cubeMap = ResourceLoader::loadCubeMap(fileList);
+}
+
 
 void Canvas3D::paintGL()
 {
@@ -80,7 +228,38 @@ void Canvas3D::paintGL()
         glViewport(0, 0, width(), height());
         getCamera()->setAspectRatio((float)width() / (float)height());
 
+        // Enable depth testing
+        glEnable(GL_DEPTH_TEST);
+        glClear(GL_DEPTH_BUFFER_BIT);
+
+        // Enable cube maps and draw the skybox
+        glEnable(GL_TEXTURE_CUBE_MAP);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMap);
+//        glCallList(m_skybox);
+
+        glEnable(GL_CULL_FACE);
+
+//        m_shaderPrograms["refract"]->bind();
+//        m_shaderPrograms["refract"]->setUniformValue("CubeMap", GL_TEXTURE0);
+
+        m_shaderPrograms["bump"]->bind();
+        m_shaderPrograms["bump"]->setUniformValue("diffuseTexture", m_textures["bump"]);
+        m_shaderPrograms["bump"]->setUniformValue("normalTexture", m_textures["bump"]);
+
+        glPushMatrix();
+
         glScene->render(this);
+
+        glPopMatrix();
+//        m_shaderPrograms["refract"]->release();
+        m_shaderPrograms["bump"]->release();
+
+        glDisable(GL_CULL_FACE);
+
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_CUBE_MAP,0);
+        glDisable(GL_TEXTURE_CUBE_MAP);
+
     }
     else
     {

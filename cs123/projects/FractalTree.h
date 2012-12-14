@@ -2,12 +2,13 @@
 #define FRACTALTREE_H
 
 #include "math/CS123Algebra.h"
+class SupportCanvas3D;
 
 class FractalTree
 {
 public:
     FractalTree();
-    void generateTree();
+    void generateTree(SupportCanvas3D *context);
 
 private:
     void generateBranches(const Vector3 newPosition,

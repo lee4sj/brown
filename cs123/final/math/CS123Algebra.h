@@ -257,8 +257,8 @@ struct vec4 {
     };
 };
 
-#define Vector2 vec2<REAL>
-#define Vector3 vec3<REAL>
+//#define Vector2 vec2<REAL>
+//#define Vector3 vec3<REAL>
 #define Vector4 vec4<REAL>
 
 /* Include inline implementations */

@@ -1,21 +1,39 @@
-#include "FractalTree.h"
+#include "final/FractalTree.h"
 #include "math.h"
 #include <qgl.h>
 #include <GL/freeglut.h>
 
-#define MAX_DEPTH 3
+#include "SupportCanvas3D.h"
+#include "Camera.h"
+
+#define MAX_DEPTH 10
 #define BRANCH_LENGTH_DECREASE_FACTOR 0.7f
-#define CHILD_BRANCH_ANGLE 5.0f
+#define CHILD_BRANCH_ANGLE 60.0f
 
 FractalTree::FractalTree()
 {
 }
 
-void FractalTree::generateTree()
+void FractalTree::generateTree(SupportCanvas3D *context)
 {
+    // Get the active camera
+    Camera *camera = context->getCamera();
+    assert(camera);
+
+    // Apply the camera settings
+    double matrix[16];
+    camera->getProjectionMatrix().getTranspose().fillArray(matrix);
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixd(matrix);
+    glMatrixMode(GL_MODELVIEW);
+    camera->getModelviewMatrix().getTranspose().fillArray(matrix);
+    glLoadMatrixd(matrix);
+
+//    glTranslatef(context->width()/2, context->height()/2, 0);
+
     Vector3 startPoint({0.0f,0.0f,0.0f});
     Vector3 endPoint({1.0f,0.0f,0.0f});
-    float rotation = 30.0f;
+    float rotation = 90.0f;
 //    glutWireSphere(0.05, 4, 4);
     generateBranches(startPoint,1.0f,rotation,0);
 }
@@ -29,47 +47,17 @@ void FractalTree::drawLine(float length)
     glEnd();
 }
 
-void FractalTree::generateBranches(Vector3 curPos,
+void FractalTree::generateBranches(const Vector3 curPos,
                                    float length,
                                    float rotation,
                                    const int depth)
 {
-//    if(depth > MAX_DEPTH) return;
-//    cout << "at depth = " << depth << endl;
-
-
-//    if(depth == 0){
-//        glColor3f(1.0f,1.0f,1.0f);
-//    }else if(depth == 1){
-//        glColor3f(1.0f,0.0f,0.0f);
-//    }else{
-//        glColor3f(0.0f,1.0f,0.0f);
-//    }
-
-//    glPushMatrix();
-//    glTranslatef(newPosition.x,newPosition.y,newPosition.z);
-//    glRotatef(rotation, 0.0f, 0.0f, 1.0f);
-//    drawLine(length);
-//    glPopMatrix();
-
-
-//    const float newLength = length * BRANCH_LENGTH_DECREASE_FACTOR;
-//    int nextDepth = depth + 1;
-//    Vector3 nextPosition(newPosition.x+length, newPosition.y, newPosition.z);
-
-//    float leftRotation = rotation + CHILD_BRANCH_ANGLE * nextDepth;
-//    generateBranches(nextPosition,newLength,leftRotation,nextDepth);
-
-//    float rightRotation = rotation - CHILD_BRANCH_ANGLE * nextDepth;
-//    generateBranches(nextPosition,newLength,rightRotation,nextDepth);
-
-
     if (depth > MAX_DEPTH)
         return;
 
     glPushMatrix();
     glTranslatef(curPos.x, curPos.y, curPos.z);
-    glRotatef(rotation, 0.0, 0.0, 1.0);
+    glRotatef(rotation, 0.0, 1.0, 0.0);
     drawLine(length);
     glTranslatef(0.0, length, 0.0);
 

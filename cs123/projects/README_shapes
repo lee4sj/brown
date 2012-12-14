@@ -1,0 +1,19 @@
+SeungJi Lee
+sl136
+CS123
+Shapes Assignment
+
+
+General Design:
+Shape class is created as a super class for all types of the shapes.
+Then for each shape, a new class is created. Each subclasses has its specific renderGeometry methods that renders the shape.
+This Shape class is stored as a member of ShapeScene class; then, ShapeScene uses Shape's renderGeometry whenever it needs to render shapes.
+
+Notes:
+1. For cube, I simultaneously generated the triangles on all of six sides.
+
+2. For cylinder, I generated a square(rendered with two triagles) on the side. On the top and the bottom, I simply used the pizza model.
+
+3. For cone, I used the pizza model for the bottom, trapezoid model (rendered with two triangle) for the sides. For the last bit of generation, a seperate loop is used to handle to singularity.
+
+4. For sphere, I used spherical coordinates to keep track of the points.
