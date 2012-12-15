@@ -43,30 +43,58 @@ void Cylinder::renderGeometry(int param1, int param2, float param3)
         for (double y = -0.5; y <= 0.5 - yStep/2; y += yStep) {
 
             glNormal3f(normConst * x, 0, normConst * z);
+            glTexCoord2f(theta / (2*M_PI), y + 0.5);
             glVertex3f(x, y, z);
+
             glNormal3f(normConst * xNext, 0, normConst * zNext);
+            glTexCoord2f((theta+thetaStep) / (2*M_PI), y + yStep + 0.5);
             glVertex3f(xNext, y + yStep,zNext);
+
             glNormal3f(normConst * xNext, 0, normConst * zNext);
+            glTexCoord2f((theta+thetaStep) / (2*M_PI), y + 0.5);
             glVertex3f(xNext, y, zNext);
 
 
             glNormal3f(normConst * x, 0, normConst * z);
+            glTexCoord2f(theta / (2*M_PI), y + 0.5);
             glVertex3f(x, y, z);
+
             glNormal3f(normConst * x, 0, normConst * z);
+            glTexCoord2f(theta / (2*M_PI), y  + yStep + 0.5);
             glVertex3f(x, y + yStep, z);
+
             glNormal3f(normConst * xNext, 0, normConst * zNext);
+            glTexCoord2f((theta+thetaStep) / (2*M_PI), y + yStep + 0.5);
             glVertex3f(xNext, y + yStep, zNext);
         }
 
         //render the bottom and the top
+        double xTex, zTex, xNextTex, zNextTex;
+
+        xTex = x + r, zTex = z + r, xNextTex = xNext + r, zNextTex = zNext + r;
+
         glNormal3f(0, 1, 0);
+
+        glTexCoord2f(0.5, 0.5);
         glVertex3f(0, 0.5, 0);
+
+        glTexCoord2f(xNextTex, zNextTex);
         glVertex3f(xNext, 0.5, zNext);
+
+        glTexCoord2f(xTex, zTex);
         glVertex3f(x, 0.5, z);
 
+
+
         glNormal3f(0, -1, 0);
+
+        glTexCoord2f(0.5, 0.5);
         glVertex3f(0, -0.5, 0);
+
+        glTexCoord2f(xTex, zTex);
         glVertex3f(x, -0.5, z);
+
+        glTexCoord2f(xNextTex, zNextTex);
         glVertex3f(xNext, -0.5, zNext);
     }
     glEnd();

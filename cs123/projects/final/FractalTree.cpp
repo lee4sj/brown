@@ -37,51 +37,54 @@ void FractalTree::applyMaterial(const CS123SceneMaterial &material)
 //    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material.shininess);
 }
 
+#define RESIZE_FACTOR 3.0
 void FractalTree::generateTree()
 {
     //draw the body
-//    glPushMatrix();
-//    CS123SceneMaterial material;
-//    bzero(&material, sizeof(CS123SceneMaterial));
-////    material.cAmbient.r = 166.0/255.0;
-////    material.cAmbient.g = 45.0/255.0;
-////    material.cAmbient.b = 45.0/255.0;
-//    material.cDiffuse.r = 120.0/255.0;
-//    material.cDiffuse.g = 45.0/255.0;
-//    material.cDiffuse.b = 45.0/255.0;
-//    applyMaterial(material);
-
-//    drawLine(INITIAL_HEIGHT, INITIAL_HEIGHT/40, INITIAL_HEIGHT/50);
-//    glTranslatef(0.0, INITIAL_HEIGHT, 0.0);
-
-//    srand(randSeed);
-////    float rot1Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-////    float rot2Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-//    float rot1Rand = 45;
-//    float rot2Rand = 45;
-//    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50);
-
-//    rot1Rand = -45;
-//    rot2Rand = 45;
-//    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50);
-
-//    rot1Rand = 45;
-//    rot2Rand = -45;
-//    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50);
-
-////    rot1Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-////    rot2Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-
-//    rot1Rand = -45;
-//    rot2Rand = -45;
-//    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50);
-//    glPopMatrix();
+    glPushMatrix();
+    glEnable(GL_NORMALIZE);
 
 
+    CS123SceneMaterial material;
+    bzero(&material, sizeof(CS123SceneMaterial));
+//    material.cAmbient.r = 166.0/255.0;
+//    material.cAmbient.g = 45.0/255.0;
+//    material.cAmbient.b = 45.0/255.0;
+    material.cDiffuse.r = 120.0/255.0;
+    material.cDiffuse.g = 45.0/255.0;
+    material.cDiffuse.b = 45.0/255.0;
+    applyMaterial(material);
+
+    glScalef(RESIZE_FACTOR, RESIZE_FACTOR, RESIZE_FACTOR);
+
+    drawLine(INITIAL_HEIGHT, INITIAL_HEIGHT/40.0, INITIAL_HEIGHT/50.0);
+    glTranslatef(0.0, INITIAL_HEIGHT, 0.0);
+
+    srand(randSeed);
+    float rot1Rand = 45;
+    float rot2Rand = 45;
+    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50.0);
+
+    rot1Rand = -45;
+    rot2Rand = 45;
+    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50.0);
+
+    rot1Rand = 45;
+    rot2Rand = -45;
+    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50.0);
+
+    rot1Rand = -45;
+    rot2Rand = -45;
+    generateBranches(0.05f, rot1Rand, rot2Rand, MAX_DEPTH, INITIAL_HEIGHT/50);
+
+    glDisable(GL_NORMALIZE);
+    glPopMatrix();
 
 
-    Cylinder cyl;
-    cyl.renderGeometry(50, 50, 10);
+
+
+//    Cylinder cyl;
+//    cyl.renderGeometry(50, 50, 10);
 }
 
 void FractalTree::drawLine(float length, double rStart, double rEnd)

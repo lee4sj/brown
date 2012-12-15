@@ -9,6 +9,7 @@ public:
     BranchCylinder();
     virtual ~BranchCylinder();
 
+    virtual void renderGeometry(int param1, int param2, float param3);
     virtual void renderGeometry(float length, double rStart, double rEnd);
     virtual void renderNormals(float length, double rStart, double rEnd);
 };

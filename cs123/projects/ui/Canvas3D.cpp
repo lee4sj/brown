@@ -82,11 +82,11 @@ void Canvas3D::initializeGL()
 
 void Canvas3D::initializeResources()
 {
-    m_skybox = ResourceLoader::loadSkybox();
-    cout << "Loaded skybox..." << endl;
+//    m_skybox = ResourceLoader::loadSkybox();
+//    cout << "Loaded skybox..." << endl;
 
-    loadCubeMap();
-    cout << "Loaded cube map..." << endl;
+//    loadCubeMap();
+//    cout << "Loaded cube map..." << endl;
 
     const QGLContext *ctx = context();
     m_shaderPrograms["bump"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/bump.vert",
@@ -100,27 +100,8 @@ void Canvas3D::initializeResources()
 
 
     //prepare textures
-//    QImage bump_base, bump_temp;
-//    GLuint textureId;
-
-//    glGenTextures(1, &textureId);
-//    glBindTexture(GL_TEXTURE_2D, textureId);
-
-////    bump_base.load("textures/ship_texture.png");
-//    bump_base.load("textures/NormalMap.jpg");
-//    bump_base = bump_base.mirrored(false,true);
-//    bump_temp = QGLWidget::convertToGLFormat(bump_base);
-////    bump_temp = bump_temp.scaledToWidth(1024,Qt::SmoothTransformation);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bump_temp.width(), bump_temp.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, bump_temp.bits());
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-//    glBindTexture(GL_TEXTURE_2D, 0);
-//    m_textures["bump"] = textureId;
-
-    m_textures["treeTexture"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
-
+    m_textures["normalMap"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
+    m_textures["treeTexture"] = loadTexture(QString("../projects/textures/normal1.jpg"));
 }
 
 GLuint Canvas3D::loadTexture(const QString &filename)
@@ -207,17 +188,21 @@ void Canvas3D::paintGL()
         glDisable(GL_LIGHTING);
 //        glPushMatrix();
 //        glLoadIdentity();
-        glCallList(m_skybox);
+//        glCallList(m_skybox);
 //        glPopMatrix();
         glEnable(GL_LIGHTING);
         glEnable(GL_CULL_FACE);
 
         /*------------------------------*/
         glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_textures["normalMap"]);
+
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, m_textures["treeTexture"]);
 
         m_shaderPrograms["bump"]->bind();
         m_shaderPrograms["bump"]->setUniformValue("normalMap", 0);
+        m_shaderPrograms["bump"]->setUniformValue("treeTexture", 1);
         glPushMatrix();
         glScene->render(this);
         glPopMatrix();

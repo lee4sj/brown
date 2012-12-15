@@ -10,6 +10,7 @@
 #include "shapes/Sphere.h"
 
 #include "final/FractalTree.h"
+#include "final/BranchCylinder.h"
 
 Vector4 lightDirection = Vector4(1, -1, -1, 0).getNormalized();
 
@@ -127,6 +128,15 @@ void ShapesScene::renderGeometry(bool useMaterials)
             currentShape = NULL;
         }
         tree->generateTree();
+        break;
+
+    case SHAPE_SPECIAL_2:
+        if (!currentShape)
+            currentShape = new BranchCylinder();
+        else if (currentShape->shapeType != SHAPE_SPECIAL_2) {
+            delete currentShape;
+            currentShape = new BranchCylinder();
+        }
         break;
 
     default:

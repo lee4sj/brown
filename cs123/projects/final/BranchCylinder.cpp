@@ -13,6 +13,11 @@ BranchCylinder::~BranchCylinder()
 {
 }
 
+void BranchCylinder::renderGeometry(int param1, int param2, float param3)
+{
+    renderGeometry(1.0, 0.5, 0.3);
+}
+
 void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
 {
 //    int param1 = 10;
@@ -69,7 +74,7 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
 //    }
 //    glEnd();
 
-    int param1 = 10;
+    int param1 = max(1, 50 * length);
     int param2 = 10;
 
     double rStep = (rStart - rEnd)/(double)param1;
@@ -128,20 +133,31 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
             normZ = sin(theta);
             normXNext = cos(theta-thetaStep);
             normZNext = sin(theta-thetaStep);
-            normY = 0;
+            normY = 0.0;
 
             glNormal3f(normX, normY, normZ);
+            glTexCoord2f(theta / (2*M_PI), y / length);
             glVertex3f(x, y, z);
+
             glNormal3f(normXNext, normY, normZNext);
+            glTexCoord2f((theta-thetaStep) / (2*M_PI), y / length);
             glVertex3f(xNext, y, zNext);
+
             glNormal3f(normXNext, normY, normZNext);
+            glTexCoord2f((theta-thetaStep) / (2*M_PI), (y + yStep) / length);
+            glVertex3f(xNextRNext, y + yStep, zNextRNext);
+
+
+            glNormal3f(normX, normY, normZ);
+            glTexCoord2f(theta / (2*M_PI), y / length);
+            glVertex3f(x, y, z);
+
+            glNormal3f(normXNext, normY, normZNext);
+            glTexCoord2f((theta-thetaStep) / (2*M_PI), (y + yStep) / length);
             glVertex3f(xNextRNext, y + yStep, zNextRNext);
 
             glNormal3f(normX, normY, normZ);
-            glVertex3f(x, y, z);
-            glNormal3f(normXNext, normY, normZNext);
-            glVertex3f(xNextRNext, y + yStep, zNextRNext);
-            glNormal3f(normX, normY, normZ);
+            glTexCoord2f(theta / (2*M_PI), (y  + yStep) / length);
             glVertex3f(xRNext, y + yStep, zRNext);
         }
         r -= rStep;
@@ -176,18 +192,30 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
 
     for (double theta = 2*M_PI; theta > 0; theta -= thetaStep) {
         glNormal3f(0, 1, 0);
-        glVertex3f(rEnd * cos(theta + thetaStep), length, rEnd * sin(theta + thetaStep));
-        glVertex3f(rEnd * cos(theta), length, rEnd * sin(theta));
-        glVertex3f(0, length, 0);
 
+        glTexCoord2f(rEnd * cos(theta) + rEnd, rEnd * sin(theta) + rEnd);
+        glVertex3f(rEnd * cos(theta), length, rEnd * sin(theta));
+
+        glTexCoord2f(rEnd * cos(theta - thetaStep) + rEnd, rEnd * sin(theta - thetaStep) + rEnd);
+        glVertex3f(rEnd * cos(theta - thetaStep), length, rEnd * sin(theta - thetaStep));
+
+        glTexCoord2f(0.5, 0.5);
+        glVertex3f(0, length, 0);
     }
 
     //draw the bottom
     for (double theta = 2*M_PI; theta > 0; theta -= thetaStep) {
         glNormal3f(0, -1, 0);
+
+        glTexCoord2f(0.0, 0.0);
         glVertex3f(0, 0, 0);
+
+        glTexCoord2f(rStart * cos(theta - thetaStep) + rStart, rStart * sin(theta - thetaStep) + rStart);
+        glVertex3f(rStart * cos(theta - thetaStep), 0, rStart * sin(theta - thetaStep));
+
+        glTexCoord2f(rStart * cos(theta) + rStart, rStart * sin(theta) + rStart);
         glVertex3f(rStart * cos(theta), 0, rStart * sin(theta));
-        glVertex3f(rStart * cos(theta + thetaStep), 0, rStart * sin(theta + thetaStep));
+
     }
     glEnd();
 
