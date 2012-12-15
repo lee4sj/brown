@@ -39,7 +39,7 @@ void FractalTree::applyMaterial(const CS123SceneMaterial &material)
 
 void FractalTree::generateTree()
 {
-//    //draw the body
+    //draw the body
 //    glPushMatrix();
 //    CS123SceneMaterial material;
 //    bzero(&material, sizeof(CS123SceneMaterial));

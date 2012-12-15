@@ -1,47 +1,19 @@
-uniform sampler2D diffuseTexture;
-        uniform sampler2D normalTexture;
+/*uniform sampler2D treeTexture;*/
+uniform sampler2D normalMap;
 
-        // New bumpmapping
-        varying vec3 lightVec;
-        varying vec3 halfVec;
-        varying vec3 eyeVec;
-
+varying vec3 light;
+varying vec3 normal;
 
 void main()
 {
+    //Get Texture
+    vec4 tTexture = vec4(0.7, 0.45, 0.45, 1.0);//texture2D(treeTexture, gl_TexCoord[0].st);
 
-        // lookup normal from normal map, move from [0,1] to  [-1, 1] range, normalize
-        vec3 normal = 2.0 * texture2D (normalTexture, gl_TexCoord[0].st).rgb - 1.0;
-        normal = normalize (normal);
+    //get intensity
+    vec3 curNormal = normalize(texture2D(normalMap, gl_TexCoord[0].st)).xyz;
+    curNormal = normalize(normal + curNormal);
+    float intensity = max(0.0, dot(curNormal, light));
 
-        // compute diffuse lighting
-        float lamberFactor= max (dot (lightVec, normal), 0.0) ;
-        vec4 diffuseMaterial = 0.0;
-        vec4 diffuseLight  = 0.0;
-
-        // compute specular lighting
-        vec4 specularMaterial;
-        vec4 specularLight;
-        float shininess;
-
-        // compute ambient
-        vec4 ambientLight = gl_LightSource[0].ambient;
-
-        if (lamberFactor > 0.0)
-        {
-                diffuseMaterial = texture2D (diffuseTexture, gl_TexCoord[0].st);
-                diffuseLight  = gl_LightSource[0].diffuse;
-
-                // In doom3, specular value comes from a texture
-                specularMaterial =  vec4(1.0)  ;
-                specularLight = gl_LightSource[0].specular;
-                shininess = pow (max (dot (halfVec, normal), 0.0), 2.0)  ;
-
-                gl_FragColor =	diffuseMaterial * diffuseLight * lamberFactor ;
-                gl_FragColor +=	specularMaterial * specularLight * shininess ;
-
-        }
-
-        gl_FragColor +=	ambientLight;
-
+    //gl_FragColor = tTexture * intensity;
+    gl_FragColor = texture2D(normalMap, gl_TexCoord[0].st);
 }

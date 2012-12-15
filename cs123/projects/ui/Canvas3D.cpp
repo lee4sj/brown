@@ -100,11 +100,11 @@ void Canvas3D::initializeResources()
 
 
     //prepare textures
-    QImage bump_base, bump_temp;
-    GLuint textureId;
+//    QImage bump_base, bump_temp;
+//    GLuint textureId;
 
-    glGenTextures(1, &textureId);
-    glBindTexture(GL_TEXTURE_2D, textureId);
+//    glGenTextures(1, &textureId);
+//    glBindTexture(GL_TEXTURE_2D, textureId);
 
 ////    bump_base.load("textures/ship_texture.png");
 //    bump_base.load("textures/NormalMap.jpg");
@@ -119,40 +119,7 @@ void Canvas3D::initializeResources()
 //    glBindTexture(GL_TEXTURE_2D, 0);
 //    m_textures["bump"] = textureId;
 
-
-    // Make sure the image file exists
-//    QFile file("../projects/textures/NormalMap.jpg");
-//    if (!file.exists()) {
-//        cout << "was not able to open texture file" << endl;
-//        exit(-1);
-//    }
-
-//    // Load the file into memory
-//    QImage image;
-//    image.load(file.fileName());
-//    image = image.mirrored(false, true);
-//    QImage texture = QGLWidget::convertToGLFormat(image);
-
-//    // Generate a new OpenGL texture ID to put our image into
-//    GLuint id = 0;
-//    glGenTextures(1, &id);
-
-//    // Make the texture we just created the new active texture
-//    glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
-
-//    // Copy the image data into the OpenGL texture
-//    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, texture.width(), texture.height(), GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
-
-//    // Set filtering options
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-//    // Set coordinate wrapping options
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-//    glBindTexture(GL_TEXTURE_2D, 0);
-
-    m_textures["bump"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
+    m_textures["treeTexture"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
 
 }
 
@@ -176,7 +143,7 @@ GLuint Canvas3D::loadTexture(const QString &filename)
     glGenTextures(1, &id);
 
     // Make the texture we just created the new active texture
-    glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, id);
 
     // Copy the image data into the OpenGL texture
     gluBuild2DMipmaps(GL_TEXTURE_2D, 3, texture.width(), texture.height(), GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
@@ -188,6 +155,8 @@ GLuint Canvas3D::loadTexture(const QString &filename)
     // Set coordinate wrapping options
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     return id;
 }
@@ -235,27 +204,27 @@ void Canvas3D::paintGL()
         // Enable cube maps and draw the skybox
         glEnable(GL_TEXTURE_CUBE_MAP);
         glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMap);
-//        glCallList(m_skybox);
-
+        glDisable(GL_LIGHTING);
+//        glPushMatrix();
+//        glLoadIdentity();
+        glCallList(m_skybox);
+//        glPopMatrix();
+        glEnable(GL_LIGHTING);
         glEnable(GL_CULL_FACE);
 
-//        m_shaderPrograms["refract"]->bind();
-//        m_shaderPrograms["refract"]->setUniformValue("CubeMap", GL_TEXTURE0);
+        /*------------------------------*/
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_textures["treeTexture"]);
 
         m_shaderPrograms["bump"]->bind();
-        m_shaderPrograms["bump"]->setUniformValue("diffuseTexture", m_textures["bump"]);
-        m_shaderPrograms["bump"]->setUniformValue("normalTexture", m_textures["bump"]);
-
+        m_shaderPrograms["bump"]->setUniformValue("normalMap", 0);
         glPushMatrix();
-
         glScene->render(this);
-
         glPopMatrix();
-//        m_shaderPrograms["refract"]->release();
         m_shaderPrograms["bump"]->release();
+        /*-------------------------------*/
 
         glDisable(GL_CULL_FACE);
-
         glDisable(GL_DEPTH_TEST);
         glBindTexture(GL_TEXTURE_CUBE_MAP,0);
         glDisable(GL_TEXTURE_CUBE_MAP);
