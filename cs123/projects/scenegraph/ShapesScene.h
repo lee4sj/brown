@@ -11,6 +11,8 @@
 #include "OpenGLScene.h"
 #include "shapes/Shapes.h"
 
+#include <QGLShaderProgram>
+
 /**
 
  @class ShapesScene
@@ -35,12 +37,15 @@
 **/
 
 class FractalTree;
+class Canvas3D;
 
 class ShapesScene : public OpenGLScene
 {
 public:
     ShapesScene();
     virtual ~ShapesScene();
+
+    virtual void render(SupportCanvas3D *context);
 
 protected:
 
@@ -52,7 +57,11 @@ protected:
     /*! Render geometry for Shapes and Sceneview. We don't apply materials
         when useMaterials is false because we are drawing the outlines and
         want them colored black. */
-    virtual void renderGeometry(bool useMaterials);
+    virtual void renderGeometry(bool useMaterials) {}
+
+    virtual void renderGeometry(bool useMaterials,
+                                QHash<QString, QGLShaderProgram *> &shaderPrograms,
+                                QHash<QString, GLuint> &textures);
 
     /*! Override this and put all renderNormal() calls in here (rendering normals are optional) */
     virtual void renderNormals();

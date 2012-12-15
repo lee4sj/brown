@@ -15,4 +15,5 @@ void main()
     float intensity = max(0.0, dot(curNormal, light));
 
     gl_FragColor = tTexture * intensity;
+    gl_FragColor.w = 1.0;
 }

@@ -33,6 +33,9 @@ public:
     //! This will be called when the settings have changed
     virtual void settingsChanged();
 
+    QHash<QString, QGLShaderProgram *> m_shaderPrograms; // hash map of all shader programs
+    QHash<QString, GLuint> m_textures;
+
 private:
     virtual void initializeResources();
     void loadCubeMap();
@@ -40,8 +43,6 @@ private:
 
 
     // Resources
-    QHash<QString, QGLShaderProgram *> m_shaderPrograms; // hash map of all shader programs
-    QHash<QString, GLuint> m_textures;
     GLuint m_skybox; // skybox call list ID
     GLuint m_cubeMap; // cubeMap texture ID
     QFont m_font; // font for rendering tex

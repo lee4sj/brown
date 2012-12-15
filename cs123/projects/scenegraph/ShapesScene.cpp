@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include <qgl.h>
 #include <SupportCanvas3D.h>
+#include <Canvas3D.h>
 
 #include "shapes/Cube.h"
 #include "shapes/Cylinder.h"
@@ -75,7 +76,68 @@ void ShapesScene::setLights(const Camera *follow)
     setLight(m_light);
 }
 
-void ShapesScene::renderGeometry(bool useMaterials)
+void ShapesScene::render(SupportCanvas3D *context)
+{
+    // Get the active camera
+    Camera *camera = context->getCamera();
+    assert(camera);
+
+    // Apply the camera settings
+    double matrix[16];
+    camera->getProjectionMatrix().getTranspose().fillArray(matrix);
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixd(matrix);
+    glMatrixMode(GL_MODELVIEW);
+    camera->getModelviewMatrix().getTranspose().fillArray(matrix);
+    glLoadMatrixd(matrix);
+
+    setLights(context->getCamera());
+
+    // Clear the screen in preparation for the next frame (use a gray background instead of a
+    // black one for drawing wireframe or normals so they will show up against the background)
+    if (settings.drawWireframe || settings.drawNormals) glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+    else glClearColor(0, 0, 0, 0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Fill the geometry with white
+    glColor3f(1, 1, 1);
+    if (settings.useLighting)
+    {
+        glDisable(GL_COLOR_MATERIAL);
+        glEnable(GL_LIGHTING);
+    }
+    renderGeometry(true, ((Canvas3D *)context)->m_shaderPrograms, ((Canvas3D *)context)->m_textures);
+    if (settings.useLighting)
+    {
+        glDisable(GL_LIGHTING);
+        glEnable(GL_COLOR_MATERIAL);
+    }
+
+    // Outline the geometry with black
+    if (settings.drawWireframe)
+    {
+        glColor3f(0, 0, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        renderGeometry(false);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+    if (settings.drawNormals)
+    {
+        // Calculate an eye position so we can do billboarded normals
+        double modelview[16];
+        glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+        m_cameraEye = Vector4(0, 0, 0, 1) * Matrix4x4(modelview).getInverse();
+
+        // Render normals in black
+        glColor3f(0, 0, 0);
+        renderNormals();
+    }
+}
+
+void ShapesScene::renderGeometry(bool useMaterials,
+                                 QHash<QString, QGLShaderProgram *> &shaderPrograms,
+                                 QHash<QString, GLuint> &textures)
 {
     // TODO: [SHAPES] Render a shape based on settings.shapeType.
     //       The sample code provided draws a single triangle to
@@ -127,7 +189,7 @@ void ShapesScene::renderGeometry(bool useMaterials)
             delete currentShape;
             currentShape = NULL;
         }
-        tree->generateTree();
+        tree->generateTree(shaderPrograms, textures);
         break;
 
     case SHAPE_SPECIAL_2:

@@ -91,10 +91,13 @@ void Canvas3D::initializeResources()
     const QGLContext *ctx = context();
     m_shaderPrograms["bump"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/bump.vert",
                                                                 "../projects/final/bump.frag");
-    m_shaderPrograms["reflect"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/reflect.vert",
-                                                                   "../final/shaders/reflect.frag");
-    m_shaderPrograms["refract"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/refract.vert",
-                                                                   "../final/shaders/refract.frag");
+    m_shaderPrograms["leaf"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/leaf.vert",
+                                                                "../projects/final/leaf.frag");
+
+//    m_shaderPrograms["reflect"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/reflect.vert",
+//                                                                   "../final/shaders/reflect.frag");
+//    m_shaderPrograms["refract"] = ResourceLoader::newShaderProgram(ctx, "../final/shaders/refract.vert",
+//                                                                   "../final/shaders/refract.frag");
 
 
 
@@ -102,6 +105,7 @@ void Canvas3D::initializeResources()
     //prepare textures
     m_textures["normalMap"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
     m_textures["treeTexture"] = loadTexture(QString("../projects/textures/normal1.jpg"));
+    m_textures["leafTexture"] = loadTexture(QString("../projects/textures/leaf3.jpg"));
 }
 
 GLuint Canvas3D::loadTexture(const QString &filename)
@@ -194,19 +198,26 @@ void Canvas3D::paintGL()
         glEnable(GL_CULL_FACE);
 
         /*------------------------------*/
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_textures["normalMap"]);
+//        glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, m_textures["normalMap"]);
 
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, m_textures["treeTexture"]);
+//        glActiveTexture(GL_TEXTURE1);
+//        glBindTexture(GL_TEXTURE_2D, m_textures["treeTexture"]);
 
-        m_shaderPrograms["bump"]->bind();
-        m_shaderPrograms["bump"]->setUniformValue("normalMap", 0);
-        m_shaderPrograms["bump"]->setUniformValue("treeTexture", 1);
+//        m_shaderPrograms["bump"]->bind();
+//        m_shaderPrograms["bump"]->setUniformValue("normalMap", 0);
+//        m_shaderPrograms["bump"]->setUniformValue("treeTexture", 1);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+
         glPushMatrix();
         glScene->render(this);
         glPopMatrix();
-        m_shaderPrograms["bump"]->release();
+//        m_shaderPrograms["bump"]->release();
+
+        glDisable(GL_BLEND);
         /*-------------------------------*/
 
         glDisable(GL_CULL_FACE);

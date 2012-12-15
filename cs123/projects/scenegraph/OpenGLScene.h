@@ -31,7 +31,7 @@ public:
     OpenGLScene();
     virtual ~OpenGLScene();
 
-    void render(SupportCanvas3D *context);
+    virtual void render(SupportCanvas3D *context);
 
 protected:
     /*! Apply the camera matrices and enable or disable lights as necessary.  These two steps cannot be split up

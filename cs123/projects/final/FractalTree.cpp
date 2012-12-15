@@ -10,8 +10,10 @@
 #define RANDRANGE 240
 #define RANDMIN 120
 #define INITIAL_HEIGHT 0.2
-#define LEAF_RADIUS 0.001
-#define LEAF_LENGTH 0.005
+#define LEAF_RADIUS 0.003
+#define LEAF_LENGTH 0.008
+#define PER_LEAFGEN_COUNT 10
+#define RESIZE_FACTOR 3.0
 
 FractalTree::FractalTree()
 {
@@ -37,9 +39,29 @@ void FractalTree::applyMaterial(const CS123SceneMaterial &material)
 //    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material.shininess);
 }
 
-#define RESIZE_FACTOR 3.0
-void FractalTree::generateTree()
+void FractalTree::generateTree(QHash<QString, QGLShaderProgram *> &shaderPrograms,
+                               QHash<QString, GLuint> &textures)
 {
+    m_shaderPrograms = &shaderPrograms;
+    m_textures = &textures;
+
+    //setup shaders
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textures["normalMap"]);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, textures["treeTexture"]);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textures["leafTexture"]);
+
+    shaderPrograms["bump"]->bind();
+    shaderPrograms["bump"]->setUniformValue("normalMap", 0);
+    shaderPrograms["bump"]->setUniformValue("treeTexture", 1);
+
+    shaderPrograms["leaf"]->setUniformValue("leafTexture", 0);
+
+
     //draw the body
     glPushMatrix();
     glEnable(GL_NORMALIZE);
@@ -47,9 +69,6 @@ void FractalTree::generateTree()
 
     CS123SceneMaterial material;
     bzero(&material, sizeof(CS123SceneMaterial));
-//    material.cAmbient.r = 166.0/255.0;
-//    material.cAmbient.g = 45.0/255.0;
-//    material.cAmbient.b = 45.0/255.0;
     material.cDiffuse.r = 120.0/255.0;
     material.cDiffuse.g = 45.0/255.0;
     material.cDiffuse.b = 45.0/255.0;
@@ -81,6 +100,9 @@ void FractalTree::generateTree()
     glPopMatrix();
 
 
+    //release shaders
+    shaderPrograms["bump"]->release();
+
 
 
 //    Cylinder cyl;
@@ -97,10 +119,41 @@ void FractalTree::drawLine(float length, double rStart, double rEnd)
     cyl->renderGeometry(length, rStart, rEnd);
 }
 
+void FractalTree::drawLeaf(double length, double width)
+{
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3f(0.0f, 0.0f, 0.0f);
+    glTexCoord2f(1.0, 0);
+    glVertex3f(length, 0.0f, 0.0f);
+    glTexCoord2f(1, 1);
+    glVertex3f(length, 0.0f, width);
+    glTexCoord2f(0, 1);
+    glVertex3f(0.0f, 0.0f, width);
+
+    glTexCoord2f(0, 0);
+    glVertex3f(0.0f, 0.0f, 0.0f);
+    glTexCoord2f(0, 1);
+    glVertex3f(0.0f, 0.0f, width);
+    glTexCoord2f(1, 1);
+    glVertex3f(length, 0.0f, width);
+    glTexCoord2f(1, 0);
+    glVertex3f(length, 0.0f, 0.0f);
+    glEnd();
+}
+
+
 void FractalTree::generateLeaf(float length,
                                float rotx,
                                float rotz)
 {
+    //Shader Setup
+    (*m_shaderPrograms)["bump"]->release();
+    (*m_shaderPrograms)["leaf"]->bind();
+
+//    (*m_shaderPrograms)["bump"]->setUniformValue("treeTexture", 2);
+
+
     glPushAttrib(GL_CURRENT_BIT | GL_LIGHTING_BIT);
     CS123SceneMaterial material;
     bzero(&material, sizeof(CS123SceneMaterial));
@@ -112,10 +165,18 @@ void FractalTree::generateLeaf(float length,
     glPushMatrix();
     glRotatef(rotx, 1.0, 0.0, 0.0);
     glRotatef(rotz, 0.0, 0.0, 1.0);
-    drawLine(length, LEAF_RADIUS, LEAF_RADIUS);
+
+    drawLeaf(length, LEAF_RADIUS);
 
     glPopMatrix();
     glPopAttrib();
+
+//    (*m_shaderPrograms)["bump"]->setUniformValue("treeTexture", 1);
+
+
+    //reverse the shader Setup
+    (*m_shaderPrograms)["leaf"]->release();
+    (*m_shaderPrograms)["bump"]->bind();
 }
 
 void FractalTree::generateBranches(float length,
@@ -130,9 +191,14 @@ void FractalTree::generateBranches(float length,
     float rot1Rand;
     float rot2Rand;
     if (depth == 1) {
-        rot1Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-        rot2Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
-        generateLeaf(LEAF_LENGTH, rot1Rand, rot2Rand);
+        int numLeaves = round(rand()/((float)RAND_MAX) * PER_LEAFGEN_COUNT);
+
+        for (int i = 0; i < numLeaves; i++) {
+            rot1Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
+            rot2Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
+            generateLeaf(LEAF_LENGTH, rot1Rand, rot2Rand);
+        }
+
         return;
     }
 
@@ -155,7 +221,7 @@ void FractalTree::generateBranches(float length,
     rot2Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;
     generateBranches(newLength, rot1Rand, rot2Rand, depth-1, rStart/2);
 
-    int numLeaves = round(rand()/((float)RAND_MAX) * 3);
+    int numLeaves = round(rand()/((float)RAND_MAX) * PER_LEAFGEN_COUNT);
 
     for (int i = 0; i < numLeaves; i++) {
         rot1Rand = (float)rand()/((float)RAND_MAX) * RANDRANGE - RANDMIN;

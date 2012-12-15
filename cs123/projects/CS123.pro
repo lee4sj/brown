@@ -106,7 +106,9 @@ DEPENDPATH += brush \
 DEFINES += TIXML_USE_STL
 OTHER_FILES += \ 
     final/bump.vert \
-    final/bump.frag
+    final/bump.frag \
+    final/leaf.frag \
+    final/leaf.vert
 
 # Don't add the -pg flag unless you know what you are doing. It makes QThreadPool freeze on Mac OS X
 QMAKE_CXXFLAGS_RELEASE -= -O2
