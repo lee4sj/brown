@@ -52,4 +52,6 @@ OTHER_FILES += \
     final/leaf.vars \
     final/leaf.frag \
     final/bump.vert \
-    final/bump.frag
+    final/bump.frag \
+    final/terrain.frag \
+    final/terrain.vert

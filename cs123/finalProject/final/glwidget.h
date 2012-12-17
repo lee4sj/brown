@@ -67,6 +67,8 @@ private:
     GLuint m_skybox; // skybox call list ID
     GLuint m_cubeMap; // cubeMap texture ID
     QFont m_font; // font for rendering text
+    int m_numTree;
+    int m_randCount;
 
     //final project
     FractalTree *tree;

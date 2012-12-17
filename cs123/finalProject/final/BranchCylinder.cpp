@@ -75,7 +75,7 @@ void BranchCylinder::renderGeometry(float length, double rStart, double rEnd)
 //    glEnd();
 
     int param1 = max(1, 50 * length);
-    int param2 = 10;
+    int param2 = max(5, 10 * length/0.2);
 
     double rStep = (rStart - rEnd)/(double)param1;
     double yStep = length/(double)param1;

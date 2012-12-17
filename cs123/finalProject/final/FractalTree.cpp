@@ -6,20 +6,25 @@
 #include "CS123SceneData.h"
 //#include "shapes/Cylinder.h"
 
-#define MAX_DEPTH 7
+#define MAX_DEPTH m_depth
 #define BRANCH_DECREASING_FACTOR 0.8
 #define RANDRANGE 240
 #define RANDMIN 120
 #define INITIAL_HEIGHT 0.2
 #define LEAF_RADIUS 0.003
 #define LEAF_LENGTH 0.008
-#define PER_LEAFGEN_COUNT 10
+#define PER_LEAFGEN_COUNT m_leafCount
 #define RESIZE_FACTOR 8.0
 
 FractalTree::FractalTree()
 {
     cyl = new BranchCylinder();
-    unsigned int randSeed = rand();
+    randSeed = 0;
+    m_leafOn = true;
+    m_depth = 7;
+    m_textureOn = true;
+    m_bumpIntensity = 1.0;
+    m_leafCount = 15;
 }
 
 FractalTree::~FractalTree()
@@ -40,6 +45,41 @@ void FractalTree::applyMaterial(const CS123SceneMaterial &material)
 //    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material.shininess);
 }
 
+void FractalTree::setRandSeed(unsigned int r)
+{
+    randSeed = r;
+}
+
+void FractalTree::setDepth(int r)
+{
+    if (r >= 0)
+        m_depth = r;
+}
+
+int FractalTree::getDepth()
+{
+    return m_depth;
+}
+
+void FractalTree::toggleLeaf()
+{
+    m_leafOn = !m_leafOn;
+}
+
+void FractalTree::toggleTexture()
+{
+    m_textureOn = !m_textureOn;
+}
+
+void FractalTree::toggleBump()
+{
+    if (m_bumpIntensity != 0.0f)
+        m_bumpIntensity = 0.0f;
+    else
+        m_bumpIntensity = 1.0f;
+}
+
+
 void FractalTree::generateTree(QHash<QString, QGLShaderProgram *> &shaderPrograms,
                                QHash<QString, GLuint> &textures)
 {
@@ -50,8 +90,13 @@ void FractalTree::generateTree(QHash<QString, QGLShaderProgram *> &shaderProgram
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textures["normalMap"]);
 
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, textures["treeTexture"]);
+    if (m_textureOn == true) {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textures["treeTexture"]);
+    } else {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textures["brown"]);
+    }
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textures["leafTexture"]);
@@ -59,6 +104,7 @@ void FractalTree::generateTree(QHash<QString, QGLShaderProgram *> &shaderProgram
     shaderPrograms["bump"]->bind();
     shaderPrograms["bump"]->setUniformValue("normalMap", 0);
     shaderPrograms["bump"]->setUniformValue("treeTexture", 1);
+    shaderPrograms["bump"]->setUniformValue("bumpIntensity", m_bumpIntensity);
 
     shaderPrograms["leaf"]->setUniformValue("leafTexture", 0);
 
@@ -148,6 +194,9 @@ void FractalTree::generateLeaf(float length,
                                float rotx,
                                float rotz)
 {
+    if (m_leafOn == false)
+        return;
+
     //Shader Setup
     (*m_shaderPrograms)["bump"]->release();
     (*m_shaderPrograms)["leaf"]->bind();

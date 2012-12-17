@@ -40,6 +40,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent),
 
     //final Project
     tree = new FractalTree();
+    m_numTree = 1;
 }
 
 /**
@@ -71,7 +72,7 @@ void GLWidget::initializeGL()
     glDisable(GL_DITHER);
 
     glDisable(GL_LIGHTING);
-    glShadeModel(GL_FLAT);
+    glShadeModel(GL_SMOOTH);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -80,6 +81,11 @@ void GLWidget::initializeGL()
 
     // Start the drawing timer
     m_timer.start(1000.0f / MAX_FPS);
+
+
+    //gl light setup
+    GLfloat lightPos[] = {3.0f, 3.0f, -3.0f};
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 }
 
 /**
@@ -117,12 +123,20 @@ void GLWidget::initializeResources()
 void GLWidget::loadCubeMap()
 {
     QList<QFile *> fileList;
-    fileList.append(new QFile("../finalProject/textures/astra/posx.jpg"));
-    fileList.append(new QFile("../finalProject/textures/astra/negx.jpg"));
-    fileList.append(new QFile("../finalProject/textures/astra/posy.jpg"));
-    fileList.append(new QFile("../finalProject/textures/astra/negy.jpg"));
-    fileList.append(new QFile("../finalProject/textures/astra/posz.jpg"));
-    fileList.append(new QFile("../finalProject/textures/astra/negz.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/posx.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/negx.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/posy.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/negy.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/posz.jpg"));
+//    fileList.append(new QFile("../finalProject/textures/astra/negz.jpg"));
+
+    fileList.append(new QFile("../finalProject/textures/skybox/gardenlf.tga"));
+    fileList.append(new QFile("../finalProject/textures/skybox/gardenrt.tga"));
+    fileList.append(new QFile("../finalProject/textures/skybox/gardenupcw.tga"));
+    fileList.append(new QFile("../finalProject/textures/skybox/gardendnrot.bmp"));
+    fileList.append(new QFile("../finalProject/textures/skybox/gardenft.tga"));
+    fileList.append(new QFile("../finalProject/textures/skybox/gardenbk.tga"));
+
     m_cubeMap = ResourceLoader::loadCubeMap(fileList);
 }
 
@@ -141,14 +155,20 @@ void GLWidget::createShaderPrograms()
 
 
     //final Project
-    m_shaderPrograms["bump"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/bump.vert",
-                                                                "../projects/final/bump.frag");
-    m_shaderPrograms["leaf"] = ResourceLoader::newShaderProgram(ctx, "../projects/final/leaf.vert",
-                                                                "../projects/final/leaf.frag");
+    m_shaderPrograms["bump"] = ResourceLoader::newShaderProgram(ctx, "../finalProject/final/bump.vert",
+                                                                "../finalProject/final/bump.frag");
+    m_shaderPrograms["leaf"] = ResourceLoader::newShaderProgram(ctx, "../finalProject/final/leaf.vert",
+                                                                "../finalProject/final/leaf.frag");
+    m_shaderPrograms["terrain"] = ResourceLoader::newShaderProgram(ctx, "../finalProject/final/terrain.vert",
+                                                                "../finalProject/final/terrain.frag");
 
-    m_textures["normalMap"] = loadTexture(QString("../projects/textures/NormalMap.jpg"));
-    m_textures["treeTexture"] = loadTexture(QString("../projects/textures/normal1.jpg"));
-    m_textures["leafTexture"] = loadTexture(QString("../projects/textures/leaf3.jpg"));
+
+    m_textures["normalMap"] = loadTexture(QString("../finalProject/textures/NormalMap.jpg"));
+    m_textures["brown"] = loadTexture(QString("../finalProject/textures/brown.jpg"));
+    m_textures["treeTexture"] = loadTexture(QString("../finalProject/textures/normal1.jpg"));
+    m_textures["leafTexture"] = loadTexture(QString("../finalProject/textures/leaf3.jpg"));
+
+    m_textures["terrain"] = loadTexture(QString("../finalProject/textures/GrassLarge.jpg"));
 }
 
 GLuint GLWidget::loadTexture(const QString &filename)
@@ -156,7 +176,7 @@ GLuint GLWidget::loadTexture(const QString &filename)
     // Make sure the image file exists
     QFile file(filename);
     if (!file.exists()) {
-        cout << "load failed" << endl;
+        cout << filename.toLocal8Bit().data() << " load failed" << endl;
         return -1;
     }
 
@@ -331,16 +351,44 @@ void GLWidget::renderScene() {
     // Enable culling (back) faces for rendering the dragon
     glEnable(GL_CULL_FACE);
 
+    /*------------terrain--------------*/
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_textures["terrain"]);
+
+    m_shaderPrograms["terrain"]->bind();
+    m_shaderPrograms["terrain"]->setUniformValue("leafTexture", 0);
+
+    float distance = 10;
+    float ground = 0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-distance,ground,-distance);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(-distance,ground,distance);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(distance,ground,distance);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(distance,ground,-distance);
+    glEnd();
+
+    m_shaderPrograms["terrain"]->release();
+
+    /*------------------------------*/
+
+
     /*------------------------------*/
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
+    for (int i = 0; i < m_numTree; i++) {
+        glPushMatrix();
+        glTranslatef(i * 3, 0, 0);
+        tree->setRandSeed(m_randCount * (i + 1));
+        tree->generateTree(m_shaderPrograms, m_textures);
+        glPopMatrix();
+    }
 
-    glPushMatrix();
-
-    tree->generateTree(m_shaderPrograms, m_textures);
-
-    glPopMatrix();
     glDisable(GL_BLEND);
 
 
@@ -503,13 +551,50 @@ void GLWidget::createBlurKernel(int radius, int width, int height,
  **/
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
-    switch(event->key())
-    {
-        case Qt::Key_S:
-        QImage qi = grabFrameBuffer(false);
-        QString filter;
-        QString fileName = QFileDialog::getSaveFileName(this, tr("Save Image"), "", tr("PNG Image (*.png)"), &filter);
-        qi.save(QFileInfo(fileName).absoluteDir().absolutePath() + "/" + QFileInfo(fileName).baseName() + ".png", "PNG", 100);
+    switch(event->key()) {
+    case Qt::Key_0:
+        tree->setDepth(0);
+        break;
+
+    //tree depth
+    case Qt::Key_Q:
+        tree->setDepth(tree->getDepth() + 1);
+        break;
+    case Qt::Key_A:
+        tree->setDepth(tree->getDepth() - 1);
+        break;
+
+    //bump intensity
+    case Qt::Key_W:
+        tree->setBumpIntensity(tree->getBumpIntensity() + 1.0);
+        break;
+    case Qt::Key_S:
+        tree->setBumpIntensity(tree->getBumpIntensity() - 1.0);
+        break;
+
+    //leaf count
+    case Qt::Key_E:
+        m_numTree++;
+        break;
+    case Qt::Key_D:
+        m_numTree--;
+        break;
+
+     //bump on/off
+    case Qt::Key_B:
+        tree->toggleBump();
+        break;
+
+    case Qt::Key_R:
+        m_randCount++;
+        break;
+
+    case Qt::Key_L:
+        tree->toggleLeaf();
+        break;
+
+    case Qt::Key_T:
+        tree->toggleTexture();
         break;
     }
 }
